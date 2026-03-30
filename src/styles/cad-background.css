@@ -1,0 +1,499 @@
+/* ============================================
+   CAD MECHANICAL DRAWING BACKGROUND
+   Light theme with 3D parallax effect
+   ============================================ */
+
+/* === LIGHT THEME VARIABLES (Supplemental) === */
+:root {
+  /* CAD Drawing Colors */
+  --cad-line-primary: rgba(59, 130, 246, 0.15);
+  --cad-line-secondary: rgba(107, 114, 128, 0.12);
+  --cad-line-accent: rgba(59, 130, 246, 0.25);
+  --cad-dimension: rgba(75, 85, 99, 0.18);
+  --cad-gdt-symbol: rgba(59, 130, 246, 0.2);
+  --cad-centerline: rgba(107, 114, 128, 0.1);
+  --cad-hidden: rgba(107, 114, 128, 0.08);
+}
+
+/* === CAD BACKGROUND CONTAINER === */
+.cad-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    #F8F9FA 0%,
+    #FFFFFF 25%,
+    #F3F4F6 50%,
+    #FFFFFF 75%,
+    #F8F9FA 100%
+  );
+  perspective: 1500px;
+  transform-style: preserve-3d;
+}
+
+/* === 3D PARALLAX LAYERS === */
+.cad-layer {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  transform-style: preserve-3d;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.cad-layer-1 { z-index: 1; opacity: 0.25; }
+.cad-layer-2 { z-index: 2; opacity: 0.35; }
+.cad-layer-3 { z-index: 3; opacity: 0.45; }
+.cad-layer-4 { z-index: 4; opacity: 0.55; }
+
+/* === CAD DRAWING ELEMENTS === */
+.cad-drawing {
+  position: absolute;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.cad-svg {
+  width: 100%;
+  height: 100%;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* === FADE GRADIENTS === */
+.cad-fade-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 25vh;
+  background: linear-gradient(to bottom, var(--bg) 0%, transparent 100%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.cad-fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 25vh;
+  background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.cad-fade-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 15vw;
+  background: linear-gradient(to right, var(--bg) 0%, transparent 100%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.cad-fade-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 15vw;
+  background: linear-gradient(to left, var(--bg) 0%, transparent 100%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* === GRID OVERLAY - LIGHT THEME === */
+.grid-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+.grid-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  padding: 0 80px;
+}
+
+.grid-line {
+  border-right: 1px solid var(--grid-line);
+  height: 100%;
+}
+
+.grid-line:last-child {
+  border-right: none;
+}
+
+/* === SCROLL-TRIGGERED ANIMATIONS === */
+
+/* Section Title Animation */
+.section-title {
+  transform: translateY(60px) rotateX(-15deg);
+  opacity: 0;
+  transform-origin: bottom center;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.6s ease-out;
+}
+
+.section-title.animate-in {
+  transform: translateY(0) rotateX(0);
+  opacity: 1;
+}
+
+/* Card 3D Entrance */
+.card-3d-entrance {
+  transform: translateY(100px) translateZ(-50px) rotateX(10deg);
+  opacity: 0;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.5s ease-out;
+}
+
+.card-3d-entrance.animate-in {
+  transform: translateY(0) translateZ(0) rotateX(0);
+  opacity: 1;
+}
+
+/* Testimonial Slide */
+.testimonial-slide {
+  transform: translateX(-80px) rotateY(5deg);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.5s ease-out;
+}
+
+.testimonial-slide.animate-in {
+  transform: translateX(0) rotateY(0);
+  opacity: 1;
+}
+
+/* Service Card Float */
+.service-float {
+  transform: translateY(50px) scale(0.95);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.5s ease-out;
+}
+
+.service-float.animate-in {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* Text Reveal */
+.text-reveal-3d {
+  transform: translateY(30px) rotateX(-5deg);
+  opacity: 0;
+  transform-origin: top center;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.4s ease-out;
+}
+
+.text-reveal-3d.animate-in {
+  transform: translateY(0) rotateX(0);
+  opacity: 1;
+}
+
+/* Stagger Delays */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+.stagger-6 { transition-delay: 0.6s; }
+
+/* === LIGHT THEME COMPONENT UPDATES === */
+
+/* Floating Navigation - Light */
+.floating-nav {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+}
+
+.nav-logo {
+  color: var(--text-primary);
+}
+
+.nav-link {
+  color: var(--text-secondary);
+}
+
+.nav-link:hover {
+  color: var(--accent-primary);
+}
+
+/* Reveal Mask - Light */
+.reveal-mask {
+  background: var(--surface);
+}
+
+.reveal-mask.animate {
+  transform: translateY(-100%);
+}
+
+/* Project Cards - Light Theme */
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+}
+
+.project-card:hover {
+  border-color: var(--border-active);
+  box-shadow: var(--shadow-xl);
+}
+
+.project-title {
+  color: var(--text-primary);
+}
+
+.project-category {
+  color: var(--text-muted);
+}
+
+.project-tag {
+  background: var(--accent-dim);
+  color: var(--accent-primary);
+}
+
+/* Service Cards - Light Theme */
+.service-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.service-title {
+  color: var(--text-primary);
+}
+
+.service-subtitle {
+  color: var(--accent-primary);
+}
+
+.service-description {
+  color: var(--text-secondary);
+}
+
+.service-cta {
+  background: var(--accent-primary);
+  color: white;
+}
+
+/* Testimonial Cards - Light Theme */
+.testimonial-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.testimonial-text {
+  color: var(--text-secondary);
+}
+
+.testimonial-name {
+  color: var(--text-primary);
+}
+
+.testimonial-role {
+  color: var(--text-muted);
+}
+
+/* Case Study Cards - Light Theme */
+.case-study-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.case-study-title {
+  color: var(--text-primary);
+}
+
+/* Contact Section - Light Theme */
+.contact-section {
+  background: var(--surface);
+}
+
+.contact-title {
+  color: var(--text-primary);
+}
+
+.contact-description {
+  color: var(--text-secondary);
+}
+
+.contact-details-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+}
+
+.detail-label {
+  color: var(--text-muted);
+}
+
+.detail-value {
+  color: var(--text-primary);
+}
+
+/* Footer - Light Theme */
+.footer-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.site-footer-cta {
+  color: var(--text-primary);
+}
+
+/* Sticky CTA - Light Theme */
+.sticky-cta {
+  background: var(--accent-primary);
+  color: white;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Tolerance Zone Elements - Light Theme */
+.tolerance-zone {
+  border: 1px solid var(--cad-line-primary);
+  background: var(--surface);
+}
+
+.tol-callout {
+  border-color: var(--cad-line-primary);
+}
+
+.tol-box {
+  background: var(--surface);
+  color: var(--text-muted);
+}
+
+.tol-line {
+  background: var(--cad-line-primary);
+}
+
+/* Conversion Banner - Light Theme */
+.conversion-banner {
+  background: var(--surface-raised);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.conversion-heading {
+  color: var(--text-primary);
+}
+
+.conversion-sub {
+  color: var(--text-secondary);
+}
+
+/* Lightbox - Light Theme */
+.lightbox {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+  color: var(--text-primary);
+}
+
+/* Form Elements - Light Theme */
+.form-field label {
+  color: var(--text-secondary);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.large-contact-button {
+  background: var(--accent-primary);
+  color: white;
+}
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+  .cad-layer,
+  .section-title,
+  .card-3d-entrance,
+  .testimonial-slide,
+  .service-float,
+  .text-reveal-3d {
+    transition: opacity 0.3s ease;
+    transform: none !important;
+  }
+
+  .cad-layer {
+    animation: none !important;
+  }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .cad-layer {
+    opacity: 0.6;
+  }
+
+  .cad-layer-1,
+  .cad-layer-2 {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .cad-background {
+    background: var(--bg);
+  }
+
+  .cad-layer {
+    display: none;
+  }
+
+  .cad-fade-top,
+  .cad-fade-bottom,
+  .cad-fade-left,
+  .cad-fade-right {
+    display: none;
+  }
+
+  .grid-container {
+    padding: 0 24px;
+  }
+}
