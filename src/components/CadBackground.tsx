@@ -1,140 +1,103 @@
-import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'framer-motion';
-import {
-  GearDrawing,
-  BracketDrawing,
-  ShaftDrawing,
-  HousingDrawing,
-  ToleranceZoneDrawing,
-  DimensionDetailDrawing,
-} from './CadDrawings';
+import React from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
-export const CadBackground = () => {
-  const { scrollY } = useScroll();
-  const shouldReduceMotion = useReducedMotion();
+// Configuration for each background drawing
+// Add more objects here to make the background denser!
+const drawings = [
+  {
+    src: "/P000420.jpg",
+    alt: "Mechanical Drawing 1",
+    // Position and size using Tailwind utilities
+    className: "top-[10%] left-[5%] w-[50vw] md:w-[35vw]",
+    // Animation parameters
+    initialScale: 1,
+    finalScale: 1.4,
+    fadeEnd: 0.6, // Fades out completely by 60% of the scroll
+    yOffset: 100, // Drifts down 100px
+  },
+  {
+    src: "/P000473.jpg",
+    alt: "Mechanical Drawing 2",
+    className: "top-[30%] right-[0%] w-[60vw] md:w-[40vw]",
+    initialScale: 0.8,
+    finalScale: 1.2,
+    fadeEnd: 0.8, // Fades out slower
+    yOffset: 150,
+  },
+  {
+    src: "/P001382.png",
+    alt: "Mechanical Drawing 3",
+    className: "bottom-[15%] left-[15%] w-[45vw] md:w-[30vw]",
+    initialScale: 1.1,
+    finalScale: 1.6,
+    fadeEnd: 0.5, // Fades out faster
+    yOffset: 200,
+  },
+  {
+    src: "/P000629.jpg",
+    alt: "Mechanical Drawing 4",
+    className: "-top-[5%] right-[25%] w-[40vw] md:w-[25vw]",
+    initialScale: 0.9,
+    finalScale: 1.3,
+    fadeEnd: 0.7,
+    yOffset: 120,
+  },
+];
 
-  // Smooth out scroll value
-  const smoothY = useSpring(scrollY, { damping: 20, stiffness: 100, mass: 0.5 });
+// A re-usable component for a single animating drawing layer
+function DrawingLayer({ drawing, scrollYProgress }) {
+  const { src, alt, className, initialScale, finalScale, fadeEnd, yOffset } =
+    drawing;
 
-  // Layer 1 - Deepest (moves slowest)
-  const layer1Y = useTransform(smoothY, [0, 3000], [0, -150]);
-  const layer1Rotate = useTransform(smoothY, [0, 3000], [-5, 5]);
-
-  // Layer 2
-  const layer2Y = useTransform(smoothY, [0, 3000], [0, -300]);
-  const layer2Rotate = useTransform(smoothY, [0, 3000], [2, -3]);
-
-  // Layer 3
-  const layer3Y = useTransform(smoothY, [0, 3000], [0, -500]);
-
-  // Layer 4 - Closest (moves fastest)
-  const layer4Y = useTransform(smoothY, [0, 3000], [0, -700]);
-  const layer4Rotate = useTransform(smoothY, [0, 3000], [0, 4]);
-
-  if (shouldReduceMotion) {
-    return (
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-background">
-        <div className="absolute inset-0 opacity-40" style={{
-          backgroundImage: `
-            linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px'
-        }} />
-        <div className="absolute left-[15%] top-[10%] w-[25vw] opacity-50"><GearDrawing /></div>
-        <div className="absolute right-[10%] top-[40%] w-[30vw] opacity-40"><HousingDrawing /></div>
-        <div className="absolute left-[50%] top-[60%] w-[15vw] opacity-50"><BracketDrawing /></div>
-      </div>
-    );
-  }
+  // Create unique animations for this specific drawing based on its config
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [initialScale, finalScale],
+  );
+  // Fade from a starting opacity down to 0 at the specified fadeEnd point
+  const opacity = useTransform(scrollYProgress, [0, fadeEnd], [0.4, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, yOffset]);
 
   return (
-    <div className="fixed inset-0 w-full h-full z-0 pointer-events-none overflow-hidden bg-background [perspective:1500px]">
-      {/* Engineering grid pattern */}
-      <div className="absolute inset-0 opacity-40" style={{
-        backgroundImage: `
-          linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
-        `,
-        backgroundSize: '60px 60px'
-      }} />
-
-      {/* ========== LAYER 1 — Deepest: large, slow-moving ========== */}
-      <motion.div
-        style={{ y: layer1Y, rotateZ: layer1Rotate, translateZ: -100 }}
-        className="absolute inset-[-50%] w-[200%] h-[200%] [transform-style:preserve-3d]"
+    <motion.div
+      style={{ scale, opacity, y }}
+      className={`absolute pointer-events-none ${className} flex items-center justify-center`}
+    >
+      {/* The radial gradient mask */}
+      <div
+        className="w-full h-full"
+        style={{
+          WebkitMaskImage:
+            "radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%)",
+          maskImage:
+            "radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%)",
+        }}
       >
-        {/* GEAR — top-left */}
-        <div className="absolute left-[15%] top-[10%] w-[30vw] opacity-80 -rotate-12">
-          <GearDrawing />
-        </div>
-        {/* HOUSING — right side */}
-        <div className="absolute right-[10%] top-[40%] w-[35vw] opacity-70 rotate-6">
-          <HousingDrawing />
-        </div>
-        {/* TOLERANCE — bottom right */}
-        <div className="absolute left-[55%] top-[75%] w-[18vw] opacity-70 rotate-[22deg]">
-          <ToleranceZoneDrawing />
-        </div>
-      </motion.div>
+        {/* The image with blend mode and grayscale filter */}
+        <img
+          src={src}
+          alt={alt}
+          className="w-full h-auto mix-blend-multiply grayscale opacity-70"
+        />
+      </div>
+    </motion.div>
+  );
+}
 
-      {/* ========== LAYER 2 — Mid-deep ========== */}
-      <motion.div
-        style={{ y: layer2Y, rotateZ: layer2Rotate, translateZ: 0 }}
-        className="absolute inset-[-50%] w-[200%] h-[200%] [transform-style:preserve-3d]"
-      >
-        {/* BRACKET — top-right area */}
-        <div className="absolute left-[60vw] top-[5%] w-[20vw] opacity-80">
-          <BracketDrawing />
-        </div>
-        {/* SHAFT — left side, rotated */}
-        <div className="absolute left-[-5vw] top-[40%] w-[35vw] opacity-75 rotate-[15deg]">
-          <ShaftDrawing />
-        </div>
-        {/* TOLERANCE — bottom middle */}
-        <div className="absolute right-[25vw] top-[70%] w-[14vw] opacity-80 -rotate-6">
-          <ToleranceZoneDrawing />
-        </div>
-      </motion.div>
+export function CadBackground() {
+  const { scrollYProgress } = useScroll();
 
-      {/* ========== LAYER 3 — Mid-close ========== */}
-      <motion.div
-        style={{ y: layer3Y, translateZ: 100 }}
-        className="absolute inset-[-50%] w-[200%] h-[200%] [transform-style:preserve-3d]"
-      >
-        {/* DIMENSION — center area */}
-        <div className="absolute left-[30vw] top-[20%] w-[18vw] opacity-85">
-          <DimensionDetailDrawing />
-        </div>
-        {/* GEAR — bottom-left */}
-        <div className="absolute left-[5vw] top-[65%] w-[22vw] opacity-75 -rotate-[8deg]">
-          <GearDrawing />
-        </div>
-      </motion.div>
-
-      {/* ========== LAYER 4 — Closest: fast-moving, most visible ========== */}
-      <motion.div
-        style={{ y: layer4Y, rotateZ: layer4Rotate, translateZ: 200 }}
-        className="absolute inset-[-50%] w-[200%] h-[200%] [transform-style:preserve-3d]"
-      >
-        {/* SHAFT — wide, bottom */}
-        <div className="absolute left-[35vw] top-[80%] w-[35vw] opacity-90 -rotate-3">
-          <ShaftDrawing />
-        </div>
-        {/* BRACKET — top-left */}
-        <div className="absolute left-[10vw] top-[-5%] w-[18vw] opacity-80 rotate-[20deg]">
-          <BracketDrawing />
-        </div>
-        {/* DIMENSION — right side */}
-        <div className="absolute right-[8vw] top-[35%] w-[14vw] opacity-85 rotate-[45deg]">
-          <DimensionDetailDrawing />
-        </div>
-      </motion.div>
-
-      {/* Edge fade gradients for content legibility */}
-      <div className="absolute inset-x-0 top-0 h-[20vh] bg-gradient-to-b from-background via-background/80 to-transparent z-10" />
-      <div className="absolute inset-x-0 bottom-0 h-[20vh] bg-gradient-to-t from-background via-background/80 to-transparent z-10" />
-      <div className="absolute inset-y-0 left-0 w-[12vw] bg-gradient-to-r from-background to-transparent z-10" />
-      <div className="absolute inset-y-0 right-0 w-[12vw] bg-gradient-to-l from-background to-transparent z-10" />
+  return (
+    <div className="fixed inset-0 pointer-events-none flex items-center justify-center bg-[#f8f9fa] overflow-hidden font-sans -z-10">
+      {/* Map through the configuration array and create a layer for each drawing */}
+      {drawings.map((drawing, index) => (
+        <DrawingLayer
+          key={index}
+          drawing={drawing}
+          scrollYProgress={scrollYProgress}
+        />
+      ))}
     </div>
   );
-};
+}

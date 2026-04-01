@@ -1,5 +1,5 @@
 import { Navbar } from './components/layout/Navbar';
-import { PortfolioBackground } from './components/PortfolioBackground';
+import { CadBackground } from './components/CadBackground';
 import { Hero } from './components/sections/Hero';
 import { About } from './components/sections/About';
 import { Projects } from './components/sections/Projects';
@@ -10,7 +10,7 @@ import { Contact } from './components/sections/Contact';
 function App() {
   return (
     <>
-      <PortfolioBackground />
+      <CadBackground />
       <Navbar />
       <main className="relative z-10 w-full overflow-hidden selection:bg-accent-primary/20 selection:text-accent-primary">
         <Hero />
