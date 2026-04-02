@@ -54,7 +54,7 @@ export const Projects = () => {
 
             <div className={`relative overflow-hidden ${project.featured ? 'md:w-1/2' : 'w-full'} aspect-[16/10] bg-background`}>
               <motion.img 
-                src={`/${project.image}`} 
+                src={`${import.meta.env.BASE_URL}${project.image}`} 
                 alt={project.title}
                 className="w-full h-full object-cover"
                 whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}

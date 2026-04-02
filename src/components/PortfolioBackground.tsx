@@ -26,7 +26,7 @@ export const PortfolioBackground = () => {
           }}
         >
           <img 
-              src="/P000420.png" 
+              src={`${import.meta.env.BASE_URL}P000420.png`} 
               alt="CAD Background" 
               className="w-full h-auto mix-blend-multiply opacity-50 grayscale"
           />
