@@ -6,7 +6,7 @@ const drawings = [
   {
     src: "/P001382.jpg",
     alt: "Big Housing",
-    className: "bottom-[0%] left-[40%] w-[20vw] md:w-[35vw]",
+    className: "bottom-[0%] left-[30%] w-[20vw] md:w-[35vw]",
     initialScale: 1,
     finalScale: 4,
     yOffset: 100,
@@ -17,7 +17,7 @@ const drawings = [
   {
     src: "/P001812.png",
     alt: "Input Shaft",
-    className: "bottom-[25%] left-[28%] w-[20vw] md:w-[35vw]",
+    className: "bottom-[25%] left-[23%] w-[20vw] md:w-[35vw]",
     initialScale: 3,
     finalScale: 0.75,
     yOffset: -500,
@@ -31,13 +31,13 @@ const drawings = [
     src: "/P000473.jpg",
     alt: "Output Shaft",
     className: "top-[-0%] left-[0%] w-[20vw] md:w-[35vw]",
-    initialScale: 2,
-    finalScale: 5,
+    initialScale: 1.5,
+    finalScale: 4,
     yOffset: 500,
     // We want this one to sneak in, so we define the fade-in points
     fadeOutStart: 0.1,
-    fadeOutEnd: 0.5,
-    maxOpacity: 0.5,
+    fadeOutEnd: 0.6,
+    maxOpacity: 0.6,
   },
 
   // --- DRAWING 3: Another sneaky one ---
