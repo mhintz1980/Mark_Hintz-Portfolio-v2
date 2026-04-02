@@ -4,45 +4,53 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const drawings = [
   // --- DRAWING 1: Visible immediately (Opted OUT of fade-in) ---
   {
-    src: "/P000473.jpg",
-    alt: "Mechanical Drawing 2",
-    className:
-      "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] md:w-[40vw]",
-    initialScale: 2.2,
-    finalScale: 1.2,
+    src: "/P001382.jpg",
+    alt: "Big Housing",
+    className: "bottom-[0%] left-[40%] w-[20vw] md:w-[35vw]",
+    initialScale: 1,
+    finalScale: 4,
+    yOffset: 100,
+    fadeInStart: 0.25,
+    fadeInEnd: 0.6,
+    maxOpacity: 0.6,
+  },
+  {
+    src: "/P001812.png",
+    alt: "Input Shaft",
+    className: "bottom-[25%] left-[28%] w-[20vw] md:w-[35vw]",
+    initialScale: 3,
+    finalScale: 0.75,
     yOffset: -500,
-    fadeInStart: 0.18,
-    fadeInEnd: 0.24,
-    fadeOutStart: 0.75,
-    fadeOutEnd: 0.85,
-    maxOpacity: 0.8,
+    fadeOutStart: 0.25,
+    fadeOutEnd: 0.7,
+    maxOpacity: 0.2,
   },
 
   // --- DRAWING 2: Sneaks in later (Opted IN to fade-in) ---
   {
-    src: "/P001812.png",
-    alt: "Mechanical Drawing 3",
-    className: "bottom-[10%] left-[0%] w-[20vw] md:w-[35vw]",
-    initialScale: 3,
-    finalScale: 1,
-    yOffset: -850,
+    src: "/P000473.jpg",
+    alt: "Output Shaft",
+    className: "top-[-0%] left-[0%] w-[20vw] md:w-[35vw]",
+    initialScale: 2,
+    finalScale: 5,
+    yOffset: 500,
     // We want this one to sneak in, so we define the fade-in points
-    fadeOutStart: 0.2,
-    fadeOutEnd: 0.3,
-    maxOpacity: 0.4,
+    fadeOutStart: 0.1,
+    fadeOutEnd: 0.5,
+    maxOpacity: 0.5,
   },
 
   // --- DRAWING 3: Another sneaky one ---
   {
-    src: "/P000629.jpg",
-    alt: "Mechanical Drawing 4",
-    className: "top-[0%] right-[15%] w-[40vw] md:w-[35vw]",
+    src: "/A000629.jpg",
+    alt: "Gearbox Assembly",
+    className: "bottom-[0%] right-[0%] w-[40vw] md:w-[35vw]",
     initialScale: 2.5,
-    finalScale: 1.5,
-    yOffset: 650,
+    finalScale: 0.5,
+    yOffset: 0,
     fadeOutStart: 0.15,
-    fadeOutEnd: 0.2,
-    maxOpacity: 0.4,
+    fadeOutEnd: 0.5,
+    maxOpacity: 0.25,
   },
 ];
 
@@ -65,9 +73,9 @@ function DrawingLayer({
     yOffset,
     fadeInStart,
     fadeInEnd,
-    fadeOutStart = 0.7, // Still keeping defaults for the exit animation
-    fadeOutEnd = 0.8,
-    maxOpacity = 0.4,
+    fadeOutStart, // Still keeping defaults for the exit animation
+    fadeOutEnd,
+    maxOpacity,
   } = drawing;
 
   const scale = useTransform(
@@ -82,11 +90,15 @@ function DrawingLayer({
 
   // Build the timeline arrays based on your opt-in logic
   const scrollPoints = hasFadeIn
-    ? [0, fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd]
+    ? fadeOutStart > fadeInEnd
+      ? [0, fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd]
+      : [0, fadeInStart, fadeInEnd]
     : [0, fadeOutStart, fadeOutEnd];
 
   const opacityPoints = hasFadeIn
-    ? [0, 0, maxOpacity, maxOpacity, 0]
+    ? fadeOutStart > fadeInEnd
+      ? [0, 0, maxOpacity, maxOpacity, 0]
+      : [0, 0, maxOpacity]
     : [maxOpacity, maxOpacity, 0];
 
   // Feed the dynamically generated timeline to Framer Motion
@@ -101,9 +113,9 @@ function DrawingLayer({
         className="w-full h-full"
         style={{
           WebkitMaskImage:
-            "radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%)",
+            "radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 40%)",
           maskImage:
-            "radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%)",
+            "radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 40%)",
         }}
       >
         <img
