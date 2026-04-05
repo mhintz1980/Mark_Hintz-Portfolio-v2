@@ -42,7 +42,7 @@ export const MagneticText = ({ text, className = "" }: { text: string; className
 
   return (
     <motion.div
-      style={{ overflow: "hidden", display: "flex", flexWrap: "wrap" }}
+      style={{ overflow: "visible", display: "flex", flexWrap: "wrap" }}
       variants={container}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}

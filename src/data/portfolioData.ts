@@ -3,7 +3,7 @@ export const portfolioData = {
     name: "Mark Hintz",
     superHeader: "// MECHANICAL SYSTEMS & AUTOMATION",
     title: {
-      line1: "Engineering Precision.",
+      line1: "Precision Engineering.",
       line2: "Automated Logic."
     },
     bio: "I automate the work that shouldn't be manual.",
