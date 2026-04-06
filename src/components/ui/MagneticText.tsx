@@ -52,7 +52,7 @@ export const MagneticText = ({ text, className = "" }: { text: string; className
       {words.map((word, index) => (
         <motion.span
           variants={child}
-          style={{ marginRight: "0.25em" }}
+          style={{ marginRight: "0.25em", display: "inline-block" }}
           key={index}
         >
           {word}
@@ -70,7 +70,7 @@ export const SectionTitle = ({ children }: { children: string }) => {
         whileInView={{ y: 0, rotateX: 0, opacity: 1 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, type: "spring", bounce: 0.2 }}
-        className="font-heading text-6xl font-extrabold tracking-[-0.04em] text-transparent bg-clip-text bg-gradient-to-b from-primary to-secondary"
+        className="font-heading text-6xl font-extrabold tracking-[-0.04em] text-primary"
       >
         {children}
       </motion.h2>

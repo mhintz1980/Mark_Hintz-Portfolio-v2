@@ -55,11 +55,11 @@ export const About = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="lg:col-span-5"
         >
-          <div className="relative p-7 bg-white/80 backdrop-blur-md border border-secondary/20 rounded-[2px] shadow-sm font-mono text-xs">
+          <div className="relative p-7 bg-surface/80 backdrop-blur-md border border-secondary/20 rounded-[2px] shadow-sm font-mono text-xs">
             {/* Tolerance styling decoration */}
             <div className="absolute -top-px -right-[40px] hidden md:flex items-start gap-1.5 opacity-80 pointer-events-none">
                 <div className="w-[30px] h-px bg-accent-secondary mt-2"></div>
-                <div className="border border-accent-secondary text-accent-secondary px-2 py-1 flex flex-col gap-0.5 whitespace-nowrap bg-white/50 backdrop-blur scale-[0.8] origin-top-left">
+                <div className="border border-accent-secondary text-accent-secondary px-2 py-1 flex flex-col gap-0.5 whitespace-nowrap bg-surface/50 backdrop-blur scale-[0.8] origin-top-left">
                     <span>⌀ 0.001" TIR</span>
                     <span>⊕ ±0.0005 [REF]</span>
                 </div>

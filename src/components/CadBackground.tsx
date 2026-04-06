@@ -21,12 +21,12 @@ const drawings: Drawing[] = [
     src: "/P001812.jpg",
     alt: "Input Shaft",
     className: "bottom-[5%] left-[26%] w-[20vw] md:w-[35vw]",
-    initialScale: 3,
-    finalScale: 0.75,
-    yOffset: -500,
+    initialScale: 3.8,
+    finalScale: 1.75,
+    yOffset: -700,
     fadeOutStart: 0.15,
-    fadeOutEnd: 0.7,
-    maxOpacity: 0.25,
+    fadeOutEnd: 0.65,
+    maxOpacity: 0.2,
   },
   {
     src: "/P000473.jpg",
@@ -37,41 +37,65 @@ const drawings: Drawing[] = [
     yOffset: 500,
     fadeOutStart: 0.18,
     fadeOutEnd: 0.5,
-    maxOpacity: 0.6,
+    maxOpacity: 0.4,
   },
   {
-    src: "/A000629.jpg",
-    alt: "Gearbox Assembly",
-    className: "bottom-[0%] right-[0%] w-[40vw] md:w-[40vw]",
-    initialScale: 1.5,
-    finalScale: 4,
+    src: "/torque-wrench-06.webp",
+    alt: "Impact Housing",
+    className: "top-[10%] right-[0%] w-[40vw] md:w-[40vw]",
+    initialScale: 3,
+    finalScale: 1,
     yOffset: 250,
     fadeOutStart: 0.15,
     fadeOutEnd: 0.5,
     maxOpacity: 0.35,
   },
-  // --- DRAWING GROUP 2 We want these to sneak in, so we define the fade-in points
   {
     src: "/P000420.jpg",
     alt: "Intermediate Housing",
-    className: "bottom-[-10%] right-[0%] w-[20vw] md:w-[45vw]",
+    className: "bottom-[-45%] right-[0%] w-[20vw] md:w-[45vw]",
     initialScale: 1.2,
     finalScale: 2.5,
-    yOffset: -200,
-    fadeInStart: 0.25,
-    fadeInEnd: 0.4,
-    maxOpacity: 0.75,
+    yOffset: -600,
+    fadeInStart: 0.2,
+    fadeInEnd: 0.35,
+    fadeOutStart: 0.41,
+    fadeOutEnd: 0.6,
+    maxOpacity: 0.35,
+  },
+  // --- DRAWING GROUP 2 We want these to sneak in, so we define the fade-in points
+  {
+    src: "/A000629.jpg",
+    alt: "Gearbox Assembly",
+    className: "bottom-[0%] right-[0%] w-[40vw] md:w-[40vw]",
+    initialScale: 0.95,
+    finalScale: 2,
+    yOffset: 250,
+    fadeInStart: 0.5,
+    fadeInEnd: 0.65,
+    maxOpacity: 0.45,
   },
   {
-    src: "/P001382.jpg",
-    alt: "Big Housing",
-    className: "bottom-[20%] left-[10%] w-[20vw] md:w-[35vw]",
-    initialScale: 1,
-    finalScale: 3,
-    yOffset: 0,
-    fadeInStart: 0.25,
-    fadeInEnd: 0.6,
-    maxOpacity: 0.85,
+    src: "/torque-wrench-04.webp",
+    alt: "Handle Assembly Exploded",
+    className: "bottom-[-30%] right-[35%] w-[20vw] md:w-[45vw]",
+    initialScale: 0.85,
+    finalScale: 2.5,
+    yOffset: -200,
+    fadeInStart: 0.3,
+    fadeInEnd: 0.55,
+    maxOpacity: 0.4,
+  },
+  {
+    src: "/pump-package-03.webp",
+    alt: "pump package exploded view",
+    className: "bottom-[45%] left-[-20%] w-[35vw] md:w-[35vw]",
+    initialScale: 2,
+    finalScale: 4,
+    yOffset: 300,
+    fadeInStart: 0.3,
+    fadeInEnd: 0.75,
+    maxOpacity: 0.5,
   },
 ];
 
@@ -120,7 +144,11 @@ function DrawingLayer({
     if (!hasFadeIn) {
       scrollPoints.push(0);
       opacityPoints.push(maxOpacity);
-    } else if (fadeInEnd !== undefined && fadeOutStart !== undefined && fadeOutStart > fadeInEnd) {
+    } else if (
+      fadeInEnd !== undefined &&
+      fadeOutStart !== undefined &&
+      fadeOutStart > fadeInEnd
+    ) {
       // Hold max opacity between fade-in end and fade-out start
       if (scrollPoints[scrollPoints.length - 1] !== fadeOutStart) {
         scrollPoints.push(fadeOutStart);
@@ -146,7 +174,11 @@ function DrawingLayer({
   }
 
   // Feed the dynamically generated timeline to Framer Motion
-  const opacity = useTransform(scrollYProgress, scrollPoints, opacityPoints) as MotionValue<number>;
+  const opacity = useTransform(
+    scrollYProgress,
+    scrollPoints,
+    opacityPoints,
+  ) as MotionValue<number>;
 
   return (
     <motion.div
@@ -165,7 +197,7 @@ function DrawingLayer({
         <img
           src={`${import.meta.env.BASE_URL}${src.replace(/^\//, "")}`}
           alt={alt}
-          className="w-full h-auto mix-blend-multiply grayscale opacity-85"
+          className="w-full h-auto mix-blend-multiply dark:mix-blend-screen grayscale opacity-85"
         />
       </div>
     </motion.div>
@@ -176,7 +208,7 @@ export function CadBackground() {
   const { scrollYProgress } = useScroll();
 
   return (
-    <div className="fixed inset-0 pointer-events-none flex items-center justify-center bg-[#f8f9fa] overflow-hidden font-sans -z-10">
+    <div className="fixed inset-0 pointer-events-none flex items-center justify-center bg-background overflow-hidden font-sans -z-10">
       {drawings.map((drawing, index) => (
         <DrawingLayer
           key={index}

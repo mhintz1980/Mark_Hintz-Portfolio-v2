@@ -13,7 +13,7 @@ export const PortfolioBackground = () => {
   const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none -z-10 flex items-center justify-center bg-[#f8f9fa] overflow-hidden font-sans">
+    <div className="fixed inset-0 pointer-events-none -z-10 flex items-center justify-center bg-background overflow-hidden font-sans">
       <motion.div
         style={{ scale, opacity, y }}
         className="relative w-full max-w-4xl flex items-center justify-center"

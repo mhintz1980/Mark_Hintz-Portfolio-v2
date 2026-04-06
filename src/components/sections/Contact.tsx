@@ -5,10 +5,10 @@ export const Contact = () => {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <footer id="contact" className="relative bg-primary text-white overflow-hidden pt-32 pb-16">
+    <footer id="contact" className="relative bg-slate-900 dark:bg-[#0F172A] text-white overflow-hidden pt-32 pb-16">
       {/* CAD Grid Background Overlay */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
-        <div className="w-full h-full" style={{ backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+        <div className="w-full h-full" style={{ backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       </div>
 
       <div className="w-full max-w-7xl mx-auto px-8 md:px-20 relative z-10 flex flex-col items-center">

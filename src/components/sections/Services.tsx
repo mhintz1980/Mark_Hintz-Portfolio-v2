@@ -72,7 +72,7 @@ export const Services = () => {
             key={index}
             variants={item}
             whileHover={shouldReduceMotion ? {} : { y: -8 }}
-            className="flex flex-col h-full bg-white border border-secondary/10 shadow-sm p-8 rounded-sm transition-all hover:shadow-xl group relative overflow-hidden"
+            className="flex flex-col h-full bg-surface border border-secondary/10 shadow-sm p-8 rounded-sm transition-all hover:shadow-xl group relative overflow-hidden"
           >
             {/* Top right decorative corner */}
             <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none transform translate-x-1/2 -translate-y-1/2 rotate-45 border border-cad-line-primary/20 bg-background/50" />
@@ -123,7 +123,7 @@ export const Services = () => {
         <p className="text-lg text-secondary/80 mb-8 max-w-2xl mx-auto">Skip the back-and-forth. Send me what you have, and let's see if we can engineer a cleaner solution.</p>
         <a 
           href="#contact" 
-          className="inline-block bg-white text-primary uppercase font-bold tracking-widest px-8 py-4 rounded-sm hover:scale-105 transition-transform"
+          className="inline-block bg-surface text-accent-primary uppercase font-bold tracking-widest px-8 py-4 rounded-sm hover:scale-105 transition-transform"
         >
           Start the Conversation
         </a>

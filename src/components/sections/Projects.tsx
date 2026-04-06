@@ -36,7 +36,7 @@ export const Projects = () => {
             variants={itemVariants}
             whileHover={shouldReduceMotion ? {} : { y: -8 }}
             className={`
-              group relative flex flex-col bg-white overflow-hidden rounded-sm
+              group relative flex flex-col bg-surface overflow-hidden rounded-sm
               border border-secondary/10 shadow-sm transition-shadow hover:shadow-xl
               ${project.featured ? 'md:col-span-2 md:flex-row' : ''}
             `}
@@ -44,7 +44,7 @@ export const Projects = () => {
             {/* The CAD Tolerance decoration overlay for featured projects */}
             {project.featured && (
               <div className="absolute top-4 right-4 z-20 pointer-events-none hidden md:block">
-                <div className="bg-white/80 backdrop-blur-md border border-accent-secondary/50 text-accent-secondary p-2 text-xs font-mono shadow-sm">
+                <div className="bg-surface/80 backdrop-blur-md border border-accent-secondary/50 text-accent-secondary p-2 text-xs font-mono shadow-sm">
                   <div>[REF] PRODUCTION SCALE</div>
                   <div className="border-t border-accent-secondary/30 my-1"></div>
                   <div>AUTOMATION: 100%</div>
@@ -84,7 +84,7 @@ export const Projects = () => {
               </div>
               
               {project.outcome && (
-                <div className="flex items-start gap-3 p-4 bg-emerald-50 text-primary border-l-2 border-emerald-500 rounded-r-sm">
+                <div className="flex items-start gap-3 p-4 bg-emerald-50 dark:bg-emerald-950/30 text-primary border-l-2 border-emerald-500 rounded-r-sm">
                   <span className="text-emerald-500 flex-shrink-0 mt-0.5">→</span>
                   <p className="text-[15px] font-medium leading-snug">{project.outcome}</p>
                 </div>

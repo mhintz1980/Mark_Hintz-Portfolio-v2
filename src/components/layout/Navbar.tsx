@@ -17,7 +17,7 @@ export const Navbar = () => {
       className={cn(
         "fixed top-8 left-1/2 -translate-x-1/2 z-50",
         "flex items-center gap-12 px-6 py-3",
-        "bg-white/80 backdrop-blur-md rounded-full",
+        "bg-surface/80 backdrop-blur-md rounded-full",
         "border border-secondary/20 shadow-lg shadow-black/5"
       )}
     >

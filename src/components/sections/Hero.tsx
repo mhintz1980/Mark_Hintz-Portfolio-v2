@@ -43,11 +43,11 @@ export const Hero = () => {
 
       <div className="mb-12 max-w-max space-y-4">
         <MagneticText
-          className="text-6xl md:text-8xl font-extrabold leading-[1.1] tracking-[-0.04em] text-transparent bg-clip-text bg-gradient-to-b from-primary to-secondary !flex-nowrap pr-4 pb-2 md:pr-6 w-max"
+          className="text-6xl md:text-8xl font-extrabold leading-[1.1] tracking-[-0.04em] text-primary !flex-nowrap pr-4 pb-2 md:pr-6 w-max"
           text={portfolioData.personal.title.line1}
         />
         <MagneticText
-          className="text-6xl md:text-8xl font-extrabold leading-[1.1] tracking-[-0.04em] text-transparent bg-clip-text bg-gradient-to-b from-primary to-secondary !flex-nowrap pr-4 pb-2 md:pr-6 w-max"
+          className="text-6xl md:text-8xl font-extrabold leading-[1.1] tracking-[-0.04em] text-primary !flex-nowrap pr-4 pb-2 md:pr-6 w-max"
           text={portfolioData.personal.title.line2}
         />
       </div>
