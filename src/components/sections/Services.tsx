@@ -116,14 +116,14 @@ export const Services = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.6 }}
-        className="mt-24 p-12 bg-primary text-white rounded-sm text-center relative overflow-hidden"
+        className="mt-24 p-12 bg-accent-primary text-white rounded-sm text-center relative overflow-hidden"
       >
-        <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-accent-primary to-accent-warm" />
-        <h3 className="text-3xl md:text-4xl font-heading font-bold mb-4">Hard problem? Rough drawing?</h3>
-        <p className="text-lg text-secondary/80 mb-8 max-w-2xl mx-auto">Skip the back-and-forth. Send me what you have, and let's see if we can engineer a cleaner solution.</p>
+        <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-white/20 to-accent-warm" />
+        <h3 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-white">Hard problem? Rough drawing?</h3>
+        <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">Skip the back-and-forth. Send me what you have, and let's see if we can engineer a cleaner solution.</p>
         <a 
           href="#contact" 
-          className="inline-block bg-surface text-accent-primary uppercase font-bold tracking-widest px-8 py-4 rounded-sm hover:scale-105 transition-transform"
+          className="inline-block bg-white text-accent-primary uppercase font-bold tracking-widest px-8 py-4 rounded-sm hover:scale-105 transition-transform"
         >
           Start the Conversation
         </a>
