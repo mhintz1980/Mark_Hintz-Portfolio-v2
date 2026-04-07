@@ -3,95 +3,6 @@ import { portfolioData, wordCycleData } from "../../data/portfolioData";
 import { useState, useEffect } from "react";
 import { TypewriterLine } from "../ui/TypewriterLine";
 
-// ─── Blueprint reveal: clip-path sweeps left→right like a drafting arm ─────────
-interface BlueprintLineProps {
-  text: string;
-  className?: string;
-  delay?: number; // seconds
-  duration?: number; // seconds
-  showArm?: boolean; // render the drafting arm cursor
-}
-
-const BlueprintLine = ({
-  text,
-  className = "",
-  delay = 0,
-  duration = 0.65,
-  showArm = false,
-}: BlueprintLineProps) => {
-  const shouldReduceMotion = useReducedMotion();
-
-  if (shouldReduceMotion) {
-    return <div className={className}>{text}</div>;
-  }
-
-  return (
-    <div className="relative overflow-visible">
-      {/* ── Drafting arm cursor ─────────────────────────────── */}
-      {showArm && (
-        <motion.div
-          aria-hidden="true"
-          className="pointer-events-none absolute top-0 bottom-0 w-[2px] bg-accent-primary/70 z-20"
-          style={{ left: 0 }}
-          initial={{ left: "0%", opacity: 0 }}
-          animate={{
-            left: ["0%", "100%", "100%"],
-            opacity: [0.35, 1, 0],
-          }}
-          transition={{
-            delay,
-            duration: duration + 0.06,
-            ease: [0.0, 0, 0.5, 1],
-            times: [0, 0.45, 0.75],
-          }}
-        />
-      )}
-
-      {/* ── Text with clip-path reveal ──────────────────────── */}
-      <motion.div
-        className={className}
-        style={{ clipPath: "inset(0 100% 0 0)" }}
-        animate={{ clipPath: "inset(0 0% 0 0)" }}
-        transition={{
-          delay,
-          duration,
-          ease: [0.16, 1, 0.3, 1], // custom "heavy start, fast finish" ease
-        }}
-      >
-        {text}
-      </motion.div>
-
-      {/* ── Baseline tick mark (blueprint aesthetic) ────────── */}
-      <motion.div
-        aria-hidden="true"
-        className="absolute -bottom-[3px] left-0 h-px bg-accent-primary/30"
-        initial={{ scaleX: 0, originX: "0%" }}
-        animate={{ scaleX: 1 }}
-        transition={{
-          delay: delay + duration * 0.3,
-          duration: duration * 0.7,
-          ease: [0.16, 1, 0.3, 1],
-        }}
-        style={{ width: "100%" }}
-      />
-    </div>
-  );
-};
-
-// ─── Crosshair corner marks (blueprint registration marks) ───────────────────
-const CornerMark = ({ className }: { className: string }) => (
-  <motion.div
-    aria-hidden="true"
-    className={`absolute w-4 h-4 ${className}`}
-    initial={{ opacity: 0, scale: 0 }}
-    animate={{ opacity: 0.4, scale: 1 }}
-    transition={{ delay: 0.2, duration: 0.3, ease: "backOut" }}
-  >
-    <div className="absolute top-0 left-0 w-full h-px bg-accent-primary/60" />
-    <div className="absolute top-0 left-0 h-full w-px bg-accent-primary/60" />
-  </motion.div>
-);
-
 // ─── Spec terminal typewriter ─────────────────────────────────────────────────
 const specLines = [
   { label: "> SPEC:", value: portfolioData.personal.name },
@@ -102,7 +13,7 @@ const specLines = [
 ];
 
 const CHAR_SPEED = 28;
-const LINE_START = 1600; // ms — after headline is fully revealed
+const LINE_START = 2200; // ms — after CTAs appear
 
 const SpecTerminal = ({ show }: { show: boolean }) => {
   const delays: number[] = [];
@@ -153,6 +64,31 @@ const SpecTerminal = ({ show }: { show: boolean }) => {
   );
 };
 
+// ─── Velocity Z-Depth animation variants ──────────────────────────────────────
+const lineVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 1.35,
+    z: -120,
+    filter: "blur(12px)",
+    y: 18,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    z: 0,
+    filter: "blur(0px)",
+    y: 0,
+  },
+};
+
+const lineTransition = {
+  type: "spring" as const,
+  stiffness: 65,
+  damping: 14,
+  mass: 1.1,
+};
+
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 export const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -174,53 +110,60 @@ export const Hero = () => {
   const line1 = portfolioData.personal.title.line1; // "Precision Engineering."
   const line2 = portfolioData.personal.title.line2; // "Automated Logic."
 
-  // Timing for sequential reveals (half-speed)
-  const line1Delay = 0.3; // seconds
-  const line1Dur = 1.5;
-  const line2Delay = line1Delay + line1Dur * 0.3; // ~1.44s
-  const line2Dur = 1.5;
+  // Reduced motion fallback: skip 3D completely
+  const reducedHidden = { opacity: 0 };
+  const reducedVisible = { opacity: 1 };
 
   return (
     <section
       id="top"
       className="min-h-[100dvh] flex flex-col justify-center py-32 relative z-10 w-full max-w-7xl mx-auto px-8 md:px-20"
     >
-      {/* ── Eyebrow — also clip-path reveals ── */}
+      {/* ── Eyebrow — simple fade-up, no 3D ── */}
       <motion.div
-        className="font-mono text-[14px] font-medium uppercase tracking-[0.1em] text-secondary mb-8 overflow-hidden"
-        style={shouldReduceMotion ? {} : { clipPath: "inset(0 100% 0 0)" }}
-        animate={shouldReduceMotion ? {} : { clipPath: "inset(0 0% 0 0)" }}
-        transition={{ delay: 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="font-mono text-[14px] font-medium uppercase tracking-[0.1em] text-secondary mb-8"
+        initial={shouldReduceMotion ? reducedHidden : { opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15, duration: 0.55, ease: [0.32, 0.72, 0, 1] }}
       >
         {portfolioData.personal.superHeader}
       </motion.div>
 
-      {/* ── Blueprint headline block ── */}
-      <div className="mb-12 max-w-max space-y-3 relative">
-        {/* Registration corner marks */}
-        {!shouldReduceMotion && (
-          <>
-            <CornerMark className="top-0 left-0 -translate-x-5 -translate-y-5" />
-            <CornerMark className="bottom-0 left-0 -translate-x-5 translate-y-5 rotate-90" />
-          </>
-        )}
-
+      {/* ── Cinematic 3D headline block ── */}
+      <div className="mb-12 max-w-max space-y-3 relative" style={{ perspective: "800px" }}>
         {/* Line 1 */}
-        <BlueprintLine
-          text={line1}
+        <motion.div
           className="text-6xl md:text-8xl font-extrabold leading-[1.1] tracking-[-0.04em] text-primary pr-4 md:pr-6"
-          delay={line1Delay}
-          duration={line1Dur}
-          showArm
-        />
+          variants={lineVariants}
+          initial={shouldReduceMotion ? "visible" : "hidden"}
+          animate="visible"
+          transition={{ ...lineTransition, delay: 0.3 }}
+        >
+          {line1}
+        </motion.div>
 
         {/* Line 2 */}
-        <BlueprintLine
-          text={line2}
+        <motion.div
           className="text-6xl md:text-8xl font-extrabold leading-[1.1] tracking-[-0.04em] text-primary pr-4 md:pr-6"
-          delay={line2Delay}
-          duration={line2Dur}
-          showArm
+          variants={lineVariants}
+          initial={shouldReduceMotion ? "visible" : "hidden"}
+          animate="visible"
+          transition={{ ...lineTransition, delay: 0.72 }}
+        >
+          {line2}
+        </motion.div>
+
+        {/* ── Accent underline — scaleX reveal after both lines land ── */}
+        <motion.div
+          aria-hidden="true"
+          className="bg-linear-to-r from-accent-primary/60 via-accent-primary/20 to-transparent h-px w-full origin-left"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{
+            delay: 1.5,
+            duration: 0.7,
+            ease: [0.32, 0.72, 0, 1],
+          }}
         />
       </div>
 
@@ -228,7 +171,7 @@ export const Hero = () => {
       <motion.div
         initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 3.2 }}
+        transition={{ duration: 0.5, delay: 1.8 }}
         className="bg-accent-primary/5 border border-accent-primary/10 rounded-sm p-6 mb-12 max-w-5xl"
       >
         <div className="text-lg md:text-xl font-normal leading-relaxed text-primary">
@@ -265,7 +208,7 @@ export const Hero = () => {
       <motion.div
         initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 3.5 }}
+        transition={{ duration: 0.5, delay: 2.0 }}
         className="flex flex-wrap items-center gap-4 mb-4"
       >
         {portfolioData.heroActions.map((action, i) => (
