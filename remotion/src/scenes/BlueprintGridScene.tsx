@@ -1,232 +1,277 @@
-/**
- * Scene 1 — Blueprint Grid Draw-in
- * SVG grid animates in line-by-line, then typewriter text reveals.
- * Duration: 8s (240 frames)
- */
-import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
-import { COLORS, FONTS, H, MARK, W } from "../constants";
-import { TypewriterText } from "../components/AnimationPrimitives";
-import { CornerMark, HRule, ScanlineOverlay } from "../components/UIAtoms";
+import {AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig} from "remotion";
+import {TypewriterText} from "../components/AnimationPrimitives";
+import {
+  BlueprintField,
+  CalloutChip,
+  CornerMark,
+  HRule,
+  ScanlineOverlay,
+  SectionLabel,
+  TechnicalPanel,
+} from "../components/UIAtoms";
+import {COLORS, FONTS, MARK} from "../constants";
+import {defaultShowreelProps, type ShowreelProps} from "../schemas";
 
-export const BlueprintGridScene: React.FC = () => {
+const OPENING_VERBS = ["DESIGN", "MANUFACTURE", "ASSEMBLE", "INSPECT"] as const;
+
+type BlueprintGridSceneProps = Pick<
+  ShowreelProps,
+  "introHeadlineTop" | "introHeadlineAccent" | "introHeadlineBottom" | "introBody"
+>;
+
+export const BlueprintGridScene: React.FC<Partial<BlueprintGridSceneProps>> = ({
+  introHeadlineTop = defaultShowreelProps.introHeadlineTop,
+  introHeadlineAccent = defaultShowreelProps.introHeadlineAccent,
+  introHeadlineBottom = defaultShowreelProps.introHeadlineBottom,
+  introBody = defaultShowreelProps.introBody,
+}) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const {fps} = useVideoConfig();
 
-  // Grid line reveal — staggered dash offset
-  const gridOpacity = interpolate(frame, [0, fps * 1.5], [0, 1], {
+  const titleOpacity = interpolate(frame, [fps * 1.3, fps * 2.6], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-
-  // Cross-hair center reveal
-  const crossOpacity = interpolate(frame, [fps * 1.5, fps * 2.5], [0, 1], {
+  const titleY = interpolate(frame, [fps * 1.3, fps * 2.6], [28, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-
-  // Corner marks
-  const cornerOpacity = interpolate(frame, [fps * 2, fps * 3], [0, 1], {
+  const bodyOpacity = interpolate(frame, [fps * 2.2, fps * 3.6], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-
-  // Header rule scale
-  const ruleStart = fps * 3;
-
-  // Location tag
-  const locationOpacity = interpolate(frame, [fps * 5, fps * 6], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
-  const GRID_COLS = 16;
-  const GRID_ROWS = 9;
-  const cellW = W / GRID_COLS;
-  const cellH = H / GRID_ROWS;
 
   return (
-    <AbsoluteFill style={{ background: COLORS.bg, overflow: "hidden" }}>
+    <AbsoluteFill
+      style={{
+        background: "radial-gradient(circle at 50% 30%, #0a1725 0%, #071019 48%, #03080f 100%)",
+        overflow: "hidden",
+      }}
+    >
+      <BlueprintField opacity={0.2} cell={56} majorEvery={4} />
       <ScanlineOverlay opacity={0.05} />
+      <CornerMark position="tl" />
+      <CornerMark position="tr" />
+      <CornerMark position="bl" />
+      <CornerMark position="br" />
 
-      {/* Blueprint grid SVG */}
-      <svg
-        width={W}
-        height={H}
-        style={{ position: "absolute", inset: 0, opacity: gridOpacity }}
-        viewBox={`0 0 ${W} ${H}`}
-      >
-        {/* Vertical lines */}
-        {Array.from({ length: GRID_COLS + 1 }, (_, i) => (
-          <line
-            key={`v${i}`}
-            x1={i * cellW}
-            y1={0}
-            x2={i * cellW}
-            y2={H}
-            stroke={COLORS.gridLine}
-            strokeWidth={i === 0 || i === GRID_COLS ? 0.5 : 0.5}
-          />
-        ))}
-        {/* Horizontal lines */}
-        {Array.from({ length: GRID_ROWS + 1 }, (_, i) => (
-          <line
-            key={`h${i}`}
-            x1={0}
-            y1={i * cellH}
-            x2={W}
-            y2={i * cellH}
-            stroke={COLORS.gridLine}
-            strokeWidth={0.5}
-          />
-        ))}
-        {/* Center crosshair */}
-        <g opacity={crossOpacity}>
-          <line x1={W / 2 - 40} y1={H / 2} x2={W / 2 + 40} y2={H / 2} stroke={COLORS.accent} strokeWidth={0.8} />
-          <line x1={W / 2} y1={H / 2 - 24} x2={W / 2} y2={H / 2 + 24} stroke={COLORS.accent} strokeWidth={0.8} />
-          <circle cx={W / 2} cy={H / 2} r={6} stroke={COLORS.accent} strokeWidth={0.8} fill="none" />
-          {/* Diagonal tick marks at center */}
-          <line x1={W / 2 - 4} y1={H / 2 - 4} x2={W / 2 + 4} y2={H / 2 + 4} stroke={COLORS.accent} strokeWidth={0.5} opacity={0.5} />
-        </g>
-        {/* Dots at grid intersections (sample) */}
-        {[2, 4, 8, 12, 14].map((col) =>
-          [2, 4, 5, 7].map((row) => (
-            <circle
-              key={`dot-${col}-${row}`}
-              cx={col * cellW}
-              cy={row * cellH}
-              r={1.5}
-              fill={COLORS.accent}
-              opacity={gridOpacity * 0.4}
-            />
-          ))
-        )}
-      </svg>
-
-      {/* Corner marks */}
-      <div style={{ position: "absolute", inset: 0, opacity: cornerOpacity }}>
-        <CornerMark position="tl" />
-        <CornerMark position="tr" />
-        <CornerMark position="bl" />
-        <CornerMark position="br" />
-      </div>
-
-      {/* Content area — centered column */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          padding: "0 80px",
+          padding: "58px 72px 52px",
+          display: "grid",
+          gridTemplateColumns: "1.55fr 0.9fr",
+          gap: 36,
         }}
       >
-        {/* Super header typewriter */}
-        <div
-          style={{
-            fontFamily: FONTS.mono,
-            fontSize: 13,
-            color: COLORS.accent,
-            letterSpacing: "0.14em",
-            marginBottom: 20,
-          }}
-        >
-          <TypewriterText
-            text={MARK.superHeader}
-            startFrame={Math.floor(fps * 2.5)}
-            speed={18}
-          />
+        <div style={{display: "flex", flexDirection: "column"}}>
+          <SectionLabel label="Opening Sheet / Design Review Reel" startFrame={0} />
+
+          <div
+            style={{
+              marginTop: 18,
+              fontFamily: FONTS.mono,
+              fontSize: 14,
+              letterSpacing: "0.16em",
+              color: COLORS.accent,
+            }}
+          >
+            <TypewriterText text={MARK.superHeader} startFrame={10} speed={20} />
+          </div>
+
+          <div style={{marginTop: 22}}>
+            <HRule startFrame={22} />
+          </div>
+
+          <div
+            style={{
+              marginTop: 30,
+              opacity: titleOpacity,
+              transform: `translateY(${titleY}px)`,
+              fontFamily: FONTS.mono,
+              fontSize: 64,
+              fontWeight: 700,
+              lineHeight: 0.94,
+              letterSpacing: "-0.05em",
+              textTransform: "uppercase",
+              color: COLORS.text,
+            }}
+            >
+              {introHeadlineTop}
+              <br />
+              <span style={{color: COLORS.accent}}>{introHeadlineAccent}</span>
+              <br />
+              {introHeadlineBottom}
+            </div>
+
+          <div
+            style={{
+              marginTop: 24,
+              maxWidth: 760,
+              opacity: bodyOpacity,
+              fontFamily: FONTS.sans,
+              fontSize: 20,
+              lineHeight: 1.45,
+              color: COLORS.textSecondary,
+            }}
+            >
+            {introBody}
+          </div>
+
+          <div style={{display: "flex", gap: 12, flexWrap: "wrap", marginTop: 28}}>
+            {OPENING_VERBS.map((verb, index) => (
+              <CalloutChip key={verb} label={verb} index={index} startFrame={fps * 2.8} active />
+            ))}
+          </div>
+
+          <div
+            style={{
+              marginTop: "auto",
+              display: "grid",
+              gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+              gap: 12,
+              opacity: interpolate(frame, [fps * 4, fps * 5.4], [0, 1], {
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+              }),
+            }}
+          >
+            {MARK.focusAreas.map((item) => (
+              <TechnicalPanel key={item} style={{padding: "14px 14px 12px"}}>
+                <div
+                  style={{
+                    fontFamily: FONTS.mono,
+                    fontSize: 10,
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    color: COLORS.textSecondary,
+                  }}
+                >
+                  {item}
+                </div>
+              </TechnicalPanel>
+            ))}
+          </div>
         </div>
 
-        {/* Horizontal rule */}
-        <div style={{ marginBottom: 24 }}>
-          <HRule startFrame={ruleStart} />
-        </div>
-
-        {/* Main title block */}
-        <div
-          style={{
-            fontFamily: FONTS.mono,
-            fontSize: 64,
-            fontWeight: 700,
-            color: COLORS.text,
-            letterSpacing: "-0.04em",
-            lineHeight: 0.95,
-            textTransform: "uppercase",
-            opacity: interpolate(frame, [fps * 3.5, fps * 5], [0, 1], {
-              extrapolateLeft: "clamp",
-              extrapolateRight: "clamp",
-            }),
-            transform: `translateY(${interpolate(
-              frame,
-              [fps * 3.5, fps * 5],
-              [32, 0],
-              { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-            )}px)`,
-          }}
-        >
-          PRECISION
-          <br />
-          <span style={{ color: COLORS.accent }}>ENGINEERING</span>
-          <br />
-          + AUTOMATION
-        </div>
-
-        {/* Bottom metadata row */}
         <div
           style={{
             display: "flex",
-            gap: 32,
-            marginTop: 32,
-            opacity: locationOpacity,
+            flexDirection: "column",
+            justifyContent: "space-between",
+            opacity: interpolate(frame, [fps * 2.6, fps * 3.8], [0, 1], {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            }),
           }}
         >
-          {[
-            { label: "LOCATION", value: "JAX FL" },
-            { label: "EXPERIENCE", value: "15 YRS" },
-            { label: "SPECIALTY", value: "MECH + SW" },
-          ].map(({ label, value }) => (
-            <div key={label} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-              <span
-                style={{
-                  fontFamily: FONTS.mono,
-                  fontSize: 9,
-                  color: COLORS.textMuted,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {label}
-              </span>
-              <span
-                style={{
-                  fontFamily: FONTS.mono,
-                  fontSize: 16,
-                  color: COLORS.textSecondary,
-                  letterSpacing: "0.06em",
-                }}
-              >
-                {value}
-              </span>
+          <TechnicalPanel style={{padding: "18px 18px 20px"}}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 18,
+                fontFamily: FONTS.mono,
+                fontSize: 10,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: COLORS.textMuted,
+              }}
+            >
+              <span>Review package</span>
+              <span>Rev B.02</span>
             </div>
-          ))}
-        </div>
-      </div>
 
-      {/* Version stamp */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 20,
-          right: 40,
-          fontFamily: FONTS.mono,
-          fontSize: 9,
-          color: COLORS.textMuted,
-          letterSpacing: "0.1em",
-          opacity: cornerOpacity,
-        }}
-      >
-        REV 1.0 · MARK-HINTZ-PORTFOLIO
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 14,
+                fontFamily: FONTS.sans,
+              }}
+            >
+              {[
+                ["Positioning", "Design + manufacturing bridge"],
+                ["Primary signal", "Manufacturable mechanical execution"],
+                ["Supporting proof", "Systems thinking and software leverage"],
+              ].map(([label, value]) => (
+                <div
+                  key={label}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "110px 1fr",
+                    gap: 16,
+                    alignItems: "start",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: FONTS.mono,
+                      fontSize: 10,
+                      letterSpacing: "0.14em",
+                      textTransform: "uppercase",
+                      color: COLORS.textMuted,
+                    }}
+                  >
+                    {label}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 16,
+                      lineHeight: 1.35,
+                      color: COLORS.text,
+                    }}
+                  >
+                    {value}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </TechnicalPanel>
+
+          <TechnicalPanel style={{padding: "16px 18px"}}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gap: 12,
+              }}
+            >
+              {[
+                ["Location", MARK.location],
+                ["Experience", MARK.experience],
+                ["Tolerance", MARK.tolerance],
+                ["Thesis", "Design that survives reality"],
+              ].map(([label, value]) => (
+                <div key={label}>
+                  <div
+                    style={{
+                      fontFamily: FONTS.mono,
+                      fontSize: 9,
+                      letterSpacing: "0.16em",
+                      textTransform: "uppercase",
+                      color: COLORS.textMuted,
+                      marginBottom: 6,
+                    }}
+                  >
+                    {label}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: FONTS.mono,
+                      fontSize: 16,
+                      lineHeight: 1.2,
+                      color: label === "Tolerance" ? COLORS.accent : COLORS.textSecondary,
+                    }}
+                  >
+                    {value}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </TechnicalPanel>
+        </div>
       </div>
     </AbsoluteFill>
   );

@@ -1,243 +1,324 @@
-/**
- * Scene 2 — Identity Card
- * Mark's name slams in, spec readouts animate, profile image fades.
- * Duration: 10s (300 frames)
- */
-import { AbsoluteFill, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
-import { COLORS, FONTS, MARK } from "../constants";
-import { FadeIn } from "../components/AnimationPrimitives";
-import { CornerMark, HRule, ScanlineOverlay, SpecReadout } from "../components/UIAtoms";
+import {
+  AbsoluteFill,
+  Img,
+  interpolate,
+  staticFile,
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion";
+import {
+  BlueprintField,
+  CalloutChip,
+  CornerMark,
+  HRule,
+  ScanlineOverlay,
+  SectionLabel,
+  SpecReadout,
+  TechnicalPanel,
+} from "../components/UIAtoms";
+import {COLORS, FONTS, MARK} from "../constants";
 
 export const IdentityCardScene: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const {fps} = useVideoConfig();
 
-  // Name slam-in with spring
-  const nameSpring = spring({
-    frame,
-    fps,
-    config: { damping: 18, stiffness: 180, mass: 1.2 },
-    durationInFrames: 30,
-  });
-
-  const nameY = interpolate(nameSpring, [0, 1], [-80, 0]);
-  const nameOpacity = interpolate(nameSpring, [0, 0.4], [0, 1]);
-
-  // Accent line scale
-  const accentScale = interpolate(frame, [12, 30], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: (t) => 1 - Math.pow(1 - t, 4),
-  });
-
-  // Profile image
-  const imgOpacity = interpolate(frame, [fps * 1.5, fps * 3], [0, 1], {
+  const textOpacity = interpolate(frame, [10, fps * 1.6], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const imgScale = interpolate(frame, [fps * 1.5, fps * 3.5], [1.08, 1], {
+  const textY = interpolate(frame, [10, fps * 1.6], [20, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-
-  // Blueprint overlay on image
-  const imgOverlayOpacity = interpolate(frame, [fps * 3, fps * 5], [0.5, 0.2], {
+  const photoOpacity = interpolate(frame, [fps * 1.1, fps * 2.4], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-
-  // Tagline
-  const taglineOpacity = interpolate(frame, [fps * 4, fps * 5.5], [0, 1], {
+  const photoScale = interpolate(frame, [fps * 1.1, fps * 3.5], [1.05, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
   return (
-    <AbsoluteFill style={{ background: COLORS.bg, overflow: "hidden" }}>
+    <AbsoluteFill
+      style={{
+        background: "linear-gradient(135deg, #08111b 0%, #071019 48%, #03080f 100%)",
+        overflow: "hidden",
+      }}
+    >
+      <BlueprintField opacity={0.14} cell={58} majorEvery={4} />
       <ScanlineOverlay opacity={0.05} />
-      <CornerMark position="tl" opacity={0.5} />
-      <CornerMark position="tr" opacity={0.5} />
-      <CornerMark position="bl" opacity={0.5} />
-      <CornerMark position="br" opacity={0.5} />
+      <CornerMark position="tl" opacity={0.55} />
+      <CornerMark position="tr" opacity={0.55} />
+      <CornerMark position="bl" opacity={0.55} />
+      <CornerMark position="br" opacity={0.55} />
 
-      {/* Left column — identity text */}
       <div
         style={{
           position: "absolute",
-          left: 80,
-          top: 0,
-          bottom: 0,
-          width: 580,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          gap: 0,
+          inset: 0,
+          padding: "58px 72px 54px",
+          display: "grid",
+          gridTemplateColumns: "1.45fr 0.78fr",
+          gap: 32,
         }}
       >
-        {/* Super label */}
-        <FadeIn startFrame={0} durationFrames={20}>
+        <div style={{display: "flex", flexDirection: "column"}}>
+          <SectionLabel label="Profile Sheet / Engineering Dossier" startFrame={0} />
+
+          <div style={{marginTop: 16, opacity: textOpacity, transform: `translateY(${textY}px)`}}>
+            <div
+              style={{
+                fontFamily: FONTS.mono,
+                fontSize: 74,
+                lineHeight: 0.92,
+                letterSpacing: "-0.06em",
+                fontWeight: 700,
+                textTransform: "uppercase",
+                color: COLORS.text,
+              }}
+            >
+              {MARK.name}
+            </div>
+            <div
+              style={{
+                marginTop: 14,
+                fontFamily: FONTS.sans,
+                fontSize: 26,
+                lineHeight: 1.25,
+                color: COLORS.textSecondary,
+                maxWidth: 720,
+              }}
+            >
+              {MARK.headline}
+            </div>
+          </div>
+
+          <div style={{marginTop: 22}}>
+            <HRule startFrame={20} />
+          </div>
+
+          <div style={{display: "flex", gap: 14, marginTop: 26, flexWrap: "wrap"}}>
+            <SpecReadout value={MARK.tolerance} label="Tolerance" startFrame={fps * 1.4} accent />
+            <SpecReadout value={MARK.experience} label="Experience" startFrame={fps * 1.6} />
+            <SpecReadout value={MARK.location} label="Location" startFrame={fps * 1.8} />
+          </div>
+
           <div
             style={{
-              fontFamily: FONTS.mono,
-              fontSize: 10,
-              color: COLORS.accent,
-              letterSpacing: "0.18em",
-              marginBottom: 14,
-              textTransform: "uppercase",
+              marginTop: 22,
+              display: "grid",
+              gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+              gap: 14,
             }}
           >
-            // CANDIDATE PROFILE
+            {MARK.credentials.map((credential, index) => (
+              <TechnicalPanel
+                key={credential.label}
+                style={{
+                  padding: "16px 16px 18px",
+                  opacity: interpolate(frame, [fps * 2 + index * 5, fps * 2.6 + index * 5], [0, 1], {
+                    extrapolateLeft: "clamp",
+                    extrapolateRight: "clamp",
+                  }),
+                  transform: `translateY(${interpolate(
+                    frame,
+                    [fps * 2 + index * 5, fps * 2.6 + index * 5],
+                    [18, 0],
+                    {
+                      extrapolateLeft: "clamp",
+                      extrapolateRight: "clamp",
+                    },
+                  )}px)`,
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: FONTS.mono,
+                    fontSize: 10,
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    color: COLORS.accent,
+                    marginBottom: 10,
+                  }}
+                >
+                  {credential.label}
+                </div>
+                <div
+                  style={{
+                    fontFamily: FONTS.sans,
+                    fontSize: 18,
+                    lineHeight: 1.35,
+                    color: COLORS.text,
+                  }}
+                >
+                  {credential.value}
+                </div>
+              </TechnicalPanel>
+            ))}
           </div>
-        </FadeIn>
 
-        {/* Name — spring slam */}
-        <div
-          style={{
-            transform: `translateY(${nameY}px)`,
-            opacity: nameOpacity,
-            overflow: "hidden",
-          }}
-        >
-          <div
+          <TechnicalPanel
             style={{
-              fontFamily: FONTS.mono,
-              fontSize: 80,
-              fontWeight: 900,
-              color: COLORS.text,
-              letterSpacing: "-0.05em",
-              lineHeight: 0.9,
-              textTransform: "uppercase",
+              marginTop: 18,
+              padding: "18px 20px",
+              opacity: interpolate(frame, [fps * 3.3, fps * 4.4], [0, 1], {
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+              }),
             }}
           >
-            {MARK.name}
+            <div
+              style={{
+                fontFamily: FONTS.mono,
+                fontSize: 10,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: COLORS.textMuted,
+                marginBottom: 10,
+              }}
+            >
+              Dossier summary
+            </div>
+            <div
+              style={{
+                fontFamily: FONTS.sans,
+                fontSize: 22,
+                lineHeight: 1.4,
+                color: COLORS.text,
+                maxWidth: 760,
+              }}
+            >
+              {MARK.primaryTagline}
+            </div>
+            <div
+              style={{
+                marginTop: 10,
+                fontFamily: FONTS.sans,
+                fontSize: 18,
+                lineHeight: 1.45,
+                color: COLORS.textSecondary,
+              }}
+            >
+              {MARK.secondaryTagline}
+            </div>
+            <div
+              style={{
+                marginTop: 10,
+                fontFamily: FONTS.sans,
+                fontSize: 16,
+                lineHeight: 1.45,
+                color: COLORS.textMuted,
+              }}
+            >
+              {MARK.softwareTagline}
+            </div>
+          </TechnicalPanel>
+
+          <div style={{display: "flex", gap: 10, flexWrap: "wrap", marginTop: "auto"}}>
+            {MARK.focusAreas.map((item, index) => (
+              <CalloutChip
+                key={item}
+                label={item}
+                index={index}
+                startFrame={fps * 4.8}
+                active={index === 0}
+              />
+            ))}
           </div>
         </div>
 
-        {/* Accent bar */}
-        <div
-          style={{
-            marginTop: 20,
-            marginBottom: 24,
-            height: 3,
-            background: COLORS.accent,
-            transformOrigin: "left center",
-            transform: `scaleX(${accentScale})`,
-            width: 360,
-          }}
-        />
+        <div style={{display: "flex", flexDirection: "column", gap: 14}}>
+          <TechnicalPanel style={{padding: "14px 16px"}}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                fontFamily: FONTS.mono,
+                fontSize: 10,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: COLORS.textMuted,
+              }}
+            >
+              <span>Candidate profile</span>
+              <span>MH-2026</span>
+            </div>
+          </TechnicalPanel>
 
-        {/* Spec readouts */}
-        <div style={{ display: "flex", gap: 28, marginBottom: 32 }}>
-          <SpecReadout value={MARK.tolerance} label="Tolerance" startFrame={fps * 2} accent />
-          <SpecReadout value={MARK.experience} label="Experience" startFrame={fps * 2 + 12} />
-          <SpecReadout value={MARK.location} label="Location" startFrame={fps * 2 + 24} />
-        </div>
-
-        {/* Horizontal rule */}
-        <HRule startFrame={fps * 3} />
-
-        {/* Tagline */}
-        <div
-          style={{
-            marginTop: 20,
-            fontFamily: FONTS.mono,
-            fontSize: 18,
-            color: COLORS.textSecondary,
-            letterSpacing: "0.04em",
-            opacity: taglineOpacity,
-          }}
-        >
-          {MARK.tagline}
-        </div>
-      </div>
-
-      {/* Right column — profile photo */}
-      <div
-        style={{
-          position: "absolute",
-          right: 0,
-          top: 0,
-          bottom: 0,
-          width: 460,
-          overflow: "hidden",
-          opacity: imgOpacity,
-        }}
-      >
-        {/* Photo */}
-        <Img
-          src={staticFile("assets/images/profile.webp")}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center top",
-            transform: `scale(${imgScale})`,
-          }}
-        />
-
-        {/* Blueprint overlay tint */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: `linear-gradient(90deg, ${COLORS.bg} 0%, rgba(15,23,42,0.4) 50%, transparent 100%)`,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: `rgba(37,99,235,${imgOverlayOpacity})`,
-            mixBlendMode: "multiply",
-          }}
-        />
-
-        {/* Blueprint grid overlay on photo */}
-        <svg
-          width="100%"
-          height="100%"
-          style={{ position: "absolute", inset: 0, opacity: 0.12 }}
-          viewBox="0 0 460 720"
-        >
-          {Array.from({ length: 10 }, (_, i) => (
-            <line
-              key={`pv${i}`}
-              x1={i * 46}
-              y1={0}
-              x2={i * 46}
-              y2={720}
-              stroke={COLORS.accent}
-              strokeWidth={0.5}
+          <TechnicalPanel
+            style={{
+              position: "relative",
+              flex: 1,
+              overflow: "hidden",
+              opacity: photoOpacity,
+            }}
+          >
+            <Img
+              src={staticFile("assets/images/profile.webp")}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center top",
+                transform: `scale(${photoScale})`,
+                filter: "saturate(0.75) contrast(1.04)",
+              }}
             />
-          ))}
-          {Array.from({ length: 16 }, (_, i) => (
-            <line
-              key={`ph${i}`}
-              x1={0}
-              y1={i * 45}
-              x2={460}
-              y2={i * 45}
-              stroke={COLORS.accent}
-              strokeWidth={0.5}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background:
+                  "linear-gradient(180deg, rgba(7,16,25,0.22) 0%, rgba(7,16,25,0.06) 30%, rgba(7,16,25,0.42) 100%)",
+              }}
             />
-          ))}
-        </svg>
-
-        {/* Name tag label */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 32,
-            right: 32,
-            fontFamily: FONTS.mono,
-            fontSize: 10,
-            color: COLORS.textSecondary,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            opacity: taglineOpacity,
-          }}
-        >
-          PROFILE.WEBP · MH-2026
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(90deg, rgba(7,16,25,0.14) 0%, rgba(7,16,25,0.52) 100%)",
+              }}
+            />
+            <BlueprintField opacity={0.1} cell={48} majorEvery={5} />
+            <div
+              style={{
+                position: "absolute",
+                top: 16,
+                left: 16,
+                right: 16,
+                display: "flex",
+                justifyContent: "space-between",
+                fontFamily: FONTS.mono,
+                fontSize: 10,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: COLORS.textSecondary,
+              }}
+            >
+              <span>{MARK.dossierLabel}</span>
+              <span>Profile reference</span>
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                left: 18,
+                bottom: 18,
+                right: 18,
+                borderTop: `1px solid ${COLORS.border}`,
+                paddingTop: 12,
+                fontFamily: FONTS.mono,
+                fontSize: 11,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: COLORS.textSecondary,
+                lineHeight: 1.4,
+              }}
+            >
+              Design credibility is reinforced by direct exposure to machining, assembly, and
+              inspection realities.
+            </div>
+          </TechnicalPanel>
         </div>
       </div>
     </AbsoluteFill>

@@ -1,36 +1,39 @@
-/**
- * ProjectScene — Reusable scene for each project showcase
- * Used 3× with different props (PumpTracker, Pump Package, Torque Wrench)
- * Duration: 12s (360 frames) each
- *
- * Layout: Full-bleed image LEFT, label card RIGHT
- * Entry: Image wipes in from left edge, label slams in from right
- */
 import {
   AbsoluteFill,
-  Img,
   Easing,
+  Img,
   interpolate,
-  spring,
   staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { COLORS, FONTS } from "../constants";
-import { CornerMark, HRule, ScanlineOverlay, TagChip } from "../components/UIAtoms";
+import {
+  BlueprintField,
+  CalloutChip,
+  CornerMark,
+  HRule,
+  ScanlineOverlay,
+  SectionLabel,
+  TechnicalPanel,
+} from "../components/UIAtoms";
+import {COLORS, FONTS} from "../constants";
 
 export interface ProjectSceneProps {
   title: string;
   subtitle: string;
   category: string;
+  reviewLabel: string;
+  emphasis: "primary" | "secondary";
   outcome: string;
   outcomeLabel: string;
-  image: string; // path relative to staticFile, e.g. "assets/images/..."
+  image: string;
   tags: readonly string[];
-  /** Wipe direction: "left" = image enters from left, "right" = from right */
+  problem: string;
+  constraint: string;
+  decision: string;
+  validation: string;
+  callouts: readonly string[];
   wipeDirection?: "left" | "right";
-  /** Accent bar color override */
-  accentColor?: string;
   projectIndex?: number;
 }
 
@@ -38,243 +41,345 @@ export const ProjectScene: React.FC<ProjectSceneProps> = ({
   title,
   subtitle,
   category,
+  reviewLabel,
+  emphasis,
   outcome,
   outcomeLabel,
   image,
   tags,
+  problem,
+  constraint,
+  decision,
+  validation,
+  callouts,
   wipeDirection = "left",
   projectIndex = 0,
 }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const {fps} = useVideoConfig();
 
-  // Image wipe reveal — clip-path from left or right
-  const wipeProgress = interpolate(frame, [0, fps * 1.2], [0, 1], {
+  const revealProgress = interpolate(frame, [0, fps * 1.15], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.inOut(Easing.quad),
   });
+  const pct = interpolate(revealProgress, [0, 1], [100, 0]);
+  const clipPath =
+    wipeDirection === "left" ? `inset(0 ${pct}% 0 0)` : `inset(0 0 0 ${pct}%)`;
 
-  const fromLeft = wipeDirection === "left";
-  const clipStart = fromLeft ? "inset(0 100% 0 0)" : "inset(0 0 0 100%)";
-  const clipEnd = "inset(0 0 0 0)";
-  // We interpolate a percentage
-  const pct = interpolate(wipeProgress, [0, 1], [100, 0]);
-  const clipPath = fromLeft ? `inset(0 ${pct}% 0 0)` : `inset(0 0 0 ${pct}%)`;
-
-  // Slight ken burns zoom on image
-  const imgScale = interpolate(frame, [0, fps * 12], [1.06, 1], {
+  const panelOpacity = interpolate(frame, [fps * 0.8, fps * 1.8], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const panelX = interpolate(frame, [fps * 0.8, fps * 1.8], [36, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Label card slide-in
-  const cardSpring = spring({
-    frame: frame - fps * 0.8,
-    fps,
-    config: { damping: 200 },
-    durationInFrames: fps * 0.8,
-  });
-  const cardX = interpolate(cardSpring, [0, 1], [60, 0]);
-  const cardOpacity = interpolate(frame, [fps * 0.6, fps * 1.4], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
-  // Outcome stat spring
-  const statSpring = spring({
-    frame: frame - fps * 1.5,
-    fps,
-    config: { damping: 15, stiffness: 200, mass: 0.8 },
-    durationInFrames: fps * 0.6,
-  });
-  const statY = interpolate(statSpring, [0, 1], [-30, 0]);
-  const statOpacity = interpolate(frame, [fps * 1.3, fps * 2], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
-  // Tag strip animate in
-  const tagsStart = fps * 2;
-
-  // Project number
-  const numOpacity = interpolate(frame, [0, fps * 0.5], [0, 1], {
+  const imageScale = interpolate(frame, [0, fps * 12], [1.05, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
   return (
-    <AbsoluteFill style={{ background: COLORS.bg, overflow: "hidden" }}>
+    <AbsoluteFill
+      style={{
+        background: "linear-gradient(135deg, #08111b 0%, #071019 52%, #03080f 100%)",
+        overflow: "hidden",
+      }}
+    >
+      <BlueprintField opacity={0.12} cell={64} majorEvery={4} />
       <ScanlineOverlay opacity={0.05} />
       <CornerMark position="tl" opacity={0.4} />
       <CornerMark position="br" opacity={0.4} />
 
-      {/* Full-bleed project image — LEFT 60% */}
       <div
         style={{
           position: "absolute",
-          left: 0,
-          top: 0,
-          width: "60%",
-          height: "100%",
-          clipPath,
-          overflow: "hidden",
+          inset: 0,
+          display: "grid",
+          gridTemplateColumns: "1.18fr 0.95fr",
         }}
       >
-        <Img
-          src={staticFile(image)}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center",
-            transform: `scale(${imgScale})`,
-          }}
-        />
-        {/* Dark gradient from right so card is legible */}
         <div
           style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(90deg, transparent 40%, rgba(15,23,42,0.85) 100%)",
-          }}
-        />
-        {/* Top-bottom vignette */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(0deg, rgba(15,23,42,0.6) 0%, transparent 30%, transparent 70%, rgba(15,23,42,0.4) 100%)",
-          }}
-        />
-
-        {/* Project number stamp */}
-        <div
-          style={{
-            position: "absolute",
-            top: 32,
-            left: 32,
-            fontFamily: FONTS.mono,
-            fontSize: 11,
-            color: COLORS.accent,
-            letterSpacing: "0.16em",
-            textTransform: "uppercase",
-            opacity: numOpacity,
+            position: "relative",
+            clipPath,
+            overflow: "hidden",
+            borderRight: `1px solid ${COLORS.border}`,
           }}
         >
-          {`// PROJECT.0${projectIndex + 1}`}
-        </div>
-      </div>
+          <Img
+            src={staticFile(image)}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              transform: `scale(${imageScale})`,
+              filter: emphasis === "secondary" ? "saturate(0.82)" : "saturate(0.96)",
+            }}
+          />
 
-      {/* Label card — RIGHT column */}
-      <div
-        style={{
-          position: "absolute",
-          right: 0,
-          top: 0,
-          width: "46%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          padding: "0 60px 0 48px",
-          transform: `translateX(${cardX}px)`,
-          opacity: cardOpacity,
-        }}
-      >
-        {/* Category mono label */}
-        <div
-          style={{
-            fontFamily: FONTS.mono,
-            fontSize: 10,
-            color: COLORS.textMuted,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            marginBottom: 12,
-          }}
-        >
-          {category}
-        </div>
-
-        {/* Project title */}
-        <div
-          style={{
-            fontFamily: FONTS.mono,
-            fontSize: 42,
-            fontWeight: 900,
-            color: COLORS.text,
-            letterSpacing: "-0.04em",
-            lineHeight: 0.9,
-            textTransform: "uppercase",
-            marginBottom: 8,
-          }}
-        >
-          {title}
-        </div>
-
-        {/* Subtitle */}
-        <div
-          style={{
-            fontFamily: FONTS.mono,
-            fontSize: 13,
-            color: COLORS.textSecondary,
-            letterSpacing: "0.02em",
-            marginBottom: 24,
-          }}
-        >
-          {subtitle}
-        </div>
-
-        <HRule startFrame={0} />
-
-        {/* Outcome stat */}
-        <div
-          style={{
-            marginTop: 24,
-            transform: `translateY(${statY}px)`,
-            opacity: statOpacity,
-          }}
-        >
           <div
             style={{
-              fontFamily: FONTS.mono,
-              fontSize: 52,
-              fontWeight: 900,
-              color: COLORS.accent,
-              letterSpacing: "-0.03em",
-              lineHeight: 1,
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(90deg, rgba(7,16,25,0.16) 0%, rgba(7,16,25,0.24) 34%, rgba(7,16,25,0.86) 100%)",
             }}
-          >
-            {outcome}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(0deg, rgba(7,16,25,0.78) 0%, rgba(7,16,25,0.08) 40%, rgba(7,16,25,0.38) 100%)",
+            }}
+          />
+
+          <div style={{position: "absolute", top: 28, left: 28, right: 28}}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 18,
+                fontFamily: FONTS.mono,
+                fontSize: 10,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: COLORS.textSecondary,
+              }}
+            >
+              <span>{`Project .0${projectIndex + 1}`}</span>
+              <span>{reviewLabel}</span>
+            </div>
+
+            <div style={{display: "flex", gap: 10, flexWrap: "wrap", maxWidth: 420}}>
+              {callouts.map((callout, index) => (
+                <CalloutChip
+                  key={callout}
+                  label={callout}
+                  index={index}
+                  startFrame={fps * 1.2}
+                  active={index === 0}
+                />
+              ))}
+            </div>
           </div>
+
           <div
             style={{
-              fontFamily: FONTS.mono,
-              fontSize: 11,
-              color: COLORS.textSecondary,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              marginTop: 4,
+              position: "absolute",
+              left: 28,
+              bottom: 28,
+              display: "grid",
+              gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+              gap: 12,
+              width: 380,
             }}
           >
-            {outcomeLabel}
+            {[
+              ["Category", category],
+              ["Signal", emphasis === "primary" ? "Mechanical lead proof" : "Systems support proof"],
+            ].map(([label, value]) => (
+              <TechnicalPanel key={label} style={{padding: "12px 14px"}}>
+                <div
+                  style={{
+                    fontFamily: FONTS.mono,
+                    fontSize: 9,
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    color: COLORS.textMuted,
+                    marginBottom: 6,
+                  }}
+                >
+                  {label}
+                </div>
+                <div
+                  style={{
+                    fontFamily: FONTS.sans,
+                    fontSize: 15,
+                    lineHeight: 1.3,
+                    color: COLORS.text,
+                  }}
+                >
+                  {value}
+                </div>
+              </TechnicalPanel>
+            ))}
           </div>
         </div>
 
-        {/* Tag strip */}
         <div
           style={{
+            padding: "56px 56px 48px 44px",
             display: "flex",
-            flexWrap: "wrap" as const,
-            gap: 8,
-            marginTop: 28,
+            flexDirection: "column",
+            opacity: panelOpacity,
+            transform: `translateX(${panelX}px)`,
           }}
         >
-          {tags.map((tag, i) => (
-            <TagChip key={tag} label={tag} index={i} startFrame={tagsStart} />
-          ))}
+          <SectionLabel
+            label={emphasis === "primary" ? "Engineering review" : "Supporting systems review"}
+            startFrame={fps * 0.7}
+          />
+
+          <div
+            style={{
+              marginTop: 14,
+              fontFamily: FONTS.mono,
+              fontSize: 44,
+              lineHeight: 0.92,
+              letterSpacing: "-0.05em",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              color: COLORS.text,
+            }}
+          >
+            {title}
+          </div>
+
+          <div
+            style={{
+              marginTop: 10,
+              fontFamily: FONTS.sans,
+              fontSize: 20,
+              lineHeight: 1.35,
+              color: COLORS.textSecondary,
+            }}
+          >
+            {subtitle}
+          </div>
+
+          <div style={{marginTop: 18}}>
+            <HRule startFrame={fps * 0.9} />
+          </div>
+
+          <div style={{display: "flex", flexDirection: "column", gap: 14, marginTop: 20}}>
+            {[
+              ["Problem", problem],
+              ["Constraint", constraint],
+              ["Decision", decision],
+              ["Validation", validation],
+            ].map(([label, value], index) => (
+              <TechnicalPanel
+                key={label}
+                style={{
+                  padding: "14px 16px 16px",
+                  opacity: interpolate(
+                    frame,
+                    [fps * 1.15 + index * 6, fps * 1.8 + index * 6],
+                    [0, 1],
+                    {
+                      extrapolateLeft: "clamp",
+                      extrapolateRight: "clamp",
+                    },
+                  ),
+                  transform: `translateY(${interpolate(
+                    frame,
+                    [fps * 1.15 + index * 6, fps * 1.8 + index * 6],
+                    [16, 0],
+                    {
+                      extrapolateLeft: "clamp",
+                      extrapolateRight: "clamp",
+                    },
+                  )}px)`,
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: FONTS.mono,
+                    fontSize: 10,
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    color: COLORS.accent,
+                    marginBottom: 8,
+                  }}
+                >
+                  {label}
+                </div>
+                <div
+                  style={{
+                    fontFamily: FONTS.sans,
+                    fontSize: label === "Validation" ? 17 : 18,
+                    lineHeight: 1.35,
+                    color: label === "Validation" ? COLORS.textSecondary : COLORS.text,
+                  }}
+                >
+                  {value}
+                </div>
+              </TechnicalPanel>
+            ))}
+          </div>
+
+          <TechnicalPanel
+            style={{
+              marginTop: "auto",
+              padding: "18px 20px 20px",
+              background: COLORS.panelStrong,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-end",
+                gap: 16,
+              }}
+            >
+              <div>
+                <div
+                  style={{
+                    fontFamily: FONTS.mono,
+                    fontSize: 10,
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    color: COLORS.textMuted,
+                    marginBottom: 6,
+                  }}
+                >
+                  Result
+                </div>
+                <div
+                  style={{
+                    fontFamily: FONTS.mono,
+                    fontSize: 52,
+                    lineHeight: 1,
+                    fontWeight: 700,
+                    letterSpacing: "-0.05em",
+                    color: COLORS.accent,
+                  }}
+                >
+                  {outcome}
+                </div>
+                <div
+                  style={{
+                    marginTop: 4,
+                    fontFamily: FONTS.mono,
+                    fontSize: 11,
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    color: COLORS.textSecondary,
+                  }}
+                >
+                  {outcomeLabel}
+                </div>
+              </div>
+
+              <div style={{display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end"}}>
+                {tags.map((tag, index) => (
+                  <CalloutChip
+                    key={tag}
+                    label={tag}
+                    index={index}
+                    startFrame={fps * 3.2}
+                    active={false}
+                  />
+                ))}
+              </div>
+            </div>
+          </TechnicalPanel>
         </div>
       </div>
     </AbsoluteFill>

@@ -1,109 +1,100 @@
-/**
- * Video.tsx — Main Showreel Composition
- *
- * Stitches all 6 scenes together using TransitionSeries.
- * Scene durations are calculated to land on TOTAL_FRAMES.
- *
- * Scenes:
- *  1. BlueprintGridScene  — 8s  (240 frames)
- *  2. IdentityCardScene   — 10s (300 frames)
- *  3. ProjectScene (PT)   — 12s (360 frames)
- *  4. ProjectScene (PP)   — 12s (360 frames)
- *  5. ProjectScene (TW)   — 12s (360 frames)
- *  6. SkillsCTAScene      — 8s  (240 frames)
- *
- * 5 transitions × 20 frames = 100 frames overlap
- * Total = 240+300+360+360+360+240 - 100 = 1760 frames ≈ 58.7s
- */
-import { TransitionSeries, linearTiming, springTiming } from "@remotion/transitions";
-import { fade } from "@remotion/transitions/fade";
-import { wipe } from "@remotion/transitions/wipe";
-import { slide } from "@remotion/transitions/slide";
-import { AbsoluteFill } from "remotion";
+import {TransitionSeries, linearTiming, springTiming} from "@remotion/transitions";
+import {fade} from "@remotion/transitions/fade";
+import {wipe} from "@remotion/transitions/wipe";
+import {AbsoluteFill} from "remotion";
 
-import { BlueprintGridScene } from "./scenes/BlueprintGridScene";
-import { IdentityCardScene } from "./scenes/IdentityCardScene";
-import { ProjectScene } from "./scenes/ProjectScene";
-import { SkillsCTAScene } from "./scenes/SkillsCTAScene";
-import { PROJECTS, TRANSITION_FRAMES, FPS } from "./constants";
+import {FPS, TRANSITION_FRAMES} from "./constants";
+import {BlueprintGridScene} from "./scenes/BlueprintGridScene";
+import {IdentityCardScene} from "./scenes/IdentityCardScene";
+import {ProjectScene} from "./scenes/ProjectScene";
+import {SkillsCTAScene} from "./scenes/SkillsCTAScene";
+import {defaultShowreelProps, type ShowreelProps} from "./schemas";
 
-const SCENE_BLUEPRINT = 8 * FPS;   // 240
-const SCENE_IDENTITY  = 10 * FPS;  // 300
-const SCENE_PROJECT   = 12 * FPS;  // 360
-const SCENE_CTA       = 8 * FPS;   // 240
+const SCENE_BLUEPRINT = 8 * FPS;
+const SCENE_IDENTITY = 10 * FPS;
+const SCENE_PROJECT = 12 * FPS;
+const SCENE_CTA = 8 * FPS;
 
-export const ShowreelVideo: React.FC = () => {
+export const ShowreelVideo: React.FC<ShowreelProps> = ({
+  introHeadlineTop = defaultShowreelProps.introHeadlineTop,
+  introHeadlineAccent = defaultShowreelProps.introHeadlineAccent,
+  introHeadlineBottom = defaultShowreelProps.introHeadlineBottom,
+  introBody = defaultShowreelProps.introBody,
+  closingHeadlineTop = defaultShowreelProps.closingHeadlineTop,
+  closingHeadlineBottom = defaultShowreelProps.closingHeadlineBottom,
+  closingBody = defaultShowreelProps.closingBody,
+  closingSummaryPrimary = defaultShowreelProps.closingSummaryPrimary,
+  closingSummarySecondary = defaultShowreelProps.closingSummarySecondary,
+  contactEmail = defaultShowreelProps.contactEmail,
+  projects = defaultShowreelProps.projects,
+}) => {
+  const [projectOneRaw, projectTwoRaw, projectThreeRaw] = projects;
+  const {key: _projectOneKey, ...projectOne} = projectOneRaw;
+  const {key: _projectTwoKey, ...projectTwo} = projectTwoRaw;
+  const {key: _projectThreeKey, ...projectThree} = projectThreeRaw;
+
   return (
     <AbsoluteFill>
       <TransitionSeries>
-        {/* ── Scene 1: Blueprint Grid ── */}
         <TransitionSeries.Sequence durationInFrames={SCENE_BLUEPRINT}>
-          <BlueprintGridScene />
+          <BlueprintGridScene
+            introHeadlineTop={introHeadlineTop}
+            introHeadlineAccent={introHeadlineAccent}
+            introHeadlineBottom={introHeadlineBottom}
+            introBody={introBody}
+          />
         </TransitionSeries.Sequence>
 
         <TransitionSeries.Transition
           presentation={fade()}
-          timing={linearTiming({ durationInFrames: TRANSITION_FRAMES })}
+          timing={linearTiming({durationInFrames: TRANSITION_FRAMES})}
         />
 
-        {/* ── Scene 2: Identity Card ── */}
         <TransitionSeries.Sequence durationInFrames={SCENE_IDENTITY}>
           <IdentityCardScene />
         </TransitionSeries.Sequence>
 
         <TransitionSeries.Transition
-          presentation={wipe({ direction: "from-left" })}
-          timing={springTiming({ config: { damping: 200 }, durationInFrames: TRANSITION_FRAMES })}
+          presentation={wipe({direction: "from-left"})}
+          timing={springTiming({config: {damping: 200}, durationInFrames: TRANSITION_FRAMES})}
         />
 
-        {/* ── Scene 3: PumpTracker ── */}
         <TransitionSeries.Sequence durationInFrames={SCENE_PROJECT}>
-          <ProjectScene
-            {...PROJECTS[0]}
-            image={PROJECTS[0].image.replace("../public/", "")}
-            wipeDirection="left"
-            projectIndex={0}
-          />
+          <ProjectScene {...projectOne} wipeDirection="left" projectIndex={0} />
         </TransitionSeries.Sequence>
 
         <TransitionSeries.Transition
-          presentation={slide({ direction: "from-right" })}
-          timing={springTiming({ config: { damping: 200 }, durationInFrames: TRANSITION_FRAMES })}
+          presentation={wipe({direction: "from-right"})}
+          timing={springTiming({config: {damping: 200}, durationInFrames: TRANSITION_FRAMES})}
         />
 
-        {/* ── Scene 4: Pump Package ── */}
         <TransitionSeries.Sequence durationInFrames={SCENE_PROJECT}>
-          <ProjectScene
-            {...PROJECTS[1]}
-            image={PROJECTS[1].image.replace("../public/", "")}
-            wipeDirection="right"
-            projectIndex={1}
-          />
+          <ProjectScene {...projectTwo} wipeDirection="right" projectIndex={1} />
         </TransitionSeries.Sequence>
 
         <TransitionSeries.Transition
-          presentation={slide({ direction: "from-left" })}
-          timing={springTiming({ config: { damping: 200 }, durationInFrames: TRANSITION_FRAMES })}
+          presentation={wipe({direction: "from-left"})}
+          timing={springTiming({config: {damping: 200}, durationInFrames: TRANSITION_FRAMES})}
         />
 
-        {/* ── Scene 5: Torque Wrench ── */}
         <TransitionSeries.Sequence durationInFrames={SCENE_PROJECT}>
-          <ProjectScene
-            {...PROJECTS[2]}
-            image={PROJECTS[2].image.replace("../public/", "")}
-            wipeDirection="left"
-            projectIndex={2}
-          />
+          <ProjectScene {...projectThree} wipeDirection="left" projectIndex={2} />
         </TransitionSeries.Sequence>
 
         <TransitionSeries.Transition
           presentation={fade()}
-          timing={linearTiming({ durationInFrames: TRANSITION_FRAMES })}
+          timing={linearTiming({durationInFrames: TRANSITION_FRAMES})}
         />
 
-        {/* ── Scene 6: Skills + CTA ── */}
         <TransitionSeries.Sequence durationInFrames={SCENE_CTA}>
-          <SkillsCTAScene />
+          <SkillsCTAScene
+            closingHeadlineTop={closingHeadlineTop}
+            closingHeadlineBottom={closingHeadlineBottom}
+            closingBody={closingBody}
+            closingSummaryPrimary={closingSummaryPrimary}
+            closingSummarySecondary={closingSummarySecondary}
+            contactEmail={contactEmail}
+          />
         </TransitionSeries.Sequence>
       </TransitionSeries>
     </AbsoluteFill>

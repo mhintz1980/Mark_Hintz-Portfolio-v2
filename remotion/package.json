@@ -4,20 +4,31 @@
   "description": "Remotion portfolio showreel for Mark Hintz",
   "private": true,
   "scripts": {
-    "studio": "npx remotion studio src/Root.tsx",
+    "studio": "npx remotion studio src/Root.tsx --port 3333",
     "render": "npx remotion render src/Root.tsx Showreel out/showreel.mp4 --codec h264",
     "render:720": "npx remotion render src/Root.tsx Showreel out/showreel-720.mp4 --codec h264",
     "render:1080": "npx remotion render src/Root.tsx Showreel1080 out/showreel-1080.mp4 --codec h264",
     "tsc": "npx tsc --noEmit"
   },
   "dependencies": {
-    "@remotion/transitions": "4.0.290",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "remotion": "4.0.290"
+    "@remotion/captions": "4.0.446",
+    "@remotion/google-fonts": "4.0.446",
+    "@remotion/lottie": "4.0.446",
+    "@remotion/media-utils": "4.0.446",
+    "@remotion/motion-blur": "4.0.446",
+    "@remotion/noise": "4.0.446",
+    "@remotion/paths": "4.0.446",
+    "@remotion/shapes": "4.0.446",
+    "@remotion/transitions": "^4.0.446",
+    "@remotion/zod-types": "^4.0.446",
+    "lottie-web": "^5.13.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.446",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@remotion/cli": "^4.0.290",
+    "@remotion/cli": "^4.0.446",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "typescript": "5.5.4"

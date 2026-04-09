@@ -29,10 +29,10 @@ remotion/
 
 Images are loaded via `staticFile()` from:
 ```
-../public/assets/images/   →   portfolio's public folder
+public/assets/images/   →   symlinked to the portfolio's shared public folder
 ```
 
-No copying required — Remotion's dev server resolves these paths correctly.
+The `remotion/public` symlink points at the repo-level `../public` folder so Studio and CLI renders resolve the same assets.
 
 ## Commands
 

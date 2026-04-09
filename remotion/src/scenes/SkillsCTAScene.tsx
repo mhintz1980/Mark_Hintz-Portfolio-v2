@@ -1,296 +1,229 @@
-/**
- * Scene 6 — Skills Ticker + CTA
- * Final scene: scrolling skills strip, Mark's name, tagline, CTA text.
- * Duration: 8s (240 frames)
- */
+import {AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig} from "remotion";
 import {
-  AbsoluteFill,
-  interpolate,
-  spring,
-  useCurrentFrame,
-  useVideoConfig,
-} from "remotion";
-import { COLORS, FONTS, MARK, SKILLS_TICKER } from "../constants";
-import { CornerMark, HRule, ScanlineOverlay, SkillsTicker } from "../components/UIAtoms";
+  BlueprintField,
+  CalloutChip,
+  CornerMark,
+  HRule,
+  ScanlineOverlay,
+  SectionLabel,
+  SkillsTicker,
+  TechnicalPanel,
+} from "../components/UIAtoms";
+import {COLORS, FONTS, MARK, SKILLS_TICKER} from "../constants";
+import {defaultShowreelProps, type ShowreelProps} from "../schemas";
 
-export const SkillsCTAScene: React.FC = () => {
+type SkillsCTASceneProps = Pick<
+  ShowreelProps,
+  | "closingHeadlineTop"
+  | "closingHeadlineBottom"
+  | "closingBody"
+  | "closingSummaryPrimary"
+  | "closingSummarySecondary"
+  | "contactEmail"
+>;
+
+export const SkillsCTAScene: React.FC<Partial<SkillsCTASceneProps>> = ({
+  closingHeadlineTop = defaultShowreelProps.closingHeadlineTop,
+  closingHeadlineBottom = defaultShowreelProps.closingHeadlineBottom,
+  closingBody = defaultShowreelProps.closingBody,
+  closingSummaryPrimary = defaultShowreelProps.closingSummaryPrimary,
+  closingSummarySecondary = defaultShowreelProps.closingSummarySecondary,
+  contactEmail = defaultShowreelProps.contactEmail,
+}) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const {fps} = useVideoConfig();
 
-  // Grid background reveal
-  const bgOpacity = interpolate(frame, [0, fps * 0.5], [0, 1], {
+  const headlineOpacity = interpolate(frame, [fps * 0.5, fps * 1.6], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-
-  // Name spring entrance
-  const nameSpring = spring({
-    frame,
-    fps,
-    config: { damping: 200 },
-    durationInFrames: fps * 0.8,
-  });
-  const nameY = interpolate(nameSpring, [0, 1], [40, 0]);
-
-  // Accent line
-  const accentScale = interpolate(frame, [fps * 0.5, fps * 1.2], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: (t) => 1 - Math.pow(1 - t, 4),
-  });
-
-  // Tagline
-  const tagOpacity = interpolate(frame, [fps * 1.2, fps * 2.2], [0, 1], {
+  const headlineY = interpolate(frame, [fps * 0.5, fps * 1.6], [26, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-
-  // CTA
-  const ctaOpacity = interpolate(frame, [fps * 2.5, fps * 3.5], [0, 1], {
+  const bodyOpacity = interpolate(frame, [fps * 1.6, fps * 2.8], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const ctaY = interpolate(frame, [fps * 2.5, fps * 3.5], [20, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
-  // Ticker strip opacity
-  const tickerOpacity = interpolate(frame, [fps * 1, fps * 2], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
-  // Bottom bar (email/contact)
-  const bottomOpacity = interpolate(frame, [fps * 4, fps * 5], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
-  // Pulse on CTA border
-  const pulseOpacity = interpolate(
-    Math.sin((frame / fps) * Math.PI * 1.5),
-    [-1, 1],
-    [0.3, 0.9]
-  );
 
   return (
-    <AbsoluteFill style={{ background: COLORS.bg, overflow: "hidden" }}>
+    <AbsoluteFill
+      style={{
+        background: "linear-gradient(180deg, #08111b 0%, #071019 52%, #03080f 100%)",
+        overflow: "hidden",
+      }}
+    >
+      <BlueprintField opacity={0.14} cell={64} majorEvery={4} />
       <ScanlineOverlay opacity={0.05} />
-
-      {/* Blueprint background grid */}
-      <svg
-        width="100%"
-        height="100%"
-        style={{ position: "absolute", inset: 0, opacity: bgOpacity * 0.5 }}
-        viewBox="0 0 1280 720"
-      >
-        {Array.from({ length: 17 }, (_, i) => (
-          <line
-            key={`v${i}`}
-            x1={i * 80}
-            y1={0}
-            x2={i * 80}
-            y2={720}
-            stroke={COLORS.gridLine}
-            strokeWidth={0.5}
-          />
-        ))}
-        {Array.from({ length: 10 }, (_, i) => (
-          <line
-            key={`h${i}`}
-            x1={0}
-            y1={i * 80}
-            x2={1280}
-            y2={i * 80}
-            stroke={COLORS.gridLine}
-            strokeWidth={0.5}
-          />
-        ))}
-      </svg>
-
       <CornerMark position="tl" />
       <CornerMark position="tr" />
       <CornerMark position="bl" />
       <CornerMark position="br" />
 
-      {/* Skills ticker band */}
       <div
         style={{
           position: "absolute",
           top: 0,
           left: 0,
           right: 0,
-          height: 48,
-          background: `rgba(37,99,235,0.08)`,
-          borderBottom: `1px solid ${COLORS.gridLineBright}`,
+          height: 44,
           display: "flex",
           alignItems: "center",
-          opacity: tickerOpacity,
-          overflow: "hidden",
+          padding: "0 26px",
+          borderBottom: `1px solid ${COLORS.border}`,
+          background: "rgba(7, 16, 25, 0.78)",
         }}
       >
-        <SkillsTicker skills={SKILLS_TICKER} speed={1.4} />
+        <SkillsTicker skills={SKILLS_TICKER} speed={1.15} />
       </div>
 
-      {/* Main content — centered */}
       <div
         style={{
           position: "absolute",
           inset: 0,
+          padding: "92px 96px 70px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
-          padding: "0 80px",
-          gap: 0,
+          textAlign: "center",
         }}
       >
-        {/* Super label */}
-        <div
-          style={{
-            fontFamily: FONTS.mono,
-            fontSize: 11,
-            color: COLORS.accent,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            marginBottom: 16,
-            opacity: bgOpacity,
-          }}
-        >
-          // AVAILABLE FOR WORK
-        </div>
+        <SectionLabel label="Closing Statement / Availability" startFrame={0} />
 
-        {/* Name */}
-        <div
-          style={{
-            fontFamily: FONTS.mono,
-            fontSize: 96,
-            fontWeight: 900,
-            color: COLORS.text,
-            letterSpacing: "-0.06em",
-            lineHeight: 0.9,
-            textTransform: "uppercase",
-            transform: `translateY(${nameY}px)`,
-            textAlign: "center",
-          }}
-        >
-          {MARK.name}
-        </div>
-
-        {/* Accent bar */}
         <div
           style={{
             marginTop: 20,
-            marginBottom: 20,
-            height: 3,
-            background: COLORS.accent,
-            transformOrigin: "center",
-            transform: `scaleX(${accentScale})`,
-            width: 480,
-          }}
-        />
-
-        {/* Tagline */}
-        <div
-          style={{
+            opacity: headlineOpacity,
+            transform: `translateY(${headlineY}px)`,
             fontFamily: FONTS.mono,
-            fontSize: 20,
-            color: COLORS.textSecondary,
-            letterSpacing: "0.04em",
-            textAlign: "center",
-            opacity: tagOpacity,
-            marginBottom: 36,
+            fontSize: 84,
+            fontWeight: 700,
+            lineHeight: 0.92,
+            letterSpacing: "-0.06em",
+            textTransform: "uppercase",
+            color: COLORS.text,
           }}
         >
-          {MARK.tagline}
+          {closingHeadlineTop}
+          <br />
+          <span style={{color: COLORS.accent}}>{closingHeadlineBottom}</span>
         </div>
 
-        <div style={{ marginBottom: 36, width: "100%", maxWidth: 600 }}>
-          <HRule startFrame={fps * 2.5} />
-        </div>
-
-        {/* CTA block */}
         <div
           style={{
-            transform: `translateY(${ctaY}px)`,
-            opacity: ctaOpacity,
+            marginTop: 20,
+            maxWidth: 820,
+            opacity: bodyOpacity,
+            fontFamily: FONTS.sans,
+            fontSize: 24,
+            lineHeight: 1.45,
+            color: COLORS.textSecondary,
+          }}
+        >
+          {closingBody}
+        </div>
+
+        <div style={{marginTop: 26, width: "100%", maxWidth: 700}}>
+          <HRule startFrame={fps * 1.4} />
+        </div>
+
+        <div style={{display: "flex", gap: 10, flexWrap: "wrap", marginTop: 28, justifyContent: "center"}}>
+          {[
+            "DESIGN THAT SURVIVES REALITY",
+            "INSPECTION-AWARE",
+            "ASSEMBLY-LITERATE",
+            "SOFTWARE AS SUPPORTING PROOF",
+          ].map((label, index) => (
+            <CalloutChip
+              key={label}
+              label={label}
+              index={index}
+              startFrame={fps * 2}
+              active={index === 0}
+            />
+          ))}
+        </div>
+
+        <TechnicalPanel
+          style={{
+            marginTop: 32,
+            maxWidth: 900,
+            padding: "22px 28px",
+            opacity: interpolate(frame, [fps * 2.6, fps * 3.8], [0, 1], {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            }),
+          }}
+        >
+          <div
+            style={{
+              fontFamily: FONTS.mono,
+              fontSize: 10,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              color: COLORS.textMuted,
+              marginBottom: 10,
+            }}
+          >
+            Positioning summary
+          </div>
+          <div
+            style={{
+              fontFamily: FONTS.sans,
+              fontSize: 22,
+              lineHeight: 1.45,
+              color: COLORS.text,
+            }}
+          >
+            {closingSummaryPrimary}
+          </div>
+          <div
+            style={{
+              marginTop: 10,
+              fontFamily: FONTS.sans,
+              fontSize: 18,
+              lineHeight: 1.45,
+              color: COLORS.textSecondary,
+            }}
+          >
+            {closingSummarySecondary}
+          </div>
+        </TechnicalPanel>
+
+        <div
+          style={{
+            marginTop: "auto",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 12,
+            gap: 14,
           }}
         >
           <div
             style={{
               fontFamily: FONTS.mono,
-              fontSize: 13,
+              fontSize: 16,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
               color: COLORS.textSecondary,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              textAlign: "center",
             }}
           >
-            Come on. Let's build something cool together.
+            {MARK.name}
           </div>
-
-          {/* Contact pill */}
-          <div
-            style={{
-              marginTop: 8,
-              border: `1px solid rgba(37,99,235,${pulseOpacity})`,
-              borderRadius: 2,
-              padding: "12px 32px",
-              fontFamily: FONTS.mono,
-              fontSize: 18,
-              color: COLORS.accent,
-              letterSpacing: "0.06em",
-              textTransform: "uppercase",
-              background: "rgba(37,99,235,0.08)",
-            }}
-          >
-            markworks.dev@gmail.com
-          </div>
+          <TechnicalPanel style={{padding: "14px 28px"}}>
+            <div
+              style={{
+                fontFamily: FONTS.mono,
+                fontSize: 18,
+                letterSpacing: "0.08em",
+                color: COLORS.accent,
+                textTransform: "uppercase",
+              }}
+            >
+              {contactEmail}
+            </div>
+          </TechnicalPanel>
         </div>
-      </div>
-
-      {/* Bottom ticker band */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: 40,
-          background: `rgba(37,99,235,0.06)`,
-          borderTop: `1px solid ${COLORS.gridLineBright}`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 40px",
-          opacity: bottomOpacity,
-        }}
-      >
-        <span
-          style={{
-            fontFamily: FONTS.mono,
-            fontSize: 10,
-            color: COLORS.textMuted,
-            letterSpacing: "0.12em",
-          }}
-        >
-          linkedin.com/in/mark-hintz-builds
-        </span>
-        <span
-          style={{
-            fontFamily: FONTS.mono,
-            fontSize: 10,
-            color: COLORS.textMuted,
-            letterSpacing: "0.12em",
-          }}
-        >
-          JAX FL · {new Date().getFullYear()}
-        </span>
       </div>
     </AbsoluteFill>
   );
