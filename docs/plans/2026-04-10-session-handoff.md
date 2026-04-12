@@ -187,11 +187,12 @@ Read these in order:
 1. `/home/markimus/projects/Portfolio/AGENTS.md`
 2. `docs/context/mark-agent-onboarding.md`
 3. `docs/context/remotion-parallel-work-map.md`
-4. `docs/plans/2026-04-08-remotion-showreel-strategy-and-handoff.md`
-5. `docs/plans/2026-04-08-remotion-showreel-visual-grammar-and-scene-plan.md`
-6. `docs/plans/2026-04-09-remotion-showreel-next-session-handoff.md`
-7. `docs/plans/2026-04-10-showreel-remix-and-portfolio-media-handoff.md`
-8. this file
+4. `docs/context/session-handoff-standard.md`
+5. `docs/plans/2026-04-08-remotion-showreel-strategy-and-handoff.md`
+6. `docs/plans/2026-04-08-remotion-showreel-visual-grammar-and-scene-plan.md`
+7. `docs/plans/2026-04-09-remotion-showreel-next-session-handoff.md`
+8. `docs/plans/2026-04-10-showreel-remix-and-portfolio-media-handoff.md`
+9. this file
 
 Then inspect:
 
@@ -205,6 +206,8 @@ Then inspect:
 
 Use these skills explicitly:
 
+- `Auto Handoff`
+  - before ending the session or when context starts getting crowded
 - `brainstorming`
   - before designing the resume-text animation treatment
 - `remotion-video-toolkit`
