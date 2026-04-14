@@ -110,8 +110,7 @@ const IdentityImageViewport: React.FC<{
         position: "absolute",
         inset: 0,
         overflow: "hidden",
-        border: `1px solid ${theme.border}`,
-        background: theme.panelStrong,
+        // No border, no panel background — full bleed directly on the scene bg
       }}
     >
       {sceneOverlay.imageSequence?.map((image, index) => {
@@ -155,40 +154,47 @@ const IdentityImageViewport: React.FC<{
         );
       })}
 
+      {/* Vertical vignette — top/bottom darkening */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(180deg, rgba(3, 3, 3, 0.18) 0%, rgba(3, 3, 3, 0.04) 26%, rgba(3, 3, 3, 0.38) 100%)",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: `radial-gradient(circle at 20% 22%, transparent 0%, transparent 34%, ${theme.bgDeep} 100%)`,
-          mixBlendMode: "multiply",
-          opacity: 0.82,
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          inset: 18,
-          border: `1px dashed ${theme.border}`,
-          opacity: 0.34,
+          background: "linear-gradient(180deg, rgba(3, 3, 3, 0.28) 0%, rgba(3, 3, 3, 0.04) 26%, rgba(3, 3, 3, 0.48) 100%)",
           pointerEvents: "none",
         }}
       />
 
+      {/*
+       * Left-to-right fade — the key effect.
+       * Images bleed from the right; this gradient dissolves them into the
+       * scene bg color as they approach the left (text) side.
+       * Stays fully opaque (bg color) for the first ~22% of the viewport,
+       * then dissolves to transparent by ~56%.
+       */}
       <div
         style={{
           position: "absolute",
-          left: 18,
-          top: 16,
-          padding: "10px 12px 8px",
+          inset: 0,
+          background: `linear-gradient(to right,
+            ${theme.bg} 0%,
+            ${theme.bg} 20%,
+            rgba(11, 11, 12, 0.88) 32%,
+            rgba(11, 11, 12, 0.50) 44%,
+            rgba(11, 11, 12, 0.0) 58%
+          )`,
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Small badge — anchored to bottom-right to sit on the bleed image */}
+      <div
+        style={{
+          position: "absolute",
+          right: 22,
+          bottom: 18,
+          padding: "8px 12px 7px",
           border: `1px solid ${theme.border}`,
-          background: "rgba(0, 0, 0, 0.46)",
+          background: "rgba(0, 0, 0, 0.56)",
           display: "flex",
           justifyContent: "space-between",
           gap: 14,
@@ -239,6 +245,18 @@ export const RemixIdentityCardScene: React.FC<{
     >
       <RemixBlueprintField theme={theme} opacity={0.18} cell={58} majorEvery={4} />
       <RemixNoiseOverlay theme={theme} overlays={overlays} />
+
+      {/*
+       * Full-bleed image layer — rendered below everything else.
+       * Images cover the full viewport; the left-fade gradient inside
+       * IdentityImageViewport dissolves them to bg color before they
+       * reach the text panel.
+       */}
+      <div style={{position: "absolute", inset: 0, opacity: cloudOpacity}}>
+        <IdentityImageViewport theme={theme} sceneOverlay={sceneOverlay} />
+        <ResumeTextCloud theme={theme} sceneOverlay={sceneOverlay} />
+      </div>
+
       {sceneOverlay.tracePaths.map((tracePath, index) => (
         <RemixTracePath
           key={`${tracePath.label ?? "trace"}-${index}`}
@@ -260,17 +278,20 @@ export const RemixIdentityCardScene: React.FC<{
         />
       ) : null}
 
+      {/*
+       * Text content — single left-side column.
+       * maxWidth keeps it out of the imagery zone on the right.
+       * The left-fade gradient in IdentityImageViewport ensures the
+       * first ~22% of the screen is always solid bg under this text.
+       */}
       <div
         style={{
           position: "absolute",
           inset: 0,
           padding: "58px 72px 54px",
-          display: "grid",
-          gridTemplateColumns: "1.42fr 0.8fr",
-          gap: 34,
         }}
       >
-        <div style={{display: "flex", flexDirection: "column"}}>
+        <div style={{display: "flex", flexDirection: "column", maxWidth: 680}}>
           <div
             style={{
               fontFamily: remixFonts.mono,
@@ -311,7 +332,7 @@ export const RemixIdentityCardScene: React.FC<{
                 fontSize: 26,
                 lineHeight: 1.25,
                 color: theme.textSecondary,
-                maxWidth: 720,
+                maxWidth: 620,
               }}
             >
               {MARK.headline}
@@ -414,17 +435,6 @@ export const RemixIdentityCardScene: React.FC<{
               </div>
             ))}
           </div>
-        </div>
-
-        <div
-          style={{
-            position: "relative",
-            minHeight: 0,
-            opacity: cloudOpacity,
-          }}
-        >
-          <IdentityImageViewport theme={theme} sceneOverlay={sceneOverlay} />
-          <ResumeTextCloud theme={theme} sceneOverlay={sceneOverlay} />
         </div>
       </div>
     </AbsoluteFill>

@@ -69,3 +69,28 @@ export const buildResumeTextBlocks = (phrases: readonly string[]): ResumeTextBlo
 };
 
 export const defaultResumeTextBlocks = buildResumeTextBlocks(resumeXmlPhrases);
+
+// ---------------------------------------------------------------------------
+// Torque Wrench / Precision Gearbox — project scene text cloud
+// 12 phrases covering the full material-to-test lifecycle for a precision
+// gearbox. Ordered to match the same lane templates as the identity cloud.
+// ---------------------------------------------------------------------------
+export const gearboxPhrases = [
+  "AGMA CLASS 9",
+  "POST-HT CLEANUP",
+  "RUNOUT CONTROL",
+  "HEAT TREAT",
+  "INSPECTION PLAN",
+  "GEAR GEOMETRY",
+  "\u00B10.0002 TOL",
+  "FIXTURE DESIGN",
+  "MATERIAL SELECTION",
+  "PROCESS CAPABILITY",
+  "FINAL TEST LOAD",
+  "BUILDABLE PRECISION",
+] as const;
+
+// Project-scene blocks use the same lane geometry as the identity cloud.
+// Callers that need the raw templates (e.g. to build per-scene blocks inline)
+// can use buildResumeTextBlocks(gearboxPhrases).
+export const defaultGearboxTextBlocks = buildResumeTextBlocks(gearboxPhrases);
