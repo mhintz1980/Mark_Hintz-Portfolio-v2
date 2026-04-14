@@ -17,7 +17,7 @@ export const Testimonials = () => {
   return (
     <>
       <SkillsBand />
-      <section id="testimonials" className="py-24 w-full relative z-10 overflow-hidden bg-background">
+      <section id="testimonials" className="py-24 w-full relative z-10 overflow-hidden bg-transparent">
         <div className="max-w-7xl mx-auto px-8 md:px-20 mb-8">
           <SectionTitle>References</SectionTitle>
         </div>

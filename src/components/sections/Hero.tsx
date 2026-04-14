@@ -58,9 +58,9 @@ export const Hero = () => {
         transition={{ duration: 0.5, delay: 0.5 }}
         className="bg-accent-primary/5 border border-accent-primary/10 rounded-sm p-6 mb-12 max-w-3xl"
       >
-        <div className="text-lg md:text-xl font-normal leading-relaxed text-primary flex flex-wrap gap-x-2">
-          <span>Bridging the gap between SolidWorks design and high-efficiency production through</span>
-          <span className="text-accent-primary font-bold relative inline-flex overflow-hidden h-[1.4em] align-bottom items-center min-w-[280px]">
+        <div className="text-lg md:text-xl font-normal leading-relaxed text-primary">
+          Bridging the gap between SolidWorks design and high-efficiency production through{' '}
+          <span className="text-accent-primary font-bold relative inline-flex overflow-hidden h-[1.25em] align-baseline items-baseline min-w-[280px] ml-1 translate-y-[0.5em]">
             <AnimatePresence mode="popLayout">
               <motion.span
                 key={wordCycleData[currentWord]}
@@ -68,7 +68,7 @@ export const Hero = () => {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -30, opacity: 0 }}
                 transition={{ duration: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-                className="absolute whitespace-nowrap"
+                className="absolute whitespace-nowrap bottom-0 left-0"
               >
                 {wordCycleData[currentWord]}
               </motion.span>

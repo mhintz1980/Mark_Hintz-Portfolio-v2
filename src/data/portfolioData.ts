@@ -13,7 +13,7 @@ export const portfolioData = {
     email: "markworks.dev@gmail.com",
     phone: "(904) 862-1945",
     linkedin: "https://linkedin.com/in/mark-hintz-builds",
-    footerCTA: "Come on. Let's build something cool together.",
+    footerCTA: "Let's create something awesome.",
     copyright: `© ${new Date().getFullYear()} Mark Hintz. All rights reserved.`
   },
 
