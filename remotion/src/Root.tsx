@@ -592,7 +592,7 @@ export const RemotionRoot: React.FC = () => {
             ],
           },
           projectScenes: [
-            // Project 0: Pump Package — no text cloud yet
+            // Project 0: Pump Package — TEXT CLOUD + IMAGE SEQUENCE ACTIVE
             {
               tracePaths: [
                 {
@@ -608,8 +608,28 @@ export const RemotionRoot: React.FC = () => {
                 },
               ],
               reticle: {x: 330, y: 210, radius: 48},
+              imageSequence: [
+                {src: "assets/images/pump-package-04.webp",  startFrame: 0,   endFrame: 90,  scaleFrom: 1.02, scaleTo: 1.10, opacity: 0.94},
+                {src: "assets/images/rendering-05.webp",     startFrame: 78,  endFrame: 168, scaleFrom: 1.00, scaleTo: 1.08, opacity: 0.94},
+                {src: "assets/images/pump-package-03.webp",  startFrame: 156, endFrame: 252, scaleFrom: 1.02, scaleTo: 1.11, opacity: 0.94},
+                {src: "assets/images/side-door.webp",        startFrame: 240, endFrame: 360, scaleFrom: 1.01, scaleTo: 1.09, opacity: 0.94},
+              ],
+              resumeTextBlocks: [
+                {text: "SHEET METAL",       emphasis: "hero" as const,    movement: "drift" as const,    x: -0.55, y: 0.08,  startFrame: 0,   endFrame: 300, fontSize: 130, rotate: 0, opacityFrom: 0, opacityTo: 0.18, scaleFrom: 1,    scaleTo: 1,    driftX: 120,  driftY: 0},
+                {text: "AIRFLOW LOGIC",     emphasis: "accent" as const,  movement: "drift" as const,    x: -0.06, y: 0.20,  startFrame: 0,   endFrame: 220, fontSize: 36,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 200,  driftY: 0},
+                {text: "SERVICE ACCESS",    emphasis: "support" as const, movement: "drift" as const,    x: 0.78,  y: -0.18, startFrame: 12,  endFrame: 290, fontSize: 20,  rotate: 0, opacityFrom: 0, opacityTo: 0.50, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
+                {text: "SOUND CONTROL",     emphasis: "support" as const, movement: "drift" as const,    x: 1.0,   y: 0.30,  startFrame: 18,  endFrame: 250, fontSize: 26,  rotate: 0, opacityFrom: 0, opacityTo: 0.62, scaleFrom: 1,    scaleTo: 1,    driftX: -230, driftY: 0},
+                {text: "BEND RADIUS",       emphasis: "accent" as const,  movement: "drift" as const,    x: -0.04, y: -0.38, startFrame: 30,  endFrame: 300, fontSize: 100, rotate: 0, opacityFrom: 0, opacityTo: 0.22, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
+                {text: "STRUCTURAL FRAME",  emphasis: "support" as const, movement: "drift" as const,    x: 0.22,  y: 0.96,  startFrame: 40,  endFrame: 290, fontSize: 17,  rotate: 0, opacityFrom: 0, opacityTo: 0.54, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -220},
+                {text: "DFM / DFA",         emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.05,  y: 0.52,  startFrame: 70,  endFrame: 290, fontSize: 44,  rotate: 0, opacityFrom: 0, opacityTo: 0.82, scaleFrom: 0.95, scaleTo: 1.05, driftX: -270, driftY: 0},
+                {text: "ENCLOSURE FIT",     emphasis: "support" as const, movement: "drift" as const,    x: 0.52,  y: -0.14, startFrame: 60,  endFrame: 290, fontSize: 19,  rotate: 0, opacityFrom: 0, opacityTo: 0.52, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 250},
+                {text: "BOM COMPLETE",      emphasis: "accent" as const,  movement: "drift" as const,    x: -0.14, y: 0.68,  startFrame: 100, endFrame: 300, fontSize: 54,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 210,  driftY: 0},
+                {text: "FLOOR READY",       emphasis: "support" as const, movement: "drift" as const,    x: 0.56,  y: 0.98,  startFrame: 120, endFrame: 300, fontSize: 15,  rotate: 0, opacityFrom: 0, opacityTo: 0.40, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -195},
+                {text: "ZERO REWORK",       emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.06,  y: 0.32,  startFrame: 148, endFrame: 300, fontSize: 72,  rotate: 0, opacityFrom: 0, opacityTo: 0.90, scaleFrom: 0.90, scaleTo: 1.12, driftX: -340, driftY: 0},
+                {text: "BUILDABLE",         emphasis: "accent" as const,  movement: "scale-up" as const, x: 0.38,  y: 1.04,  startFrame: 168, endFrame: 300, fontSize: 46,  rotate: 0, opacityFrom: 0, opacityTo: 0.84, scaleFrom: 0.90, scaleTo: 1.08, driftX: 0,    driftY: -210},
+              ],
             },
-            // Project 1: Torque Wrench / Precision Gearbox — TEXT CLOUD ACTIVE
+            // Project 1: Torque Wrench / Precision Gearbox — TEXT CLOUD + IMAGE SEQUENCE ACTIVE
             // Phrases cover the full material-to-test lifecycle for a precision gearbox.
             // Lane geometry identical to identity cloud; base opacity is ~0.62x lower
             // because the cloud rides behind the project image, not a blank panel.
@@ -628,34 +648,29 @@ export const RemotionRoot: React.FC = () => {
                 },
               ],
               reticle: {x: 974, y: 500, radius: 48},
+              imageSequence: [
+                {src: "assets/images/side-door.webp",         startFrame: 0,   endFrame: 80,  scaleFrom: 1.01, scaleTo: 1.09, opacity: 0.94},
+                {src: "assets/images/torque-wrench-06.webp",  startFrame: 68,  endFrame: 150, scaleFrom: 1.02, scaleTo: 1.10, opacity: 0.94},
+                {src: "assets/images/torque-wrench-05.webp",  startFrame: 138, endFrame: 220, scaleFrom: 1.00, scaleTo: 1.08, opacity: 0.94},
+                {src: "assets/images/torque-wrench-03.webp",  startFrame: 208, endFrame: 290, scaleFrom: 1.02, scaleTo: 1.11, opacity: 0.94},
+                {src: "assets/images/torque-wrench-02.webp",  startFrame: 278, endFrame: 360, scaleFrom: 1.01, scaleTo: 1.09, opacity: 0.94},
+              ],
               resumeTextBlocks: [
-                // H-River A (L→R) — background anchor, glacier-slow (AGMA grade = hero credential)
                 {text: "AGMA CLASS 9",        emphasis: "hero" as const,    movement: "drift" as const,    x: -0.55, y: 0.08,  startFrame: 0,   endFrame: 300, fontSize: 130, rotate: 0, opacityFrom: 0, opacityTo: 0.18, scaleFrom: 1,    scaleTo: 1,    driftX: 120,  driftY: 0},
-                // H-River A foreground read (L→R)
                 {text: "POST-HT CLEANUP",     emphasis: "accent" as const,  movement: "drift" as const,    x: -0.06, y: 0.20,  startFrame: 0,   endFrame: 220, fontSize: 36,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 200,  driftY: 0},
-                // V-Descent lane 1 (top → bottom)
                 {text: "RUNOUT CONTROL",      emphasis: "support" as const, movement: "drift" as const,    x: 0.78,  y: -0.18, startFrame: 12,  endFrame: 290, fontSize: 20,  rotate: 0, opacityFrom: 0, opacityTo: 0.50, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
-                // H-River B (R→L) — support
                 {text: "HEAT TREAT",          emphasis: "support" as const, movement: "drift" as const,    x: 1.0,   y: 0.30,  startFrame: 18,  endFrame: 250, fontSize: 26,  rotate: 0, opacityFrom: 0, opacityTo: 0.62, scaleFrom: 1,    scaleTo: 1,    driftX: -230, driftY: 0},
-                // V-Descent macro ambient (top → bottom)
                 {text: "INSPECTION PLAN",     emphasis: "accent" as const,  movement: "drift" as const,    x: -0.04, y: -0.38, startFrame: 30,  endFrame: 300, fontSize: 100, rotate: 0, opacityFrom: 0, opacityTo: 0.22, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
-                // V-Ascent lane (bottom → top)
                 {text: "GEAR GEOMETRY",       emphasis: "support" as const, movement: "drift" as const,    x: 0.22,  y: 0.96,  startFrame: 40,  endFrame: 290, fontSize: 17,  rotate: 0, opacityFrom: 0, opacityTo: 0.54, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -220},
-                // H-River B mid-weight hero (R→L)
                 {text: "\u00B10.0002 TOL",         emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.05,  y: 0.52,  startFrame: 70,  endFrame: 290, fontSize: 44,  rotate: 0, opacityFrom: 0, opacityTo: 0.82, scaleFrom: 0.95, scaleTo: 1.05, driftX: -270, driftY: 0},
-                // V-Descent lane 2 (top → bottom)
                 {text: "FIXTURE DESIGN",      emphasis: "support" as const, movement: "drift" as const,    x: 0.52,  y: -0.14, startFrame: 60,  endFrame: 290, fontSize: 19,  rotate: 0, opacityFrom: 0, opacityTo: 0.52, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 250},
-                // H-River A climactic credential (L→R)
                 {text: "MATERIAL SELECTION",  emphasis: "accent" as const,  movement: "drift" as const,    x: -0.14, y: 0.68,  startFrame: 100, endFrame: 300, fontSize: 54,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 210,  driftY: 0},
-                // V-Ascent support (process capability — strong but background)
                 {text: "PROCESS CAPABILITY",  emphasis: "support" as const, movement: "drift" as const,    x: 0.56,  y: 0.98,  startFrame: 120, endFrame: 300, fontSize: 15,  rotate: 0, opacityFrom: 0, opacityTo: 0.40, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -195},
-                // H-River B climactic hero sweep (R→L) — final test = proof it ships
                 {text: "FINAL TEST LOAD",     emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.06,  y: 0.32,  startFrame: 148, endFrame: 300, fontSize: 72,  rotate: 0, opacityFrom: 0, opacityTo: 0.90, scaleFrom: 0.90, scaleTo: 1.12, driftX: -340, driftY: 0},
-                // V-Ascent finale accent (bottom → top)
                 {text: "BUILDABLE PRECISION", emphasis: "accent" as const,  movement: "scale-up" as const, x: 0.38,  y: 1.04,  startFrame: 168, endFrame: 300, fontSize: 46,  rotate: 0, opacityFrom: 0, opacityTo: 0.84, scaleFrom: 0.90, scaleTo: 1.08, driftX: 0,    driftY: -210},
               ],
             },
-            // Project 2: PumpTracker — no text cloud yet
+            // Project 2: PumpTracker — TEXT CLOUD + IMAGE SEQUENCE ACTIVE
             {
               tracePaths: [
                 {
@@ -671,6 +686,25 @@ export const RemotionRoot: React.FC = () => {
                 },
               ],
               reticle: {x: 330, y: 210, radius: 48},
+              imageSequence: [
+                {src: "assets/images/pumptracker-04.webp",                             startFrame: 0,   endFrame: 90,  scaleFrom: 1.02, scaleTo: 1.10, opacity: 0.94},
+                {src: "assets/images/pumptracker-light-final.png",                     startFrame: 78,  endFrame: 192, scaleFrom: 1.00, scaleTo: 1.08, opacity: 0.94},
+                {src: "assets/images/pumptracker-03.webp",                             startFrame: 180, endFrame: 360, scaleFrom: 1.01, scaleTo: 1.09, opacity: 0.94},
+              ],
+              resumeTextBlocks: [
+                {text: "FLOW VISIBILITY",    emphasis: "hero" as const,    movement: "drift" as const,    x: -0.55, y: 0.08,  startFrame: 0,   endFrame: 300, fontSize: 130, rotate: 0, opacityFrom: 0, opacityTo: 0.18, scaleFrom: 1,    scaleTo: 1,    driftX: 120,  driftY: 0},
+                {text: "CAPACITY SIGNAL",    emphasis: "accent" as const,  movement: "drift" as const,    x: -0.06, y: 0.20,  startFrame: 0,   endFrame: 220, fontSize: 36,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 200,  driftY: 0},
+                {text: "SHOP INPUT",         emphasis: "support" as const, movement: "drift" as const,    x: 0.78,  y: -0.18, startFrame: 12,  endFrame: 290, fontSize: 20,  rotate: 0, opacityFrom: 0, opacityTo: 0.50, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
+                {text: "PLANNING LAYER",     emphasis: "support" as const, movement: "drift" as const,    x: 1.0,   y: 0.30,  startFrame: 18,  endFrame: 250, fontSize: 26,  rotate: 0, opacityFrom: 0, opacityTo: 0.62, scaleFrom: 1,    scaleTo: 1,    driftX: -230, driftY: 0},
+                {text: "ADMIN RECOVERED",    emphasis: "accent" as const,  movement: "drift" as const,    x: -0.04, y: -0.38, startFrame: 30,  endFrame: 300, fontSize: 100, rotate: 0, opacityFrom: 0, opacityTo: 0.22, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
+                {text: "HUMAN JUDGMENT",     emphasis: "support" as const, movement: "drift" as const,    x: 0.22,  y: 0.96,  startFrame: 40,  endFrame: 290, fontSize: 17,  rotate: 0, opacityFrom: 0, opacityTo: 0.54, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -220},
+                {text: "LIVE SCHEDULES",     emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.05,  y: 0.52,  startFrame: 70,  endFrame: 290, fontSize: 44,  rotate: 0, opacityFrom: 0, opacityTo: 0.82, scaleFrom: 0.95, scaleTo: 1.05, driftX: -270, driftY: 0},
+                {text: "REACT / TS",         emphasis: "support" as const, movement: "drift" as const,    x: 0.52,  y: -0.14, startFrame: 60,  endFrame: 290, fontSize: 19,  rotate: 0, opacityFrom: 0, opacityTo: 0.52, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 250},
+                {text: "LIGHTWEIGHT SYSTEM", emphasis: "accent" as const,  movement: "drift" as const,    x: -0.14, y: 0.68,  startFrame: 100, endFrame: 300, fontSize: 54,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 210,  driftY: 0},
+                {text: "FLOOR SUPPORT",      emphasis: "support" as const, movement: "drift" as const,    x: 0.56,  y: 0.98,  startFrame: 120, endFrame: 300, fontSize: 15,  rotate: 0, opacityFrom: 0, opacityTo: 0.40, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -195},
+                {text: "30+ HRS / WEEK",     emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.06,  y: 0.32,  startFrame: 148, endFrame: 300, fontSize: 72,  rotate: 0, opacityFrom: 0, opacityTo: 0.90, scaleFrom: 0.90, scaleTo: 1.12, driftX: -340, driftY: 0},
+                {text: "SYSTEMS PROOF",      emphasis: "accent" as const,  movement: "scale-up" as const, x: 0.38,  y: 1.04,  startFrame: 168, endFrame: 300, fontSize: 46,  rotate: 0, opacityFrom: 0, opacityTo: 0.84, scaleFrom: 0.90, scaleTo: 1.08, driftX: 0,    driftY: -210},
+              ],
             },
           ],
           closingScene: {

@@ -94,3 +94,45 @@ export const gearboxPhrases = [
 // Callers that need the raw templates (e.g. to build per-scene blocks inline)
 // can use buildResumeTextBlocks(gearboxPhrases).
 export const defaultGearboxTextBlocks = buildResumeTextBlocks(gearboxPhrases);
+
+// ---------------------------------------------------------------------------
+// Pump Package — project scene text cloud
+// 12 phrases covering DFM, sheet metal, enclosure, and service access.
+// ---------------------------------------------------------------------------
+export const pumpPhrases = [
+  "SHEET METAL",
+  "AIRFLOW LOGIC",
+  "SERVICE ACCESS",
+  "SOUND CONTROL",
+  "BEND RADIUS",
+  "STRUCTURAL FRAME",
+  "DFM / DFA",
+  "ENCLOSURE FIT",
+  "BOM COMPLETE",
+  "FLOOR READY",
+  "ZERO REWORK",
+  "BUILDABLE",
+] as const;
+
+export const defaultPumpTextBlocks = buildResumeTextBlocks(pumpPhrases);
+
+// ---------------------------------------------------------------------------
+// PumpTracker — project scene text cloud
+// 12 phrases covering operations software, planning, and floor support.
+// ---------------------------------------------------------------------------
+export const pumptrackerPhrases = [
+  "FLOW VISIBILITY",
+  "CAPACITY SIGNAL",
+  "SHOP INPUT",
+  "PLANNING LAYER",
+  "ADMIN RECOVERED",
+  "HUMAN JUDGMENT",
+  "LIVE SCHEDULES",
+  "REACT / TS",
+  "LIGHTWEIGHT SYSTEM",
+  "FLOOR SUPPORT",
+  "30+ HRS / WEEK",
+  "SYSTEMS PROOF",
+] as const;
+
+export const defaultPumptrackerTextBlocks = buildResumeTextBlocks(pumptrackerPhrases);

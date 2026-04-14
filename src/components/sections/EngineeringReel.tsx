@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import { useState } from 'react';
 
-const REEL_SRC = ''; // Set to a short loop URL when ready, e.g. 'assets/video/engineering-review-loop.mp4'
+const REEL_SRC = 'assets/video/engineering-review-loop.mp4';
 
 export const EngineeringReel = () => {
   const [isPlaying, setIsPlaying] = useState(false);

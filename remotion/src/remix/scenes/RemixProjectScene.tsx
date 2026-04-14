@@ -229,23 +229,68 @@ export const RemixProjectScene: React.FC<
           overflow: "hidden",
         }}
       >
-        <Img
-          src={staticFile(image)}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center",
-            transform: `scale(${interpolate(frame, [0, fps * 12], [1.08, 1], {
+        {!sceneOverlay.imageSequence || sceneOverlay.imageSequence.length === 0 ? (
+          // Static hero image — shown when no imageSequence provided
+          <Img
+            src={staticFile(image)}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              transform: `scale(${interpolate(frame, [0, fps * 12], [1.08, 1], {
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+              })})`,
+              filter:
+                emphasis === "secondary"
+                  ? "saturate(0.92) contrast(1.08) brightness(0.76)"
+                  : "saturate(1.04) contrast(1.12) brightness(0.86)",
+            }}
+          />
+        ) : (
+          // Image sequence — crossfading reel
+          sceneOverlay.imageSequence.map((img, index) => {
+            const fadeInEnd = Math.min(img.startFrame + 12, img.endFrame);
+            const fadeOutStart = Math.max(img.endFrame - 12, img.startFrame);
+            const opacity = interpolate(
+              frame,
+              [img.startFrame, fadeInEnd, fadeOutStart, img.endFrame],
+              [0, img.opacity, img.opacity, 0],
+              {extrapolateLeft: "clamp", extrapolateRight: "clamp"},
+            );
+            const scale = interpolate(frame, [img.startFrame, img.endFrame], [img.scaleFrom, img.scaleTo], {
               extrapolateLeft: "clamp",
               extrapolateRight: "clamp",
-            })})`,
-            filter:
-              emphasis === "secondary"
-                ? "saturate(0.92) contrast(1.08) brightness(0.76)"
-                : "saturate(1.04) contrast(1.12) brightness(0.86)",
-          }}
-        />
+            });
+            return (
+              <div
+                key={`${img.src}-${index}`}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  opacity,
+                  transform: `scale(${scale})`,
+                  transformOrigin: "center center",
+                }}
+              >
+                <Img
+                  src={staticFile(img.src)}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    filter:
+                      emphasis === "secondary"
+                        ? "saturate(0.92) contrast(1.08) brightness(0.76)"
+                        : "saturate(1.04) contrast(1.12) brightness(0.86)",
+                  }}
+                />
+              </div>
+            );
+          })
+        )}
 
         {/* Kinetic text cloud — sits between image and gradient overlays */}
         <ProjectSceneTextCloud theme={theme} sceneOverlay={sceneOverlay} />
