@@ -5,7 +5,7 @@ import {ShowreelRemixSchema, defaultShowreelRemixProps} from "../remotion/src/re
 describe("identity image sequence", () => {
 	it("exposes a Studio-editable full-bleed image sequence for the Remix identity scene", () => {
 		const parsed = ShowreelRemixSchema.parse(defaultShowreelRemixProps);
-		const imageSequence = parsed.identityScene.imageSequence;
+		const imageSequence = parsed.identityScene.imageSequence!;
 
 		expect(imageSequence).toHaveLength(5);
 		expect(imageSequence.map((image) => image.src)).toEqual([
