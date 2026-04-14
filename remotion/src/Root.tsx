@@ -12,7 +12,7 @@ import {ShowreelRemixSchema} from "./remixSchema";
 import {CaseStudiesSchema, ShowreelSchema, ProjectDetailSchema, defaultProjectDetailProps} from "./schemas";
 import {ProjectDetailVideo} from "./ProjectDetailVideo";
 
-const TOTAL_FRAMES = (8 + 10 + 12 + 12 + 12 + 8) * FPS - 5 * 20;
+const TOTAL_FRAMES = (8 + 10 + 12 + 12 + 12 + 12 + 12 + 8) * FPS - 7 * 20;
 const CASE_STUDIES_FRAMES = CASE_STUDIES.length * 12 * FPS - (CASE_STUDIES.length - 1) * 20;
 const SUB_PICTURES_FRAMES = 3 * (4 * FPS) + 2 * 25; // 3 pictures * 4 seconds + 2 transitions (25 frames)
 
@@ -301,15 +301,15 @@ export const RemotionRoot: React.FC = () => {
 	            ],
 	            resumeTextBlocks: [
 	              // H-River A (L→R) — background anchor, glacier-slow
-	              {text: "15+ YEARS",          emphasis: "hero",    movement: "drift",    x: -0.55, y: 0.08,  startFrame: 0,   endFrame: 300, fontSize: 130, rotate: 0, opacityFrom: 0, opacityTo: 0.18, scaleFrom: 1,    scaleTo: 1,    driftX: 120,  driftY: 0},
+	              {text: "15+ YEARS",          emphasis: "hero",    movement: "drift",    x: 1.05, y: 0.08,  startFrame: 0,   endFrame: 300, fontSize: 130, rotate: 0, opacityFrom: 0, opacityTo: 0.18, scaleFrom: 1,    scaleTo: 1,    driftX: -220,  driftY: 0},
 	              // H-River A foreground read (L→R)
-	              {text: "DESIGN-TO-ORDER",    emphasis: "accent",  movement: "drift",    x: -0.06, y: 0.20,  startFrame: 0,   endFrame: 220, fontSize: 36,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 200,  driftY: 0},
+	              {text: "DESIGN-TO-ORDER",    emphasis: "accent",  movement: "drift",    x: 1.10, y: 0.20,  startFrame: 0,   endFrame: 220, fontSize: 36,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: -200,  driftY: 0},
 	              // V-Descent lane 1 (top → bottom)
 	              {text: "CUSTOM EQUIPMENT",   emphasis: "support", movement: "drift",    x: 0.78,  y: -0.18, startFrame: 12,  endFrame: 290, fontSize: 20,  rotate: 0, opacityFrom: 0, opacityTo: 0.50, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
 	              // H-River B (R→L) — support
 	              {text: "SOLIDWORKS",         emphasis: "support", movement: "drift",    x: 1.0,   y: 0.30,  startFrame: 18,  endFrame: 250, fontSize: 26,  rotate: 0, opacityFrom: 0, opacityTo: 0.62, scaleFrom: 1,    scaleTo: 1,    driftX: -230, driftY: 0},
 	              // V-Descent macro ambient (top → bottom)
-	              {text: "2D FABRICATION",     emphasis: "accent",  movement: "drift",    x: -0.04, y: -0.38, startFrame: 30,  endFrame: 300, fontSize: 100, rotate: 0, opacityFrom: 0, opacityTo: 0.22, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
+	              {text: "2D FABRICATION",     emphasis: "accent",  movement: "drift",    x: 0.74, y: -0.38, startFrame: 30,  endFrame: 300, fontSize: 100, rotate: 0, opacityFrom: 0, opacityTo: 0.22, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
 	              // V-Ascent lane (bottom → top)
 	              {text: "BOM MANAGEMENT",     emphasis: "support", movement: "drift",    x: 0.22,  y: 0.96,  startFrame: 40,  endFrame: 290, fontSize: 17,  rotate: 0, opacityFrom: 0, opacityTo: 0.54, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -220},
 	              // H-River B mid-weight hero (R→L)
@@ -317,13 +317,13 @@ export const RemotionRoot: React.FC = () => {
 	              // V-Descent lane 2 (top → bottom)
 	              {text: "COMMON COMPONENTS",  emphasis: "support", movement: "drift",    x: 0.52,  y: -0.14, startFrame: 60,  endFrame: 290, fontSize: 19,  rotate: 0, opacityFrom: 0, opacityTo: 0.52, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 250},
 	              // H-River A climactic credential (L→R)
-	              {text: "MANUFACTURABILITY",  emphasis: "accent",  movement: "drift",    x: -0.14, y: 0.68,  startFrame: 100, endFrame: 300, fontSize: 54,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 210,  driftY: 0},
+	              {text: "MANUFACTURABILITY",  emphasis: "accent",  movement: "drift",    x: 1.12, y: 0.68,  startFrame: 100, endFrame: 300, fontSize: 54,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: -210,  driftY: 0},
 	              // V-Ascent support (software — deliberately weaker)
 	              {text: "LIGHT AUTOMATION",   emphasis: "support", movement: "drift",    x: 0.56,  y: 0.98,  startFrame: 120, endFrame: 300, fontSize: 15,  rotate: 0, opacityFrom: 0, opacityTo: 0.40, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -195},
 	              // H-River B climactic hero sweep (R→L)
 	              {text: "REDUCE ERRORS",      emphasis: "hero",    movement: "scale-up", x: 1.06,  y: 0.32,  startFrame: 148, endFrame: 300, fontSize: 72,  rotate: 0, opacityFrom: 0, opacityTo: 0.90, scaleFrom: 0.90, scaleTo: 1.12, driftX: -340, driftY: 0},
 	              // V-Ascent finale accent (bottom → top)
-	              {text: "BUILDABLE",          emphasis: "accent",  movement: "scale-up", x: 0.38,  y: 1.04,  startFrame: 168, endFrame: 300, fontSize: 46,  rotate: 0, opacityFrom: 0, opacityTo: 0.84, scaleFrom: 0.90, scaleTo: 1.08, driftX: 0,    driftY: -210},
+	              {text: "BUILDABLE",          emphasis: "accent",  movement: "scale-up", x: 0.68, y: 1.04,  startFrame: 168, endFrame: 300, fontSize: 46,  rotate: 0, opacityFrom: 0, opacityTo: 0.84, scaleFrom: 0.90, scaleTo: 1.08, driftX: 0,    driftY: -210},
 	            ],
 	          },
           projectScenes: [
@@ -499,6 +499,48 @@ export const RemotionRoot: React.FC = () => {
                 "Framed as systems support around real engineering and production work, not as a replacement for that domain knowledge.",
               callouts: ["FLOW VISIBILITY", "CAPACITY SIGNAL", "SHOP INPUT"],
             },
+            {
+              key: "armament",
+              title: "ARMAMENT",
+              subtitle: "Precision defense mechanism components",
+              category: "Defense mechanisms / precision machining / GD&T",
+              reviewLabel: "PRIMARY SIGNAL",
+              emphasis: "primary" as const,
+              outcome: "MIL-SPEC",
+              outcomeLabel: "TOLERANCE COMPLIANCE",
+              image: "assets/images/rendering-06.webp",
+              tags: ["Defense", "Precision", "GD&T", "Mechanism Design"],
+              problem:
+                "Defense mechanism components require repeatable precision under operational loading without exceeding cost thresholds.",
+              constraint:
+                "MIL-SPEC tolerances, heat treat distortion, and assembly repeatability all constrain the geometry simultaneously.",
+              decision:
+                "Applied inspection-first dimensioning with fixture strategy and post-HT cleanup machined into the process plan.",
+              validation:
+                "Dimensional compliance verified through inspection plan before release, not assumed from drawing alone.",
+              callouts: ["MIL-SPEC COMPLIANCE", "FIXTURE STRATEGY", "INSPECTION-FIRST"],
+            },
+            {
+              key: "renderings",
+              title: "RENDERINGS",
+              subtitle: "Technical visualization supporting engineering decisions",
+              category: "SolidWorks Visualize / KeyShot / design communication",
+              reviewLabel: "SECONDARY PROOF",
+              emphasis: "secondary" as const,
+              outcome: "ZERO",
+              outcomeLabel: "REVISION CYCLES",
+              image: "assets/images/renderings-hero.webp",
+              tags: ["Visualization", "SolidWorks", "Design Review", "Communication"],
+              problem:
+                "Technical stakeholders need to evaluate design intent before fabrication — 2D drawings alone leave interpretation gaps.",
+              constraint:
+                "Renderings must accurately reflect manufacturability, not hide it under stylized lighting.",
+              decision:
+                "Used visualization as a design-review tool tied to real geometry, not a post-design marketing step.",
+              validation:
+                "Renderings used in design reviews reduced clarification back-and-forth before fab release.",
+              callouts: ["REVIEW FIDELITY", "GEOMETRY-ACCURATE", "STAKEHOLDER CLARITY"],
+            },
           ],
           theme: {
             bg: "#0b0b0c",
@@ -526,7 +568,7 @@ export const RemotionRoot: React.FC = () => {
           },
           introDirection: "down" as const,
           identityDirection: "left" as const,
-          projectDirections: ["up" as const, "down" as const, "up" as const],
+          projectDirections: ["up" as const, "down" as const, "up" as const, "down" as const, "up" as const],
           closingDirection: "right" as const,
           introScene: {
             tracePaths: [
@@ -577,18 +619,13 @@ export const RemotionRoot: React.FC = () => {
             ],
             // Same identity cloud as original — not changed
             resumeTextBlocks: [
-              {text: "15+ YEARS",         emphasis: "hero" as const,    movement: "drift" as const,    x: -0.55, y: 0.08,  startFrame: 0,   endFrame: 300, fontSize: 130, rotate: 0, opacityFrom: 0, opacityTo: 0.18, scaleFrom: 1,    scaleTo: 1,    driftX: 120,  driftY: 0},
-              {text: "DESIGN-TO-ORDER",   emphasis: "accent" as const,  movement: "drift" as const,    x: -0.06, y: 0.20,  startFrame: 0,   endFrame: 220, fontSize: 36,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 200,  driftY: 0},
-              {text: "CUSTOM EQUIPMENT",  emphasis: "support" as const, movement: "drift" as const,    x: 0.78,  y: -0.18, startFrame: 12,  endFrame: 290, fontSize: 20,  rotate: 0, opacityFrom: 0, opacityTo: 0.50, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
-              {text: "SOLIDWORKS",        emphasis: "support" as const, movement: "drift" as const,    x: 1.0,   y: 0.30,  startFrame: 18,  endFrame: 250, fontSize: 26,  rotate: 0, opacityFrom: 0, opacityTo: 0.62, scaleFrom: 1,    scaleTo: 1,    driftX: -230, driftY: 0},
-              {text: "2D FABRICATION",    emphasis: "accent" as const,  movement: "drift" as const,    x: -0.04, y: -0.38, startFrame: 30,  endFrame: 300, fontSize: 100, rotate: 0, opacityFrom: 0, opacityTo: 0.22, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
-              {text: "BOM MANAGEMENT",    emphasis: "support" as const, movement: "drift" as const,    x: 0.22,  y: 0.96,  startFrame: 40,  endFrame: 290, fontSize: 17,  rotate: 0, opacityFrom: 0, opacityTo: 0.54, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -220},
+              {text: "15+ YEARS",         emphasis: "hero" as const,    movement: "drift" as const,    x: 1.05, y: 0.08,  startFrame: 0,   endFrame: 300, fontSize: 130, rotate: 0, opacityFrom: 0, opacityTo: 0.18, scaleFrom: 1,    scaleTo: 1,    driftX: -220,  driftY: 0},
+              {text: "DESIGN-TO-ORDER",   emphasis: "accent" as const,  movement: "drift" as const,    x: 1.10, y: 0.20,  startFrame: 0,   endFrame: 220, fontSize: 36,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: -200,  driftY: 0},
+              {text: "2D FABRICATION",    emphasis: "accent" as const,  movement: "drift" as const,    x: 0.74, y: -0.38, startFrame: 30,  endFrame: 300, fontSize: 100, rotate: 0, opacityFrom: 0, opacityTo: 0.22, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
               {text: "SHOP-TRUSTED",      emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.05,  y: 0.52,  startFrame: 70,  endFrame: 290, fontSize: 44,  rotate: 0, opacityFrom: 0, opacityTo: 0.82, scaleFrom: 0.95, scaleTo: 1.05, driftX: -270, driftY: 0},
-              {text: "COMMON COMPONENTS", emphasis: "support" as const, movement: "drift" as const,    x: 0.52,  y: -0.14, startFrame: 60,  endFrame: 290, fontSize: 19,  rotate: 0, opacityFrom: 0, opacityTo: 0.52, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 250},
-              {text: "MANUFACTURABILITY", emphasis: "accent" as const,  movement: "drift" as const,    x: -0.14, y: 0.68,  startFrame: 100, endFrame: 300, fontSize: 54,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 210,  driftY: 0},
-              {text: "LIGHT AUTOMATION",  emphasis: "support" as const, movement: "drift" as const,    x: 0.56,  y: 0.98,  startFrame: 120, endFrame: 300, fontSize: 15,  rotate: 0, opacityFrom: 0, opacityTo: 0.40, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -195},
+              {text: "MANUFACTURABILITY", emphasis: "accent" as const,  movement: "drift" as const,    x: 1.12, y: 0.68,  startFrame: 100, endFrame: 300, fontSize: 54,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: -210,  driftY: 0},
               {text: "REDUCE ERRORS",     emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.06,  y: 0.32,  startFrame: 148, endFrame: 300, fontSize: 72,  rotate: 0, opacityFrom: 0, opacityTo: 0.90, scaleFrom: 0.90, scaleTo: 1.12, driftX: -340, driftY: 0},
-              {text: "BUILDABLE",         emphasis: "accent" as const,  movement: "scale-up" as const, x: 0.38,  y: 1.04,  startFrame: 168, endFrame: 300, fontSize: 46,  rotate: 0, opacityFrom: 0, opacityTo: 0.84, scaleFrom: 0.90, scaleTo: 1.08, driftX: 0,    driftY: -210},
+              {text: "BUILDABLE",         emphasis: "accent" as const,  movement: "scale-up" as const, x: 0.68, y: 1.04,  startFrame: 168, endFrame: 300, fontSize: 46,  rotate: 0, opacityFrom: 0, opacityTo: 0.84, scaleFrom: 0.90, scaleTo: 1.08, driftX: 0,    driftY: -210},
             ],
           },
           projectScenes: [
@@ -615,18 +652,13 @@ export const RemotionRoot: React.FC = () => {
                 {src: "assets/images/side-door.webp",        startFrame: 240, endFrame: 360, scaleFrom: 1.01, scaleTo: 1.09, opacity: 0.94},
               ],
               resumeTextBlocks: [
-                {text: "SHEET METAL",       emphasis: "hero" as const,    movement: "drift" as const,    x: -0.55, y: 0.08,  startFrame: 0,   endFrame: 300, fontSize: 130, rotate: 0, opacityFrom: 0, opacityTo: 0.18, scaleFrom: 1,    scaleTo: 1,    driftX: 120,  driftY: 0},
-                {text: "AIRFLOW LOGIC",     emphasis: "accent" as const,  movement: "drift" as const,    x: -0.06, y: 0.20,  startFrame: 0,   endFrame: 220, fontSize: 36,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 200,  driftY: 0},
-                {text: "SERVICE ACCESS",    emphasis: "support" as const, movement: "drift" as const,    x: 0.78,  y: -0.18, startFrame: 12,  endFrame: 290, fontSize: 20,  rotate: 0, opacityFrom: 0, opacityTo: 0.50, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
-                {text: "SOUND CONTROL",     emphasis: "support" as const, movement: "drift" as const,    x: 1.0,   y: 0.30,  startFrame: 18,  endFrame: 250, fontSize: 26,  rotate: 0, opacityFrom: 0, opacityTo: 0.62, scaleFrom: 1,    scaleTo: 1,    driftX: -230, driftY: 0},
-                {text: "BEND RADIUS",       emphasis: "accent" as const,  movement: "drift" as const,    x: -0.04, y: -0.38, startFrame: 30,  endFrame: 300, fontSize: 100, rotate: 0, opacityFrom: 0, opacityTo: 0.22, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
-                {text: "STRUCTURAL FRAME",  emphasis: "support" as const, movement: "drift" as const,    x: 0.22,  y: 0.96,  startFrame: 40,  endFrame: 290, fontSize: 17,  rotate: 0, opacityFrom: 0, opacityTo: 0.54, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -220},
+                {text: "SHEET METAL",       emphasis: "hero" as const,    movement: "drift" as const,    x: 1.05, y: 0.08,  startFrame: 0,   endFrame: 300, fontSize: 130, rotate: 0, opacityFrom: 0, opacityTo: 0.18, scaleFrom: 1,    scaleTo: 1,    driftX: -220,  driftY: 0},
+                {text: "AIRFLOW LOGIC",     emphasis: "accent" as const,  movement: "drift" as const,    x: 1.10, y: 0.20,  startFrame: 0,   endFrame: 220, fontSize: 36,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: -200,  driftY: 0},
+                {text: "BEND RADIUS",       emphasis: "accent" as const,  movement: "drift" as const,    x: 0.74, y: -0.38, startFrame: 30,  endFrame: 300, fontSize: 100, rotate: 0, opacityFrom: 0, opacityTo: 0.22, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
                 {text: "DFM / DFA",         emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.05,  y: 0.52,  startFrame: 70,  endFrame: 290, fontSize: 44,  rotate: 0, opacityFrom: 0, opacityTo: 0.82, scaleFrom: 0.95, scaleTo: 1.05, driftX: -270, driftY: 0},
-                {text: "ENCLOSURE FIT",     emphasis: "support" as const, movement: "drift" as const,    x: 0.52,  y: -0.14, startFrame: 60,  endFrame: 290, fontSize: 19,  rotate: 0, opacityFrom: 0, opacityTo: 0.52, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 250},
-                {text: "BOM COMPLETE",      emphasis: "accent" as const,  movement: "drift" as const,    x: -0.14, y: 0.68,  startFrame: 100, endFrame: 300, fontSize: 54,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 210,  driftY: 0},
-                {text: "FLOOR READY",       emphasis: "support" as const, movement: "drift" as const,    x: 0.56,  y: 0.98,  startFrame: 120, endFrame: 300, fontSize: 15,  rotate: 0, opacityFrom: 0, opacityTo: 0.40, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -195},
+                {text: "BOM COMPLETE",      emphasis: "accent" as const,  movement: "drift" as const,    x: 1.12, y: 0.68,  startFrame: 100, endFrame: 300, fontSize: 54,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: -210,  driftY: 0},
                 {text: "ZERO REWORK",       emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.06,  y: 0.32,  startFrame: 148, endFrame: 300, fontSize: 72,  rotate: 0, opacityFrom: 0, opacityTo: 0.90, scaleFrom: 0.90, scaleTo: 1.12, driftX: -340, driftY: 0},
-                {text: "BUILDABLE",         emphasis: "accent" as const,  movement: "scale-up" as const, x: 0.38,  y: 1.04,  startFrame: 168, endFrame: 300, fontSize: 46,  rotate: 0, opacityFrom: 0, opacityTo: 0.84, scaleFrom: 0.90, scaleTo: 1.08, driftX: 0,    driftY: -210},
+                {text: "BUILDABLE",         emphasis: "accent" as const,  movement: "scale-up" as const, x: 0.68, y: 1.04,  startFrame: 168, endFrame: 300, fontSize: 46,  rotate: 0, opacityFrom: 0, opacityTo: 0.84, scaleFrom: 0.90, scaleTo: 1.08, driftX: 0,    driftY: -210},
               ],
             },
             // Project 1: Torque Wrench / Precision Gearbox — TEXT CLOUD + IMAGE SEQUENCE ACTIVE
@@ -649,25 +681,21 @@ export const RemotionRoot: React.FC = () => {
               ],
               reticle: {x: 974, y: 500, radius: 48},
               imageSequence: [
-                {src: "assets/images/side-door.webp",         startFrame: 0,   endFrame: 80,  scaleFrom: 1.01, scaleTo: 1.09, opacity: 0.94},
-                {src: "assets/images/torque-wrench-06.webp",  startFrame: 68,  endFrame: 150, scaleFrom: 1.02, scaleTo: 1.10, opacity: 0.94},
-                {src: "assets/images/torque-wrench-05.webp",  startFrame: 138, endFrame: 220, scaleFrom: 1.00, scaleTo: 1.08, opacity: 0.94},
-                {src: "assets/images/torque-wrench-03.webp",  startFrame: 208, endFrame: 290, scaleFrom: 1.02, scaleTo: 1.11, opacity: 0.94},
-                {src: "assets/images/torque-wrench-02.webp",  startFrame: 278, endFrame: 360, scaleFrom: 1.01, scaleTo: 1.09, opacity: 0.94},
+                {src: "assets/images/torque-wrench-01.webp",  startFrame: 0,   endFrame: 70,  scaleFrom: 1.01, scaleTo: 1.09, opacity: 0.94},
+                {src: "assets/images/torque-wrench-06.webp",  startFrame: 58,  endFrame: 128, scaleFrom: 1.02, scaleTo: 1.10, opacity: 0.94},
+                {src: "assets/images/JGUN-DS-APACHE.JPG",     startFrame: 116, endFrame: 186, scaleFrom: 1.00, scaleTo: 1.08, opacity: 0.94},
+                {src: "assets/images/torque-wrench-05.webp",  startFrame: 174, endFrame: 244, scaleFrom: 1.02, scaleTo: 1.11, opacity: 0.94},
+                {src: "assets/images/torque-wrench-03.webp",  startFrame: 232, endFrame: 302, scaleFrom: 1.01, scaleTo: 1.09, opacity: 0.94},
+                {src: "assets/images/torque-wrench-02.webp",  startFrame: 290, endFrame: 360, scaleFrom: 1.01, scaleTo: 1.10, opacity: 0.94},
               ],
               resumeTextBlocks: [
-                {text: "AGMA CLASS 9",        emphasis: "hero" as const,    movement: "drift" as const,    x: -0.55, y: 0.08,  startFrame: 0,   endFrame: 300, fontSize: 130, rotate: 0, opacityFrom: 0, opacityTo: 0.18, scaleFrom: 1,    scaleTo: 1,    driftX: 120,  driftY: 0},
-                {text: "POST-HT CLEANUP",     emphasis: "accent" as const,  movement: "drift" as const,    x: -0.06, y: 0.20,  startFrame: 0,   endFrame: 220, fontSize: 36,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 200,  driftY: 0},
-                {text: "RUNOUT CONTROL",      emphasis: "support" as const, movement: "drift" as const,    x: 0.78,  y: -0.18, startFrame: 12,  endFrame: 290, fontSize: 20,  rotate: 0, opacityFrom: 0, opacityTo: 0.50, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
-                {text: "HEAT TREAT",          emphasis: "support" as const, movement: "drift" as const,    x: 1.0,   y: 0.30,  startFrame: 18,  endFrame: 250, fontSize: 26,  rotate: 0, opacityFrom: 0, opacityTo: 0.62, scaleFrom: 1,    scaleTo: 1,    driftX: -230, driftY: 0},
-                {text: "INSPECTION PLAN",     emphasis: "accent" as const,  movement: "drift" as const,    x: -0.04, y: -0.38, startFrame: 30,  endFrame: 300, fontSize: 100, rotate: 0, opacityFrom: 0, opacityTo: 0.22, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
-                {text: "GEAR GEOMETRY",       emphasis: "support" as const, movement: "drift" as const,    x: 0.22,  y: 0.96,  startFrame: 40,  endFrame: 290, fontSize: 17,  rotate: 0, opacityFrom: 0, opacityTo: 0.54, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -220},
+                {text: "AGMA CLASS 9",        emphasis: "hero" as const,    movement: "drift" as const,    x: 1.05, y: 0.08,  startFrame: 0,   endFrame: 300, fontSize: 130, rotate: 0, opacityFrom: 0, opacityTo: 0.18, scaleFrom: 1,    scaleTo: 1,    driftX: -220,  driftY: 0},
+                {text: "POST-HT CLEANUP",     emphasis: "accent" as const,  movement: "drift" as const,    x: 1.10, y: 0.20,  startFrame: 0,   endFrame: 220, fontSize: 36,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: -200,  driftY: 0},
+                {text: "INSPECTION PLAN",     emphasis: "accent" as const,  movement: "drift" as const,    x: 0.74, y: -0.38, startFrame: 30,  endFrame: 300, fontSize: 100, rotate: 0, opacityFrom: 0, opacityTo: 0.22, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
                 {text: "\u00B10.0002 TOL",         emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.05,  y: 0.52,  startFrame: 70,  endFrame: 290, fontSize: 44,  rotate: 0, opacityFrom: 0, opacityTo: 0.82, scaleFrom: 0.95, scaleTo: 1.05, driftX: -270, driftY: 0},
-                {text: "FIXTURE DESIGN",      emphasis: "support" as const, movement: "drift" as const,    x: 0.52,  y: -0.14, startFrame: 60,  endFrame: 290, fontSize: 19,  rotate: 0, opacityFrom: 0, opacityTo: 0.52, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 250},
-                {text: "MATERIAL SELECTION",  emphasis: "accent" as const,  movement: "drift" as const,    x: -0.14, y: 0.68,  startFrame: 100, endFrame: 300, fontSize: 54,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 210,  driftY: 0},
-                {text: "PROCESS CAPABILITY",  emphasis: "support" as const, movement: "drift" as const,    x: 0.56,  y: 0.98,  startFrame: 120, endFrame: 300, fontSize: 15,  rotate: 0, opacityFrom: 0, opacityTo: 0.40, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -195},
+                {text: "MATERIAL SELECTION",  emphasis: "accent" as const,  movement: "drift" as const,    x: 1.12, y: 0.68,  startFrame: 100, endFrame: 300, fontSize: 54,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: -210,  driftY: 0},
                 {text: "FINAL TEST LOAD",     emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.06,  y: 0.32,  startFrame: 148, endFrame: 300, fontSize: 72,  rotate: 0, opacityFrom: 0, opacityTo: 0.90, scaleFrom: 0.90, scaleTo: 1.12, driftX: -340, driftY: 0},
-                {text: "BUILDABLE PRECISION", emphasis: "accent" as const,  movement: "scale-up" as const, x: 0.38,  y: 1.04,  startFrame: 168, endFrame: 300, fontSize: 46,  rotate: 0, opacityFrom: 0, opacityTo: 0.84, scaleFrom: 0.90, scaleTo: 1.08, driftX: 0,    driftY: -210},
+                {text: "BUILDABLE PRECISION", emphasis: "accent" as const,  movement: "scale-up" as const, x: 0.68, y: 1.04,  startFrame: 168, endFrame: 300, fontSize: 46,  rotate: 0, opacityFrom: 0, opacityTo: 0.84, scaleFrom: 0.90, scaleTo: 1.08, driftX: 0,    driftY: -210},
               ],
             },
             // Project 2: PumpTracker — TEXT CLOUD + IMAGE SEQUENCE ACTIVE
@@ -692,18 +720,77 @@ export const RemotionRoot: React.FC = () => {
                 {src: "assets/images/pumptracker-03.webp",                             startFrame: 180, endFrame: 360, scaleFrom: 1.01, scaleTo: 1.09, opacity: 0.94},
               ],
               resumeTextBlocks: [
-                {text: "FLOW VISIBILITY",    emphasis: "hero" as const,    movement: "drift" as const,    x: -0.55, y: 0.08,  startFrame: 0,   endFrame: 300, fontSize: 130, rotate: 0, opacityFrom: 0, opacityTo: 0.18, scaleFrom: 1,    scaleTo: 1,    driftX: 120,  driftY: 0},
-                {text: "CAPACITY SIGNAL",    emphasis: "accent" as const,  movement: "drift" as const,    x: -0.06, y: 0.20,  startFrame: 0,   endFrame: 220, fontSize: 36,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 200,  driftY: 0},
-                {text: "SHOP INPUT",         emphasis: "support" as const, movement: "drift" as const,    x: 0.78,  y: -0.18, startFrame: 12,  endFrame: 290, fontSize: 20,  rotate: 0, opacityFrom: 0, opacityTo: 0.50, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
-                {text: "PLANNING LAYER",     emphasis: "support" as const, movement: "drift" as const,    x: 1.0,   y: 0.30,  startFrame: 18,  endFrame: 250, fontSize: 26,  rotate: 0, opacityFrom: 0, opacityTo: 0.62, scaleFrom: 1,    scaleTo: 1,    driftX: -230, driftY: 0},
-                {text: "ADMIN RECOVERED",    emphasis: "accent" as const,  movement: "drift" as const,    x: -0.04, y: -0.38, startFrame: 30,  endFrame: 300, fontSize: 100, rotate: 0, opacityFrom: 0, opacityTo: 0.22, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
-                {text: "HUMAN JUDGMENT",     emphasis: "support" as const, movement: "drift" as const,    x: 0.22,  y: 0.96,  startFrame: 40,  endFrame: 290, fontSize: 17,  rotate: 0, opacityFrom: 0, opacityTo: 0.54, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -220},
+                {text: "FLOW VISIBILITY",    emphasis: "hero" as const,    movement: "drift" as const,    x: 1.05, y: 0.08,  startFrame: 0,   endFrame: 300, fontSize: 130, rotate: 0, opacityFrom: 0, opacityTo: 0.18, scaleFrom: 1,    scaleTo: 1,    driftX: -220,  driftY: 0},
+                {text: "CAPACITY SIGNAL",    emphasis: "accent" as const,  movement: "drift" as const,    x: 1.10, y: 0.20,  startFrame: 0,   endFrame: 220, fontSize: 36,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: -200,  driftY: 0},
+                {text: "ADMIN RECOVERED",    emphasis: "accent" as const,  movement: "drift" as const,    x: 0.74, y: -0.38, startFrame: 30,  endFrame: 300, fontSize: 100, rotate: 0, opacityFrom: 0, opacityTo: 0.22, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
                 {text: "LIVE SCHEDULES",     emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.05,  y: 0.52,  startFrame: 70,  endFrame: 290, fontSize: 44,  rotate: 0, opacityFrom: 0, opacityTo: 0.82, scaleFrom: 0.95, scaleTo: 1.05, driftX: -270, driftY: 0},
-                {text: "REACT / TS",         emphasis: "support" as const, movement: "drift" as const,    x: 0.52,  y: -0.14, startFrame: 60,  endFrame: 290, fontSize: 19,  rotate: 0, opacityFrom: 0, opacityTo: 0.52, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 250},
-                {text: "LIGHTWEIGHT SYSTEM", emphasis: "accent" as const,  movement: "drift" as const,    x: -0.14, y: 0.68,  startFrame: 100, endFrame: 300, fontSize: 54,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: 210,  driftY: 0},
-                {text: "FLOOR SUPPORT",      emphasis: "support" as const, movement: "drift" as const,    x: 0.56,  y: 0.98,  startFrame: 120, endFrame: 300, fontSize: 15,  rotate: 0, opacityFrom: 0, opacityTo: 0.40, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: -195},
+                {text: "LIGHTWEIGHT SYSTEM", emphasis: "accent" as const,  movement: "drift" as const,    x: 1.12, y: 0.68,  startFrame: 100, endFrame: 300, fontSize: 54,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: -210,  driftY: 0},
                 {text: "30+ HRS / WEEK",     emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.06,  y: 0.32,  startFrame: 148, endFrame: 300, fontSize: 72,  rotate: 0, opacityFrom: 0, opacityTo: 0.90, scaleFrom: 0.90, scaleTo: 1.12, driftX: -340, driftY: 0},
-                {text: "SYSTEMS PROOF",      emphasis: "accent" as const,  movement: "scale-up" as const, x: 0.38,  y: 1.04,  startFrame: 168, endFrame: 300, fontSize: 46,  rotate: 0, opacityFrom: 0, opacityTo: 0.84, scaleFrom: 0.90, scaleTo: 1.08, driftX: 0,    driftY: -210},
+                {text: "SYSTEMS PROOF",      emphasis: "accent" as const,  movement: "scale-up" as const, x: 0.68, y: 1.04,  startFrame: 168, endFrame: 300, fontSize: 46,  rotate: 0, opacityFrom: 0, opacityTo: 0.84, scaleFrom: 0.90, scaleTo: 1.08, driftX: 0,    driftY: -210},
+              ],
+            },
+            // Project 3: Armament
+            {
+              tracePaths: [
+                {
+                  points: [
+                    {x: 1206, y: 108},
+                    {x: 934, y: 108},
+                    {x: 934, y: 596},
+                    {x: 722, y: 596},
+                  ],
+                  startFrame: 12,
+                  endFrame: 58,
+                  label: "PRIMARY REVIEW",
+                },
+              ],
+              reticle: {x: 974, y: 500, radius: 48},
+              imageSequence: [
+                {src: "assets/images/rendering-06.webp", startFrame: 0,   endFrame: 120, scaleFrom: 1.02, scaleTo: 1.10, opacity: 0.94},
+                {src: "assets/images/rendering-07.webp", startFrame: 108, endFrame: 240, scaleFrom: 1.00, scaleTo: 1.08, opacity: 0.94},
+                {src: "assets/images/rendering-09.webp", startFrame: 228, endFrame: 360, scaleFrom: 1.01, scaleTo: 1.09, opacity: 0.94},
+              ],
+              resumeTextBlocks: [
+                {text: "MIL-SPEC TOLERANCE",  emphasis: "hero" as const,    movement: "drift" as const,    x: 1.05, y: 0.08,  startFrame: 0,   endFrame: 300, fontSize: 130, rotate: 0, opacityFrom: 0, opacityTo: 0.18, scaleFrom: 1,    scaleTo: 1,    driftX: -220,  driftY: 0},
+                {text: "MECHANISM DESIGN",    emphasis: "accent" as const,  movement: "drift" as const,    x: 1.10, y: 0.20,  startFrame: 0,   endFrame: 220, fontSize: 36,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: -200,  driftY: 0},
+                {text: "INSPECTION FIRST",    emphasis: "accent" as const,  movement: "drift" as const,    x: 0.74, y: -0.38, startFrame: 30,  endFrame: 300, fontSize: 100, rotate: 0, opacityFrom: 0, opacityTo: 0.22, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
+                {text: "±0.0001 BORE FIT",    emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.05,  y: 0.52,  startFrame: 70,  endFrame: 290, fontSize: 44,  rotate: 0, opacityFrom: 0, opacityTo: 0.82, scaleFrom: 0.95, scaleTo: 1.05, driftX: -270, driftY: 0},
+                {text: "DYNAMIC LOADING",     emphasis: "accent" as const,  movement: "drift" as const,    x: 1.12, y: 0.68,  startFrame: 100, endFrame: 300, fontSize: 54,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: -210,  driftY: 0},
+                {text: "MATERIAL CERT",       emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.06,  y: 0.32,  startFrame: 148, endFrame: 300, fontSize: 72,  rotate: 0, opacityFrom: 0, opacityTo: 0.90, scaleFrom: 0.90, scaleTo: 1.12, driftX: -340, driftY: 0},
+                {text: "RELEASE READY",       emphasis: "accent" as const,  movement: "scale-up" as const, x: 0.68, y: 1.04,  startFrame: 168, endFrame: 300, fontSize: 46,  rotate: 0, opacityFrom: 0, opacityTo: 0.84, scaleFrom: 0.90, scaleTo: 1.08, driftX: 0,    driftY: -210},
+              ],
+            },
+            // Project 4: Renderings
+            {
+              tracePaths: [
+                {
+                  points: [
+                    {x: 76, y: 612},
+                    {x: 300, y: 612},
+                    {x: 300, y: 144},
+                    {x: 588, y: 144},
+                  ],
+                  startFrame: 12,
+                  endFrame: 58,
+                  label: "SUPPORTING SYSTEM",
+                },
+              ],
+              reticle: {x: 330, y: 210, radius: 48},
+              imageSequence: [
+                {src: "assets/images/rendering-01.webp",  startFrame: 0,   endFrame: 80,  scaleFrom: 1.02, scaleTo: 1.10, opacity: 0.94},
+                {src: "assets/images/rendering-04.webp",  startFrame: 68,  endFrame: 150, scaleFrom: 1.01, scaleTo: 1.09, opacity: 0.94},
+                {src: "assets/images/rendering-08.webp",  startFrame: 138, endFrame: 230, scaleFrom: 1.00, scaleTo: 1.08, opacity: 0.94},
+                {src: "assets/images/rendering-10.webp",  startFrame: 218, endFrame: 310, scaleFrom: 1.02, scaleTo: 1.11, opacity: 0.94},
+                {src: "assets/images/renderings-hero.webp", startFrame: 298, endFrame: 360, scaleFrom: 1.01, scaleTo: 1.09, opacity: 0.94},
+              ],
+              resumeTextBlocks: [
+                {text: "REVIEW FIDELITY",      emphasis: "hero" as const,    movement: "drift" as const,    x: 1.05, y: 0.08,  startFrame: 0,   endFrame: 300, fontSize: 130, rotate: 0, opacityFrom: 0, opacityTo: 0.18, scaleFrom: 1,    scaleTo: 1,    driftX: -220,  driftY: 0},
+                {text: "GEOMETRY-ACCURATE",    emphasis: "accent" as const,  movement: "drift" as const,    x: 1.10, y: 0.20,  startFrame: 0,   endFrame: 220, fontSize: 36,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: -200,  driftY: 0},
+                {text: "SOLIDWORKS VISUALIZE", emphasis: "accent" as const,  movement: "drift" as const,    x: 0.74, y: -0.38, startFrame: 30,  endFrame: 300, fontSize: 100, rotate: 0, opacityFrom: 0, opacityTo: 0.22, scaleFrom: 1,    scaleTo: 1,    driftX: 0,    driftY: 260},
+                {text: "DESIGN COMMUNICATION", emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.05,  y: 0.52,  startFrame: 70,  endFrame: 290, fontSize: 44,  rotate: 0, opacityFrom: 0, opacityTo: 0.82, scaleFrom: 0.95, scaleTo: 1.05, driftX: -270, driftY: 0},
+                {text: "TECHNICAL RENDER",     emphasis: "accent" as const,  movement: "drift" as const,    x: 1.12, y: 0.68,  startFrame: 100, endFrame: 300, fontSize: 54,  rotate: 0, opacityFrom: 0, opacityTo: 0.88, scaleFrom: 1,    scaleTo: 1,    driftX: -210,  driftY: 0},
+                {text: "ENGINEERING DECISIONS",emphasis: "hero" as const,    movement: "scale-up" as const, x: 1.06,  y: 0.32,  startFrame: 148, endFrame: 300, fontSize: 72,  rotate: 0, opacityFrom: 0, opacityTo: 0.90, scaleFrom: 0.90, scaleTo: 1.12, driftX: -340, driftY: 0},
+                {text: "FABRICATION INTENT",   emphasis: "accent" as const,  movement: "scale-up" as const, x: 0.68, y: 1.04,  startFrame: 168, endFrame: 300, fontSize: 46,  rotate: 0, opacityFrom: 0, opacityTo: 0.84, scaleFrom: 0.90, scaleTo: 1.08, driftX: 0,    driftY: -210},
               ],
             },
           ],

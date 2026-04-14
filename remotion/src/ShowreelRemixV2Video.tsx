@@ -64,10 +64,12 @@ export const ShowreelRemixV2Video: React.FC<ShowreelRemixProps> = ({
   projectScenes = defaultShowreelRemixProps.projectScenes,
   closingScene = defaultShowreelRemixProps.closingScene,
 }) => {
-  const [projectOneRaw, projectTwoRaw, projectThreeRaw] = projects;
+  const [projectOneRaw, projectTwoRaw, projectThreeRaw, projectFourRaw, projectFiveRaw] = projects;
   const {key: _projectOneKey, ...projectOne} = projectOneRaw;
   const {key: _projectTwoKey, ...projectTwo} = projectTwoRaw;
   const {key: _projectThreeKey, ...projectThree} = projectThreeRaw;
+  const {key: _projectFourKey, ...projectFour} = projectFourRaw;
+  const {key: _projectFiveKey, ...projectFive} = projectFiveRaw;
 
   return (
     <AbsoluteFill>
@@ -141,6 +143,36 @@ export const ShowreelRemixV2Video: React.FC<ShowreelRemixProps> = ({
             overlays={overlays}
             direction={projectDirections[2]}
             sceneOverlay={projectScenes[2]}
+          />
+        </TransitionSeries.Sequence>
+
+        <TransitionSeries.Transition
+          presentation={wipe({direction: toTransitionDirection(projectDirections[3])})}
+          timing={springTiming({config: {damping: 200}, durationInFrames: TRANSITION_FRAMES})}
+        />
+
+        <TransitionSeries.Sequence durationInFrames={SCENE_PROJECT}>
+          <RemixProjectScene
+            {...projectFour}
+            theme={theme}
+            overlays={overlays}
+            direction={projectDirections[3]}
+            sceneOverlay={projectScenes[3]}
+          />
+        </TransitionSeries.Sequence>
+
+        <TransitionSeries.Transition
+          presentation={wipe({direction: toTransitionDirection(projectDirections[4])})}
+          timing={springTiming({config: {damping: 200}, durationInFrames: TRANSITION_FRAMES})}
+        />
+
+        <TransitionSeries.Sequence durationInFrames={SCENE_PROJECT}>
+          <RemixProjectScene
+            {...projectFive}
+            theme={theme}
+            overlays={overlays}
+            direction={projectDirections[4]}
+            sceneOverlay={projectScenes[4]}
           />
         </TransitionSeries.Sequence>
 
