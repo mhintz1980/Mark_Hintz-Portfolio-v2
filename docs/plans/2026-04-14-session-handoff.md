@@ -10,25 +10,24 @@
 3. **Typography Animation Flow**: Constrained textual origins to the top, right, and bottom borders for the V2 video, leaving the static text on the left completely uncrossed by floating labels.
 4. **Torque Scene Images**: Replaced recycled identity imagery in the Gearbox scene with proper input shaft renders (`torque-wrench-01.webp`) and `JGUN-DS-APACHE.JPG`.
 5. **Deployment**: Formally committed to `main` and successfully built the payload via `npm run deploy`.
+6. **Frontend Tweaks**: Extended the Parallax background down through the References section, updated the bottom CTA copy while keeping its background solid, and precisely aligned the baseline of the cycling Hero text.
 
 ## First Task For Next Session
-- **Extend Parallax Background**: Extend the parallax background of the portfolio page down into the "references" section. 
-- *Constraint*: Set the bottom-most CTA section ("Let's create something awesome.") to ensure it remains a solid background. Provide the text copy edit as well.
+- **Text Cheat Sheet Artifact**: Create a markdown artifact that acts as a "cheat sheet" listing every text segment on the page. Next to each segment, list the exact location of that text (file path and line number) and how to edit it (e.g., text content on line X, font color/shade logic on line Y).
+
+## Second Task For Next Session
+- **Interactive Project Galleries**: Redesign how images are shown in the Projects section. 
+  - The main card for each project should slowly autoplay through its images.
+  - When hovered, the image container should scale up (2x to 3x) and hover above the page content.
+  - Left and right navigation arrows must appear beside the scaled container to manually scroll through images.
 
 ## Important Context To Preserve
-- The Remotion codebase is now feature-complete for the primary `ShowreelRemixV2` hero deployment. Next session will switch context toward the main portfolio layout infrastructure.
-- Note the differences between the `remotion/` react environment and the root `mark-hintz-portfolio_bg-cad/` Vite app environment.
+- The Remotion codebase is feature-complete for the primary `ShowreelRemixV2` hero deployment. Context is entirely focused on the Vite app UI at the root `mark-hintz-portfolio_bg-cad/` level.
+- Note the differences between `portfolioData.ts` object references and hardcoded text blocks within components.
 
 ## Current Working Tree
-- Everything is clean and pushed.
-
-## Files Worth Reading First Next Session
-- `src/App.tsx` or wherever the primary "references" and "CTA" page sections are nested.
-- Next layer of css modules or tailwind definitions related to the `<Parallax>` containers.
+- The repo is clean except for the handoff documents.
 
 ## Skills To Use Next Session
-- `framer-motion-animator` (if framer motion drives the parallax)
+- `framer-motion-animator` (critical for the hover-scale and image slider logic)
 - `frontend-design`
-
-## Known Behavior Note
-- Ensure any Z-indexing adjustments for parallax extensions do not conflict with the previously implemented `Velocity Z-Depth Hero Animation` or `Tailwind Dark Mode` implementations.
