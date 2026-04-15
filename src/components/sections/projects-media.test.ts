@@ -1,6 +1,11 @@
 import {describe, expect, it} from "vitest";
 
-import {buildProjectMediaItems, getProjectMediaIndex} from "./projects-media";
+import {
+  buildProjectMediaItems,
+  getProjectMediaAutoplayDelay,
+  getNextProjectMediaIndex,
+  getProjectMediaIndex,
+} from "./projects-media";
 
 describe("buildProjectMediaItems", () => {
   it("prepends the hero image and removes duplicates from the gallery", () => {
@@ -79,5 +84,35 @@ describe("getProjectMediaIndex", () => {
 
   it("falls back safely when a project has no media items", () => {
     expect(getProjectMediaIndex(2, 0)).toBe(0);
+  });
+});
+
+describe("getNextProjectMediaIndex", () => {
+  it("advances to the next frame when another media item exists", () => {
+    expect(getNextProjectMediaIndex(0, 4)).toBe(1);
+  });
+
+  it("wraps back to the first frame when it reaches the end", () => {
+    expect(getNextProjectMediaIndex(3, 4)).toBe(0);
+  });
+
+  it("stays on the first frame when there is only one or zero items", () => {
+    expect(getNextProjectMediaIndex(0, 1)).toBe(0);
+    expect(getNextProjectMediaIndex(2, 0)).toBe(0);
+  });
+});
+
+describe("getProjectMediaAutoplayDelay", () => {
+  it("returns the base delay for the first project card", () => {
+    expect(getProjectMediaAutoplayDelay(0)).toBe(4200);
+  });
+
+  it("adds a small stagger per project so cards do not advance together", () => {
+    expect(getProjectMediaAutoplayDelay(1)).toBe(4680);
+    expect(getProjectMediaAutoplayDelay(2)).toBe(5160);
+  });
+
+  it("falls back to the base delay for invalid project indexes", () => {
+    expect(getProjectMediaAutoplayDelay(-1)).toBe(4200);
   });
 });

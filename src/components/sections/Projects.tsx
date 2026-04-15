@@ -40,6 +40,7 @@ export const Projects = () => {
           return (
             <ProjectCard
               key={project.title}
+              projectIndex={index}
               project={project}
               isExpanded={isExpanded}
               onToggleExpanded={() =>

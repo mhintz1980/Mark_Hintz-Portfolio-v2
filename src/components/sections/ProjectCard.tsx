@@ -1,6 +1,13 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
-import { buildProjectMediaItems, getProjectMediaIndex, type ProjectMediaItem } from './projects-media';
+import { useEffect, useEffectEvent } from 'react';
+import {
+  buildProjectMediaItems,
+  getProjectMediaAutoplayDelay,
+  getNextProjectMediaIndex,
+  getProjectMediaIndex,
+  type ProjectMediaItem,
+} from './projects-media';
 
 type ProjectCardProject = {
   title: string;
@@ -12,6 +19,7 @@ type ProjectCardProject = {
 };
 
 type ProjectCardProps = {
+  projectIndex: number;
   project: ProjectCardProject;
   isExpanded: boolean;
   onToggleExpanded: () => void;
@@ -37,13 +45,25 @@ const ProjectCardMediaHero = ({
   shouldReduceMotion: boolean;
 }) => (
   <div className="relative overflow-hidden w-full aspect-[16/10] bg-background">
-    <motion.img
-      src={resolveProjectMediaSrc(item.src)}
-      alt={projectTitle}
-      className="w-full h-full object-cover"
-      whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-      transition={{ duration: 0.6 }}
-    />
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.img
+        key={item.src}
+        src={resolveProjectMediaSrc(item.src)}
+        alt={projectTitle}
+        className="absolute inset-0 h-full w-full object-cover"
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: 1,
+          scale: shouldReduceMotion ? 1 : 1.02,
+        }}
+        exit={{ opacity: 0 }}
+        whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+        transition={{
+          opacity: { duration: 0.65, ease: 'easeInOut' },
+          scale: { duration: 0.65, ease: 'easeOut' },
+        }}
+      />
+    </AnimatePresence>
     <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300" />
     <div className="absolute left-4 top-4 bg-surface/85 backdrop-blur-md border border-accent-primary/20 px-3 py-2 text-[11px] font-mono uppercase tracking-[0.16em] text-primary shadow-sm">
       <div className="text-secondary">Media Frame</div>
@@ -118,6 +138,7 @@ const ProjectCardMediaButton = ({
 );
 
 export const ProjectCard = ({
+  projectIndex,
   project,
   isExpanded,
   onToggleExpanded,
@@ -129,6 +150,24 @@ export const ProjectCard = ({
   const mediaItems = buildProjectMediaItems(project);
   const activeMediaIndex = getProjectMediaIndex(selectedMediaIndex, mediaItems.length);
   const activeMedia = mediaItems[activeMediaIndex];
+  const autoplayDelay = getProjectMediaAutoplayDelay(projectIndex);
+  const advanceHeroMedia = useEffectEvent(() => {
+    onSelectMedia(getNextProjectMediaIndex(activeMediaIndex, mediaItems.length));
+  });
+
+  useEffect(() => {
+    if (shouldReduceMotion || mediaItems.length <= 1) {
+      return;
+    }
+
+    const autoplayInterval = window.setInterval(() => {
+      advanceHeroMedia();
+    }, autoplayDelay);
+
+    return () => {
+      window.clearInterval(autoplayInterval);
+    };
+  }, [autoplayDelay, mediaItems.length, shouldReduceMotion]);
 
   return (
     <motion.div
