@@ -32,32 +32,6 @@ export const portfolioData = {
 
   projects: [
     {
-      title: "PumpTracker (Production Scheduling + Capacity Planning)",
-      category: "Internal tool • React/TypeScript • Firebase/Supabase",
-      image: "assets/images/pumptracker-hero.webp",
-      outcome: "Eliminated manual scheduling — 30+ hrs/week recovered",
-      tags: ["React", "TypeScript", "Supabase", "Firebase", "AI Workflows"],
-      gallery: [
-        "assets/images/pumptracker-01.webp",
-        "assets/images/pumptracker-02.webp",
-        "assets/images/pumptracker-03.webp",
-        "assets/images/pumptracker-04.webp"
-      ]
-    },
-    {
-      title: "Pump Package Design System (Skids, Enclosures, Mounts, Lifting)",
-      category: "Mechanical design • SolidWorks • DFM/DFA",
-      image: "assets/images/pump-package-hero.webp",
-      outcome: "Zero tolerance failures across 47-component assembly",
-      tags: ["SolidWorks", "DFM/DFA", "GD&T", "Sheet Metal", "Weldments"],
-      gallery: [
-        "assets/images/pump-package-01.webp",
-        "assets/images/pump-package-02.webp",
-        "assets/images/pump-package-03.webp",
-        "assets/images/pump-package-04.webp"
-      ]
-    },
-    {
       title: "Industrial Torque Wrench",
       category: "Mechanical design • Planetary gearboxes • Precision assemblies",
       image: "assets/images/torque-wrench-hero.webp",
@@ -70,6 +44,20 @@ export const portfolioData = {
         "assets/images/torque-wrench-04.webp",
         "assets/images/torque-wrench-05.webp",
         "assets/images/torque-wrench-06.webp"
+      ]
+    },
+    {
+      title: "Armament Components & Receiver Systems",
+      category: "Mechanical design • Receivers • Weapon-system components",
+      image: "assets/images/AR-15 Lower Reciever-Forged.JPG",
+      outcome: "Receiver and component geometry resolved for fit, function, and manufacturability",
+      tags: ["SolidWorks", "Receiver Design", "Fit & Function", "Manufacturing Drawings"],
+      gallery: [
+        "assets/images/709870988691 - BARREL NUT.webp",
+        "assets/images/308 KB.webp",
+        "assets/images/3D View-3.webp",
+        "assets/images/Rendering of Upper and Lower Receiver Assembly for an AR15 That I designed for a Leader in the weapons Industry.jpg",
+        "assets/images/TAURUS-8.875-1P-3K-Rev1-3 view.webp"
       ]
     },
     {
@@ -88,7 +76,34 @@ export const portfolioData = {
         "assets/images/rendering-07.webp",
         "assets/images/rendering-08.webp",
         "assets/images/rendering-09.webp",
-        "assets/images/rendering-10.webp"
+        "assets/images/rendering-10.webp",
+        "assets/images/HYDRAULIC-TORQUE-MXT03-ASSY.jpg"
+      ]
+    },
+    {
+      title: "Pump Package Design System (Skids, Enclosures, Mounts, Lifting)",
+      category: "Mechanical design • SolidWorks • DFM/DFA",
+      image: "assets/images/pump-package-hero.webp",
+      outcome: "Zero tolerance failures across 47-component assembly",
+      tags: ["SolidWorks", "DFM/DFA", "GD&T", "Sheet Metal", "Weldments"],
+      gallery: [
+        "assets/images/pump-package-01.webp",
+        "assets/images/pump-package-02.webp",
+        "assets/images/pump-package-03.webp",
+        "assets/images/pump-package-04.webp"
+      ]
+    },
+    {
+      title: "PumpTracker (Production Scheduling + Capacity Planning)",
+      category: "Internal tool • React/TypeScript • Firebase/Supabase",
+      image: "assets/images/pumptracker-hero.webp",
+      outcome: "Eliminated manual scheduling — 30+ hrs/week recovered",
+      tags: ["React", "TypeScript", "Supabase", "Firebase", "AI Workflows"],
+      gallery: [
+        "assets/images/pumptracker-01.webp",
+        "assets/images/pumptracker-02.webp",
+        "assets/images/pumptracker-03.webp",
+        "assets/images/pumptracker-04.webp"
       ]
     }
   ],
