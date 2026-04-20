@@ -49,42 +49,49 @@ export function FramerCarousel() {
   const [index, setIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const x = useMotionValue(0);
-
-  useEffect(() => {
-    if (containerRef.current) {
-      const containerWidth = containerRef.current.offsetWidth || 1;
-      const targetX = -index * containerWidth;
-
-      animate(x, targetX, {
-        type: 'spring',
-        stiffness: 300,
-        damping: 30,
-      });
+  const handleScroll = () => {
+    if (!containerRef.current) return;
+    const scrollLeft = containerRef.current.scrollLeft;
+    const width = containerRef.current.offsetWidth;
+    const newIndex = Math.round(scrollLeft / width);
+    if (newIndex !== index) {
+      setIndex(newIndex);
     }
-  }, [index, x]);
+  };
+
+  const scrollTo = (newIndex: number) => {
+    if (!containerRef.current) return;
+    const width = containerRef.current.offsetWidth;
+    containerRef.current.scrollTo({ left: width * newIndex, behavior: 'smooth' });
+    setIndex(newIndex);
+  };
 
   return (
     <div className='p-2 w-full'>
       <div className='flex flex-col gap-3'>
-        <div className='relative overflow-hidden rounded-2xl border border-white/10' ref={containerRef}>
-          <motion.div className='flex' style={{ x }}>
+        <div className='relative overflow-hidden rounded-2xl border border-white/10 group'>
+          <div 
+            className='flex overflow-x-auto snap-x snap-mandatory hide-scrollbar' 
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            ref={containerRef}
+            onScroll={handleScroll}
+          >
             {items.map((item) => (
-              <div key={item.id} className='shrink-0 w-full h-[500px]'>
+              <div key={item.id} className='shrink-0 w-full h-[500px] snap-center'>
                 <img
                   src={item.url}
                   alt={item.title}
-                  className='w-full h-full object-cover rounded-xl select-none pointer-events-none'
+                  className='w-full h-full object-cover rounded-xl select-none'
                   draggable={false}
                 />
               </div>
             ))}
-          </motion.div>
+          </div>
 
           {/* Navigation Buttons */}
           <motion.button
             disabled={index === 0}
-            onClick={() => setIndex((i) => Math.max(0, i - 1))}
+            onClick={() => scrollTo(Math.max(0, index - 1))}
             className={`absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-transform z-10
               ${
                 index === 0
@@ -110,7 +117,7 @@ export function FramerCarousel() {
           {/* Next Button */}
           <motion.button
             disabled={index === items.length - 1}
-            onClick={() => setIndex((i) => Math.min(items.length - 1, i + 1))}
+            onClick={() => scrollTo(Math.min(items.length - 1, index + 1))}
             className={`absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-transform z-10
               ${
                 index === items.length - 1
@@ -138,7 +145,7 @@ export function FramerCarousel() {
             {items.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setIndex(i)}
+                onClick={() => scrollTo(i)}
                 className={`h-2 rounded-full transition-all ${
                   i === index ? 'w-8 bg-white' : 'w-2 bg-white/40 hover:bg-white/60'
                 }`}

@@ -15,8 +15,8 @@ export function TextGlitch({ text, hoverText, href, className = "", delay = 0 }:
   const spanRef = useRef<HTMLSpanElement>(null)
   const [displayText, setDisplayText] = useState(text)
   const [displayHoverText, setDisplayHoverText] = useState(hoverText || text)
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
-  const hoverIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  const intervalRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const hoverIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 

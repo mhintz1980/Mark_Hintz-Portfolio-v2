@@ -30,8 +30,8 @@ export function BlurTextAnimation({
   animationDelay = 4000
 }: BlurTextAnimationProps) {
   const [isAnimating, setIsAnimating] = useState(false);
-  const animationTimeoutRef = useRef<NodeJS.Timeout>();
-  const resetTimeoutRef = useRef<NodeJS.Timeout>();
+  const animationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const textWords = useMemo(() => {
     if (words) return words;
@@ -88,23 +88,23 @@ export function BlurTextAnimation({
   }, [textWords, animationDelay]);
 
   return (
-    <div className={`flex items-center justify-center p-12 bg-black/40 rounded-3xl border border-white/5 \${className}`}>
+    <div className={`flex items-center justify-center p-12 bg-black/40 rounded-3xl border border-white/5 ${className}`}>
       <div className="text-center max-w-5xl px-8">
-        <p className={`\${textColor} \${fontSize} \${fontFamily} font-light leading-relaxed tracking-wide`}>
+        <p className={`${textColor} ${fontSize} ${fontFamily} font-light leading-relaxed tracking-wide`}>
           {textWords.map((word, index) => (
             <span
               key={index}
-              className={`inline-block transition-all \${isAnimating ? 'opacity-100' : 'opacity-0'}`}
+              className={`inline-block transition-all ${isAnimating ? 'opacity-100' : 'opacity-0'}`}
               style={{
-                transitionDuration: `\${word.duration}s`,
-                transitionDelay: `\${word.delay}s`,
+                transitionDuration: `${word.duration}s`,
+                transitionDelay: `${word.delay}s`,
                 transitionTimingFunction: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                 filter: isAnimating 
                   ? 'blur(0px) brightness(1)' 
-                  : `blur(\${word.blur}px) brightness(0.6)`,
+                  : `blur(${word.blur}px) brightness(0.6)`,
                 transform: isAnimating 
                   ? 'translateY(0) scale(1) rotateX(0deg)' 
-                  : `translateY(20px) scale(\${word.scale || 1}) rotateX(-15deg)`,
+                  : `translateY(20px) scale(${word.scale || 1}) rotateX(-15deg)`,
                 marginRight: '0.35em',
                 willChange: 'filter, transform, opacity',
                 transformStyle: 'preserve-3d',

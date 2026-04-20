@@ -10,61 +10,52 @@ import { useRef, useState } from "react";
 
 const plans = [
   {
-    name: "Starter",
+    name: "CAD Automation",
     description:
-      "Great for small businesses and startups looking to get started with AI",
-    price: 12,
-    yearlyPrice: 99,
-    buttonText: "Get started",
+      "Stop doing manually what a macro can do in seconds. Automation that eliminates repetitive tasks and enforces standards.",
+    price: 85,
+    yearlyPrice: 6500,
+    buttonText: "Get a quote",
     buttonVariant: "outline" as const,
     includes: [
-      "Free includes:",
-      "Unlimted Cards",
-      "Custom background & stickers",
-      "2-factor authentication",
-      "Free includes:",
-      "Unlimted Cards",
-      "Custom background & stickers",
-      "2-factor authentication",
+      "SolidWorks · PDM · Design Tables",
+      "SolidWorks macros & API automation",
+      "PDM Vault workflow optimization",
+      "Design Table systems & configurators",
+      "Drawing package automation",
     ],
   },
   {
-    name: "Business",
+    name: "AI Integration",
     description:
-      "Best value for growing businesses that need more advanced features",
-    price: 48,
-    yearlyPrice: 399,
-    buttonText: "Get started",
+      "The rare engineer who can build the AI tool AND understand the mechanical context it operates in. Custom tooling for engineering.",
+    price: 100,
+    yearlyPrice: 8500,
+    buttonText: "Discuss your project",
     buttonVariant: "default" as const,
     popular: true,
     includes: [
-      "Everything in Starter, plus:",
-      "Advanced checklists",
-      "Custom fields",
-      "Serverless functions",
-      "Everything in Starter, plus:",
-      "Advanced checklists",
-      "Custom fields",
-      "Serverless functions",
+      "Python · Claude SDK · Custom Tooling",
+      "Custom AI agents for engineering workflows",
+      "Natural language interfaces for CAD/PDM",
+      "Automated reporting & documentation",
+      "Intelligent design review tooling",
     ],
   },
   {
-    name: "Enterprise",
+    name: "Design Review & DFM",
     description:
-      "Advanced plan with enhanced security and unlimited access for large teams",
-    price: 96,
-    yearlyPrice: 899,
-    buttonText: "Get started",
+      "15+ years on the shop floor means I catch what CAD-only designers miss. Delivered as actionable redlines.",
+    price: 75,
+    yearlyPrice: 4000,
+    buttonText: "Request a review",
     buttonVariant: "outline" as const,
     includes: [
-      "Everything in Business, plus:",
-      "Multi-board management",
-      "Multi-board guest",
-      "Attachment permissions",
-      "Everything in Business, plus:",
-      "Multi-board management",
-      "Multi-board guest",
-      "Attachment permissions",
+      "SolidWorks · GD&T · Manufacturing",
+      "DFM/DFA analysis & redlines",
+      "GD&T review & correction",
+      "Tolerance stack-up analysis",
+      "Drawing package audit",
     ],
   },
 ];
@@ -94,13 +85,13 @@ const PricingSwitch = ({ onSwitch }: { onSwitch: (value: string) => void }) => {
               transition={{ type: "spring", stiffness: 500, damping: 30 }}
             />
           )}
-          <span className="relative z-20">Monthly</span>
+          <span className="relative z-20">Hourly</span>
         </button>
 
         <button
           onClick={() => handleSwitch("1")}
           className={cn(
-            "relative z-10 w-fit h-10 flex-shrink-0 rounded-full sm:px-6 px-3 sm:py-2 py-1 font-medium transition-colors",
+            "relative z-10 w-fit h-10 shrink-0 rounded-full sm:px-6 px-3 sm:py-2 py-1 font-medium transition-colors",
             selected === "1" ? "text-white" : "text-gray-400",
           )}
         >
@@ -111,7 +102,7 @@ const PricingSwitch = ({ onSwitch }: { onSwitch: (value: string) => void }) => {
               transition={{ type: "spring", stiffness: 500, damping: 30 }}
             />
           )}
-          <span className="relative z-20 flex items-center gap-2">Yearly</span>
+          <span className="relative z-20 flex items-center gap-2">Project (Est)</span>
         </button>
       </div>
     </div>
@@ -178,7 +169,7 @@ export default function PricingSection4() {
               delay: 0, 
             }}
           >
-            Plans that work best for you
+            Specialized Capabilities
           </VerticalCutReveal>
         </h2>
 
@@ -189,8 +180,7 @@ export default function PricingSection4() {
           customVariants={revealVariants}
           className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto"
         >
-          Trusted by millions. We help teams all around the world. Explore which
-          option is right for you.
+          Available for hourly consulting, or fixed-price project retainers. Explore the services that best fit your team.
         </TimelineContent>
 
         <TimelineContent
@@ -247,7 +237,7 @@ export default function PricingSection4() {
                     />
                   </span>
                   <span className="text-gray-400 ml-2 font-medium">
-                    /{isYearly ? "year" : "month"}
+                    {isYearly ? "/project" : "/hr"}
                   </span>
                 </div>
                 <p className="text-sm text-gray-400 leading-relaxed font-medium">{plan.description}</p>
@@ -274,7 +264,7 @@ export default function PricingSection4() {
                         key={featureIndex}
                         className="flex items-center gap-3"
                       >
-                        <div className="flex-shrink-0 h-4 w-4 rounded-full bg-blue-500/20 border border-blue-500/50 flex items-center justify-center text-blue-400">
+                        <div className="shrink-0 h-4 w-4 rounded-full bg-blue-500/20 border border-blue-500/50 flex items-center justify-center text-blue-400">
                           <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                         </div>
                         <span className="text-sm text-gray-400 font-medium">{feature}</span>

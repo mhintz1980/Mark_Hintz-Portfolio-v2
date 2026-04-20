@@ -151,12 +151,14 @@ function ImagePlane({
 
 	useEffect(() => {
 		if (material && texture) {
+			// eslint-disable-next-line react-hooks/immutability
 			material.uniforms.map.value = texture;
 		}
 	}, [material, texture]);
 
 	useEffect(() => {
 		if (material && material.uniforms) {
+			// eslint-disable-next-line react-hooks/immutability
 			material.uniforms.isHovered.value = isHovered ? 1.0 : 0.0;
 		}
 	}, [material, isHovered]);
@@ -191,7 +193,7 @@ function GalleryScene({
 }: Omit<InfiniteGalleryProps, 'className' | 'style'>) {
 	const [scrollVelocity, setScrollVelocity] = useState(0);
 	const [autoPlay, setAutoPlay] = useState(true);
-	const lastInteraction = useRef(Date.now());
+	const lastInteraction = useRef(0);
 
 	const normalizedImages = useMemo(
 		() =>
@@ -427,7 +429,7 @@ function GalleryScene({
 				const worldZ = plane.z - depthRange / 2;
 
 				const aspect = texture.image
-					? texture.image.width / texture.image.height
+					? (texture.image as HTMLImageElement).width / (texture.image as HTMLImageElement).height
 					: 1;
 				const scale: [number, number, number] =
 					aspect > 1 ? [2 * aspect, 2, 1] : [2, 2 / aspect, 1];
@@ -498,10 +500,10 @@ export default function InfiniteGallery({
 			const gl =
 				canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
 			if (!gl) {
-				setWebglSupported(false);
+				setTimeout(() => setWebglSupported(false), 0);
 			}
-		} catch (e) {
-			setWebglSupported(false);
+		} catch {
+			setTimeout(() => setWebglSupported(false), 0);
 		}
 	}, []);
 

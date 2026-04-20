@@ -1,10 +1,11 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
-import { portfolioData, coreServices } from '../../data/portfolioData';
+import { coreServices } from '../../data/portfolioData';
 import { SectionTitle } from '../ui/MagneticText';
+import PricingSection4 from '../ui/pricing-section-4';
 
 export const Services = () => {
-  const shouldReduceMotion = useReducedMotion();
+
 
   const container: Variants = {
     hidden: { opacity: 0 },
@@ -56,59 +57,9 @@ export const Services = () => {
         ))}
       </motion.div>
 
-      <div className="mb-12">
-        <h3 className="text-3xl font-heading font-bold mb-4 opacity-50 text-center uppercase tracking-widest">Specialized Capabilities</h3>
+      <div className="mt-12 w-full max-w-[1200px] mx-auto">
+        <PricingSection4 />
       </div>
-
-      <motion.div
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-100px" }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-8"
-      >
-        {portfolioData.services.map((service, index) => (
-          <motion.div 
-            key={index}
-            variants={item}
-            whileHover={shouldReduceMotion ? {} : { y: -8 }}
-            className="flex flex-col h-full bg-surface border border-secondary/10 shadow-sm p-8 rounded-sm transition-all hover:shadow-xl group relative overflow-hidden"
-          >
-            {/* Top right decorative corner */}
-            <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none transform translate-x-1/2 -translate-y-1/2 rotate-45 border border-cad-line-primary/20 bg-background/50" />
-            
-            <div className="mb-6 flex-1">
-              <h3 className="text-2xl font-heading font-bold mb-2 group-hover:text-accent-primary transition-colors">{service.title}</h3>
-              <p className="font-mono text-sm text-accent-secondary mb-6 tracking-wide uppercase">{service.subtitle}</p>
-              <p className="text-secondary leading-relaxed mb-8">{service.description}</p>
-              
-              <ul className="space-y-3 mb-8">
-                {service.deliverables.map((deliverable, dIndex) => (
-                  <li key={dIndex} className="flex items-start">
-                    <span className="text-accent-primary mt-1 mr-3 flex-shrink-0">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                      </svg>
-                    </span>
-                    <span className="text-primary text-[15px]">{deliverable}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div className="mt-auto pt-6 border-t border-cad-line-primary/20">
-              <p className="text-sm font-semibold text-primary mb-4 bg-background px-3 py-1.5 inline-block rounded-sm">{service.rate}</p>
-              <a 
-                href={service.cta.href} 
-                className="group/btn flex items-center justify-between w-full py-4 px-6 border border-accent-secondary/30 text-accent-secondary font-bold font-heading hover:bg-accent-primary hover:text-white hover:border-accent-primary transition-colors rounded-sm uppercase tracking-wide"
-              >
-                <span>{service.cta.label.replace('→', '').trim()}</span>
-                <span className="transform group-hover/btn:translate-x-1 transition-transform">→</span>
-              </a>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
       
       {/* Conversion Banner injected after services */}
       <motion.div
