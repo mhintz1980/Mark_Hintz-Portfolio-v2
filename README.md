@@ -1,73 +1,56 @@
-# React + TypeScript + Vite
+# Mark Hintz Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Design + Manufacturing Bridge**
 
-Currently, two official plugins are available:
+This project is a high-end portfolio and showreel for Mark Hintz, emphasizing the intersection of mechanical design, manufacturing realities, and automation.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Quick Start
 
-## React Compiler
+### Portfolio Website (React + Vite)
+The main portfolio site uses React and Vite with Tailwind CSS v4.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. **Navigate to the directory:**
+   ```bash
+   cd mark-hintz-portfolio_bg-cad
+   ```
+2. **Install dependencies (if not already done):**
+   ```bash
+   npm install
+   ```
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+4. **Open in browser:**
+   [http://localhost:5173/Mark_Hintz-Portfolio-v2/](http://localhost:5173/Mark_Hintz-Portfolio-v2/)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Remotion Showreel Studio
+The programmable video showreel is located in the `remotion` subdirectory.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. **Navigate to the directory:**
+   ```bash
+   cd mark-hintz-portfolio_bg-cad/remotion
+   ```
+2. **Run the Studio:**
+   ```bash
+   npm run studio
+   ```
+3. **Open in browser:**
+   [http://localhost:3333](http://localhost:3333)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📁 Project Structure
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- `src/`: Main React application source code.
+- `remotion/`: Source code for the Remotion-based showreel.
+- `docs/`: Context, plans, and strategy documents.
+- `public/`: Static assets and images.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠 Tech Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Frontend**: React 19, TypeScript, Vite
+- **Styling**: Tailwind CSS v4, Framer Motion
+- **Video**: Remotion
+- **3D**: React Three Fiber, Three.js
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```

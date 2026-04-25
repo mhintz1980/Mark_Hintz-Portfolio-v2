@@ -1,19 +1,20 @@
-"use client";
-
 import { useEffect, useRef } from "react";
+
+const CDN_URL =
+  "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js";
 
 type TubesCursorProps = {
   title?: string;
   subtitle?: string;
   caption?: string;
-  initialColors?: string[];   
-  lightColors?: string[];     
-  lightIntensity?: number;    
-  titleSize?: string;         
+  initialColors?: string[];
+  lightColors?: string[];
+  lightIntensity?: number;
+  titleSize?: string;
   subtitleSize?: string;
   captionSize?: string;
   enableRandomizeOnClick?: boolean;
-  className?: string;         
+  className?: string;
 };
 
 export const TubesCursor = ({
@@ -30,6 +31,7 @@ export const TubesCursor = ({
   className = "",
 }: TubesCursorProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const appRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -37,14 +39,30 @@ export const TubesCursor = ({
     let removeClick: (() => void) | null = null;
     let destroyed = false;
 
-    (async () => {
-      const mod = await import(
-        /* webpackIgnore: true */
-        "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js"
-      );
-      const TubesCursorCtor = (mod as any).default ?? mod;
+    const loadScript = (): Promise<void> =>
+      new Promise((resolve, reject) => {
+        if (document.querySelector(`script[src="${CDN_URL}"]`)) {
+          resolve();
+          return;
+        }
+        const script = document.createElement("script");
+        script.src = CDN_URL;
+        script.onload = () => resolve();
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
 
-      if (!canvasRef.current || destroyed) return;
+    (async () => {
+      try {
+        await loadScript();
+      } catch {
+        console.warn("TubesCursor: failed to load CDN script");
+        return;
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const TubesCursorCtor = (window as any).TubesCursor;
+      if (!TubesCursorCtor || !canvasRef.current || destroyed) return;
 
       const app = TubesCursorCtor(canvasRef.current, {
         tubes: {
@@ -65,7 +83,6 @@ export const TubesCursor = ({
           app.tubes.setColors(colors);
           app.tubes.setLightsColors(lights);
         };
-        // bind to container instead of global body so only clicks in the area randomize
         containerRef.current.addEventListener("click", handler);
         removeClick = () =>
           containerRef.current?.removeEventListener("click", handler);
@@ -85,24 +102,30 @@ export const TubesCursor = ({
   }, [initialColors, lightColors, lightIntensity, enableRandomizeOnClick]);
 
   return (
-    <div ref={containerRef} className={`relative flex items-center justify-center h-[500px] w-full overflow-hidden rounded-3xl cursor-pointer \${className}`}>
+    <div
+      ref={containerRef}
+      className={`relative flex items-center justify-center h-[500px] w-full overflow-hidden rounded-3xl cursor-pointer ${className}`}
+    >
       {/* Background canvas */}
-      <canvas ref={canvasRef} className="absolute inset-0 block h-full w-full pointer-events-none" />
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 block h-full w-full pointer-events-none"
+      />
 
       {/* Hero text */}
       <div className="relative z-10 flex h-full w-full flex-col items-center justify-center gap-2 select-none pointer-events-none">
         <h1
-          className={`m-0 p-0 text-white font-bold uppercase leading-none drop-shadow-[0_0_20px_rgba(0,0,0,1)] \${titleSize}`}
+          className={`m-0 p-0 text-white font-bold uppercase leading-none drop-shadow-[0_0_20px_rgba(0,0,0,1)] ${titleSize}`}
         >
           {title}
         </h1>
         <h2
-          className={`m-0 p-0 text-white font-medium uppercase leading-none drop-shadow-[0_0_20px_rgba(0,0,0,1)] \${subtitleSize}`}
+          className={`m-0 p-0 text-white font-medium uppercase leading-none drop-shadow-[0_0_20px_rgba(0,0,0,1)] ${subtitleSize}`}
         >
           {subtitle}
         </h2>
         <p
-          className={`m-0 p-0 text-white leading-none drop-shadow-[0_0_20px_rgba(0,0,0,1)] \${captionSize}`}
+          className={`m-0 p-0 text-white leading-none drop-shadow-[0_0_20px_rgba(0,0,0,1)] ${captionSize}`}
         >
           {caption}
         </p>

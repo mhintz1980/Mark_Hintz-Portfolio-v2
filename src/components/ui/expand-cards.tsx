@@ -1,6 +1,5 @@
-"use client";
+import { useState } from "react";
 
-import React, { useState } from "react";
 
 const images = [
   "https://pbs.twimg.com/media/G6dpB9JaAAA2wDS?format=png&name=360x360",

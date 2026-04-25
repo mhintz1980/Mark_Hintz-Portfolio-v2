@@ -1,8 +1,6 @@
-import { forwardRef } from 'react';
-
-const StickyScroll = forwardRef<HTMLElement>((props, ref) => {
+const StickyScroll = () => {
   return (
-    <div 
+    <div
       className="relative h-[600px] w-full overflow-y-auto overflow-x-hidden rounded-3xl border border-white/10"
     >
       <div className='bg-[#0a0a0a]'>
@@ -116,8 +114,7 @@ const StickyScroll = forwardRef<HTMLElement>((props, ref) => {
         </div>
       </div>
   );
-});
-
-StickyScroll.displayName = 'StickyScroll';
+};
 
 export default StickyScroll;
+

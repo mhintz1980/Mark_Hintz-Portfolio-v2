@@ -1,6 +1,6 @@
-'use client';
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, useMotionValue, animate } from 'motion/react';
+import { useRef, useState } from 'react';
+import { motion } from 'motion/react';
+
 
 const items = [
   {

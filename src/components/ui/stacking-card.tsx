@@ -1,6 +1,7 @@
 'use client';
 import { useTransform, motion, useScroll, MotionValue } from 'motion/react';
-import { useRef, forwardRef } from 'react';
+import { useRef } from 'react';
+
 
 interface ProjectData {
   title: string;
@@ -102,7 +103,7 @@ interface ComponentRootProps {
   projects: ProjectData[];
 }
 
-const StackingCard = forwardRef<HTMLElement, ComponentRootProps>(({ projects }, ref) => {
+const StackingCard = ({ projects }: ComponentRootProps) => {
   const container = useRef<HTMLDivElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
   
@@ -156,8 +157,7 @@ const StackingCard = forwardRef<HTMLElement, ComponentRootProps>(({ projects }, 
       </div>
     </div>
   );
-});
-
-StackingCard.displayName = 'StackingCard';
+};
 
 export default StackingCard;
+

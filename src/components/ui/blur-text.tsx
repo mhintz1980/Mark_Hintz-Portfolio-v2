@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
+
 
 interface WordData {
   text: string;

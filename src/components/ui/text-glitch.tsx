@@ -13,7 +13,7 @@ interface TextEffectProps {
 export function TextGlitch({ text, hoverText, href, className = "", delay = 0 }: TextEffectProps) {
   const textRef = useRef<HTMLHeadingElement>(null)
   const spanRef = useRef<HTMLSpanElement>(null)
-  const [displayText, setDisplayText] = useState(text)
+  const [displayText] = useState(text)
   const [displayHoverText, setDisplayHoverText] = useState(hoverText || text)
   const intervalRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const hoverIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -65,7 +65,7 @@ export function TextGlitch({ text, hoverText, href, className = "", delay = 0 }:
         setDisplayHoverText(
           hoverText
             .split("")
-            .map((letter, index) => {
+            .map((_letter, index) => {
               if (index < iteration) {
                 return hoverText[index]
               }
@@ -127,13 +127,13 @@ export function TextGlitch({ text, hoverText, href, className = "", delay = 0 }:
       className={`
         text-[10vw] font-bold leading-none tracking-tight m-0 
         text-neutral-600/20
-        bg-gradient-to-r from-neutral-700 to-neutral-500 bg-clip-text bg-no-repeat
+        bg-linear-to-r from-neutral-700 to-neutral-500 bg-clip-text bg-no-repeat
         border-b border-neutral-600/20
         flex flex-col items-start justify-center relative
         transition-all duration-500 ease-out
         cursor-pointer
         overflow-hidden
-        \${className}
+        ${className}
       `}
       style={{
         backgroundSize: "0%",

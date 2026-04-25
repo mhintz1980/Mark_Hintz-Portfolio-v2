@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, ReactNode } from 'react';
+import { useEffect, useRef } from 'react';
+import type { ReactNode } from 'react';
 
 interface GlowCardProps {
   children: ReactNode;
@@ -24,15 +25,16 @@ const sizeMap = {
   lg: 'w-80 h-96'
 };
 
-export const GlowCard: React.FC<GlowCardProps> = ({ 
-  children, 
-  className = '', 
+export const GlowCard = ({
+  children,
+  className = '',
   glowColor = 'blue',
   size = 'md',
   width,
   height,
   customSize = false
-}) => {
+}: GlowCardProps) => {
+
   const cardRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
 
@@ -60,7 +62,7 @@ export const GlowCard: React.FC<GlowCardProps> = ({
   };
 
   const getInlineStyles = () => {
-    const baseStyles: any = {
+    const baseStyles: Record<string, string | number> = {
       '--base': base,
       '--spread': spread,
       '--radius': '14',
