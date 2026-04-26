@@ -18,7 +18,7 @@ type Drawing = {
 const drawings: Drawing[] = [
   // --- DRAWING GROUP 1: Visible immediately (Opted OUT of fade-in) ---
   {
-    src: "/P001812.jpg",
+    src: "assets/images/torque-wrench-05.webp",
     alt: "Input Shaft",
     className: "bottom-[5%] left-[26%] w-[20vw] md:w-[35vw]",
     initialScale: 3.8,
@@ -29,7 +29,7 @@ const drawings: Drawing[] = [
     maxOpacity: 0.2,
   },
   {
-    src: "/P000473.jpg",
+    src: "assets/images/P000473.webp",
     alt: "Output Shaft",
     className: "top-[-0%] left-[0%] w-[20vw] md:w-[35vw]",
     initialScale: 1.95,
@@ -40,7 +40,7 @@ const drawings: Drawing[] = [
     maxOpacity: 0.4,
   },
   {
-    src: "/torque-wrench-06.webp",
+    src: "assets/images/torque-wrench-06.webp",
     alt: "Impact Housing",
     className: "top-[10%] right-[0%] w-[40vw] md:w-[40vw]",
     initialScale: 3,
@@ -51,7 +51,7 @@ const drawings: Drawing[] = [
     maxOpacity: 0.35,
   },
   {
-    src: "/P000420.jpg",
+    src: "assets/images/P000420.jpeg",
     alt: "Intermediate Housing",
     className: "bottom-[-45%] right-[0%] w-[20vw] md:w-[45vw]",
     initialScale: 1.2,
@@ -65,7 +65,7 @@ const drawings: Drawing[] = [
   },
   // --- DRAWING GROUP 2 We want these to sneak in, so we define the fade-in points
   {
-    src: "/A000629.jpg",
+    src: "assets/images/torque-wrench-03.webp",
     alt: "Gearbox Assembly",
     className: "bottom-[0%] right-[0%] w-[40vw] md:w-[40vw]",
     initialScale: 0.95,
@@ -76,7 +76,7 @@ const drawings: Drawing[] = [
     maxOpacity: 0.45,
   },
   {
-    src: "/torque-wrench-04.webp",
+    src: "assets/images/torque-wrench-04.webp",
     alt: "Handle Assembly Exploded",
     className: "bottom-[-30%] right-[35%] w-[20vw] md:w-[45vw]",
     initialScale: 0.85,
@@ -87,7 +87,7 @@ const drawings: Drawing[] = [
     maxOpacity: 0.4,
   },
   {
-    src: "/pump-package-03.webp",
+    src: "assets/images/pump-package-03.webp",
     alt: "pump package exploded view",
     className: "bottom-[45%] left-[-20%] w-[35vw] md:w-[35vw]",
     initialScale: 2,
