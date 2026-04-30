@@ -31,23 +31,23 @@ export const Hero = () => {
   };
 
   return (
-    <section id="top" className="min-h-screen flex flex-col justify-center py-32 relative z-10 w-full max-w-7xl mx-auto px-8 md:px-20">
+    <section id="top" className="font-hero min-h-screen flex flex-col justify-center py-32 relative z-10 w-full max-w-7xl mx-auto px-8 md:px-20">
       <motion.div
         initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-        className="font-mono text-[14px] font-medium uppercase tracking-[0.1em] text-secondary mb-8"
+        className="text-[14px] font-normal uppercase tracking-normal text-secondary mb-8"
       >
         {portfolioData.personal.superHeader}
       </motion.div>
 
       <div className="mb-12 max-w-max space-y-4">
         <MagneticText
-          className="text-6xl md:text-8xl font-extrabold leading-[1.1] tracking-[-0.04em] text-primary !flex-nowrap pr-4 pb-2 md:pr-6 w-max"
+          className="text-6xl md:text-8xl font-normal leading-[1.1] tracking-normal text-primary !flex-nowrap pr-4 pb-2 md:pr-6 w-max"
           text={portfolioData.personal.title.line1}
         />
         <MagneticText
-          className="text-6xl md:text-8xl font-extrabold leading-[1.1] tracking-[-0.04em] text-primary !flex-nowrap pr-4 pb-2 md:pr-6 w-max"
+          className="text-6xl md:text-8xl font-normal leading-[1.1] tracking-normal text-primary !flex-nowrap pr-4 pb-2 md:pr-6 w-max"
           text={portfolioData.personal.title.line2}
         />
       </div>
@@ -95,7 +95,7 @@ export const Hero = () => {
               inline-flex items-center justify-center px-7 py-3.5 
               text-[15px] rounded-sm transition-all
               ${action.primary 
-                ? 'font-heading font-bold uppercase tracking-widest bg-accent-primary text-white hover:bg-accent-primary/90 hover:-translate-y-0.5 shadow-[0_4px_20px_rgba(37,99,235,0.35)] hover:shadow-[0_6px_28px_rgba(37,99,235,0.45)] border-none'
+                ? 'font-hero font-normal uppercase tracking-normal bg-accent-primary text-white hover:bg-accent-primary/90 hover:-translate-y-0.5 shadow-[0_4px_20px_rgba(37,99,235,0.35)] hover:shadow-[0_6px_28px_rgba(37,99,235,0.45)] border-none'
                 : 'font-semibold bg-white/50 dark:bg-slate-800/50 backdrop-blur text-primary border border-secondary/20 hover:border-accent-primary hover:text-accent-primary shadow-sm'}
             `}
             whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}

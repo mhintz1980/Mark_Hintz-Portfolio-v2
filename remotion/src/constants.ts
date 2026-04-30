@@ -134,13 +134,13 @@ export const PROJECTS: readonly ProjectStory[] = [
     image: "assets/images/pump-package-hero.webp",
     tags: ["Sheet Metal", "Airflow", "Service Access", "DFM / DFA"],
     problem:
-      "The package had to survive fabrication, fit-up, service access, and operating reality without turning into an expensive build headache.",
+      "I designed the package to mitigate engine vibration and completely dampen any structure-borne noise while providing ventilation that cools the engine and feeds its combustion.",
     constraint:
-      "Airflow, sound control, sheet metal logic, structure, and cost pressure all pulled on the geometry at the same time.",
+      "Using a staggered baffle layout along with a thoughtfully designed tortuous path for any airflow, the enclosure was able to trap sound in and kill any and all engine roars that tried to escape.",
     decision:
-      "Balanced enclosure form, support structure, access strategy, and fabrication logic so the design stayed buildable and maintainable.",
+      "Balanced the cooling airflow requirements against the sound attenuation targets using a custom baffle strategy.",
     validation:
-      "Presented as floor-ready documentation rather than a concept-only enclosure study.",
+      "Zero tolerance failures across the 47-component assembly, ensuring floor-ready documentation.",
     callouts: ["ASSEMBLY ACCESS", "BEND LOGIC", "AIRFLOW / SOUND"],
   },
   {

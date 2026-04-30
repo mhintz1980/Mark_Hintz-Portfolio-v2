@@ -6,14 +6,14 @@ export const portfolioData = {
       line1: "Built from the",
       line2: "shop floor up."
     },
-    bio: "I design mechanical systems and build software and AI tools that make work faster, clearer, and more capable.",
+    bio: "I build internal tools that kill the manual grunt work so the shop can actually focus on the parts.",
     about:
-      "I've spent 15 years where design meets fabrication reality — planetary gearboxes built to ±0.0005\" and tested by hand, pump packages that had to survive welding, assembly, and field use, and firearms components toleranced for function, not just geometry. I've operated and supported 7-axis mill-turn centers, inspected with height gages and sin blocks where most shops would call for a CMM, and quoted jobs from single parts to 100-piece assemblies. When the manufacturing side is solid, the software layer gets sharper too — I build AI tools and internal systems that make engineering decisions faster and more visible across the operation.",
+      "I've spent 15 years where design meets fabrication reality — planetary gearboxes built to sub-thou tolerances and tested by hand, pump packages that had to survive welding, assembly, and field use, and firearms components toleranced for function, not just geometry. I apply GD&T with the inspection bench and tool life in mind—using material conditions to maximize tolerance windows that allow more tool wear between tool changes and wear offsets - or using a sin block, Micro Height and plug gages to check complex geometry at off-angles quickly without needing a CMM for every part. I create drawings with both design intent and quality control in mind. When the manufacturing side is solid, the software layer gets sharper too — I build AI tools and internal systems that make engineering decisions faster and more visible across the operation.",
     location: "Jacksonville, FL",
     email: "markworks.dev@gmail.com",
     phone: "(904) 862-1945",
     linkedin: "https://linkedin.com/in/mark-hintz-builds",
-    footerCTA: "Ready to build something that actually holds tolerance?",
+    footerCTA: "Need a design that holds sub-thou tolerances and doesn't get laughed off the shop floor?",
     copyright: `© ${new Date().getFullYear()} Mark Hintz. All rights reserved.`
   },
 
@@ -83,7 +83,7 @@ export const portfolioData = {
       title: "Pump Package Design System (Skids, Enclosures, Mounts, Lifting)",
       category: "Mechanical design • SolidWorks • DFM/DFA",
       image: "assets/images/pump-package-hero.webp",
-      outcome: "Zero tolerance failures across 47-component assembly",
+      outcome: "Mitigated vibration and structure-borne noise while trapping and killing engine roars via a staggered baffle layout and tortuous path.",
       tags: ["SolidWorks", "DFM/DFA", "GD&T", "Sheet Metal", "Weldments"],
       gallery: [
         "assets/images/pump-package-01.webp",
@@ -137,7 +137,7 @@ export const portfolioData = {
     {
       title: "Design Review & DFM",
       subtitle: "SolidWorks · GD&T · Manufacturing Feedback",
-      description: "I've assembled the gearboxes, run the parts through inspection, and quoted the job. That background changes the DFM conversation — I'm not guessing what the shop will hate, I've been the one dealing with it. Delivered as actionable redlines, not a lecture.",
+      description: "I've assembled the gearboxes, run the parts through inspection, and quoted the job. That background changes the DFM conversation — I'm not guessing what the shop will hate, I've been the one dealing with it.",
       deliverables: [
         "DFM/DFA analysis & redlines",
         "GD&T review & correction",
