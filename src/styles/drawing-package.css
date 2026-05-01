@@ -1,0 +1,23 @@
+/* Drawing Package theme - OKLCH color system */
+/* Applied via .drawing-package class on the page wrapper */
+
+.drawing-package {
+  --dp-bg: oklch(0.15 0.02 255);
+  --dp-surface: oklch(0.18 0.015 255);
+  --dp-border: oklch(0.30 0.02 255);
+  --dp-border-dim: oklch(0.22 0.015 255);
+  --dp-text: oklch(0.90 0.01 255);
+  --dp-text-dim: oklch(0.55 0.015 255);
+  --dp-accent: oklch(0.63 0.19 255);
+  --dp-accent-dim: oklch(0.63 0.19 255 / 0.15);
+  --dp-leader: oklch(0.63 0.19 255 / 0.6);
+  --dp-note-bg: oklch(0.15 0.02 255 / 0.9);
+
+  background: var(--dp-bg);
+  color: var(--dp-text);
+  font-family: 'JetBrains Mono', 'Cascadia Code', monospace;
+}
+
+.drawing-package * {
+  scrollbar-color: var(--dp-border) var(--dp-bg);
+}
