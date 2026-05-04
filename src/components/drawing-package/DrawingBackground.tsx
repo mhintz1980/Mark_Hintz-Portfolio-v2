@@ -1,3 +1,5 @@
+import { motion, motionValue, useTransform, type MotionValue } from 'framer-motion';
+
 /**
  * DrawingBackground — SVG engineering drawing linework background.
  * Renders faint white orthographic views, cross-sections, auxiliary views,
@@ -5,12 +7,21 @@
  * Does NOT need to be geometrically accurate — just needs to read as
  * "engineering drawing" at a glance.
  */
-export function DrawingBackground() {
+export function DrawingBackground({ scrollYProgress }: { scrollYProgress?: MotionValue<number> }) {
   const stroke = 'rgba(255,255,255,0.07)';
   const strokeDim = 'rgba(255,255,255,0.04)';
   const strokeAccent = 'rgba(255,255,255,0.09)';
   const dash = '8 6';
   const centerDash = '20 4 4 4';
+  const fallbackProgress = motionValue(0);
+  const progress = scrollYProgress ?? fallbackProgress;
+
+  const bgX = useTransform(progress, [0, 1], [0, -60]);
+  const bgY = useTransform(progress, [0, 1], [0, -80]);
+  const midX = useTransform(progress, [0, 1], [0, -100]);
+  const midY = useTransform(progress, [0, 1], [0, -140]);
+  const fgX = useTransform(progress, [0, 1], [0, -150]);
+  const fgY = useTransform(progress, [0, 1], [0, -200]);
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -20,6 +31,89 @@ export function DrawingBackground() {
         preserveAspectRatio="xMidYMid slice"
         xmlns="http://www.w3.org/2000/svg"
       >
+        {/* Layer 1: slow parallax — dim background views */}
+        <motion.g style={{ x: bgX, y: bgY }}>
+        {/* === VIEW 3: Large assembly outline — mid page === */}
+        <g>
+          {/* Rectangular housing */}
+          <rect x="800" y="200" width="500" height="300" fill="none" stroke={strokeDim} strokeWidth="0.6" />
+          <rect x="830" y="230" width="440" height="240" fill="none" stroke={strokeDim} strokeWidth="0.3" />
+          {/* Bolt holes */}
+          {[850, 950, 1050, 1150, 1250].map((x) => (
+            <g key={`bolt-${x}`}>
+              <circle cx={x} cy={220} r="6" fill="none" stroke={strokeDim} strokeWidth="0.5" />
+              <line x1={x} y1="212" x2={x} y2="228" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={centerDash} />
+              <line x1={x - 8} y1="220" x2={x + 8} y2="220" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={centerDash} />
+            </g>
+          ))}
+          {/* Internal features — hidden lines */}
+          <rect x="900" y="280" width="300" height="160" fill="none" stroke={strokeDim} strokeWidth="0.4" strokeDasharray={dash} />
+          <circle cx="1050" cy="360" r="60" fill="none" stroke={strokeDim} strokeWidth="0.4" strokeDasharray={dash} />
+        </g>
+
+        {/* === VIEW 5: Auxiliary view — angled projection === */}
+        <g transform="rotate(-30, 1400, 800)">
+          <rect x="1300" y="700" width="200" height="120" fill="none" stroke={strokeDim} strokeWidth="0.5" />
+          <line x1="1350" y1="700" x2="1350" y2="820" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={dash} />
+          <line x1="1450" y1="700" x2="1450" y2="820" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={dash} />
+        </g>
+
+        {/* === VIEW 6: Lower housing — spread across mid-page === */}
+        <g>
+          <rect x="600" y="1200" width="600" height="200" fill="none" stroke={strokeDim} strokeWidth="0.5" />
+          <rect x="650" y="1230" width="500" height="140" fill="none" stroke={strokeDim} strokeWidth="0.3" />
+          {/* Holes */}
+          {[700, 800, 900, 1000, 1100].map((x) => (
+            <circle key={`hole2-${x}`} cx={x} cy="1300" r="8" fill="none" stroke={strokeDim} strokeWidth="0.4" />
+          ))}
+          {/* Section line */}
+          <line x1="580" y1="1300" x2="1220" y2="1300" stroke={strokeDim} strokeWidth="0.4" strokeDasharray={centerDash} />
+        </g>
+
+        {/* === Repeat some views further down for scrolling depth === */}
+        <g transform="translate(200, 1800)">
+          <rect x="80" y="120" width="400" height="250" fill="none" stroke={strokeDim} strokeWidth="0.5" />
+          <circle cx="280" cy="245" r="70" fill="none" stroke={strokeDim} strokeWidth="0.4" />
+          <circle cx="280" cy="245" r="40" fill="none" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={dash} />
+          <line x1="140" y1="245" x2="420" y2="245" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={centerDash} />
+          <line x1="280" y1="140" x2="280" y2="350" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={centerDash} />
+        </g>
+
+        <g transform="translate(800, 2200)">
+          <rect x="100" y="100" width="500" height="180" fill="none" stroke={strokeDim} strokeWidth="0.4" />
+          {Array.from({ length: 6 }).map((_, i) => (
+            <circle key={`h3-${i}`} cx={160 + i * 80} cy="190" r="10" fill="none" stroke={strokeDim} strokeWidth="0.3" />
+          ))}
+        </g>
+
+        <g transform="translate(100, 3000)">
+          <rect x="200" y="100" width="350" height="200" fill="none" stroke={strokeDim} strokeWidth="0.5" />
+          {Array.from({ length: 18 }).map((_, i) => (
+            <line
+              key={`hatch3-${i}`}
+              x1={200 + i * 20}
+              y1="100"
+              x2={200 + i * 20 + 50}
+              y2="300"
+              stroke={strokeDim}
+              strokeWidth="0.2"
+            />
+          ))}
+        </g>
+
+        <g transform="translate(900, 3400)">
+          <circle cx="200" cy="200" r="90" fill="none" stroke={strokeDim} strokeWidth="0.4" />
+          <circle cx="200" cy="200" r="60" fill="none" stroke={strokeDim} strokeWidth="0.3" />
+          <circle cx="200" cy="200" r="25" fill="none" stroke={strokeDim} strokeWidth="0.4" />
+          {Array.from({ length: 16 }).map((_, i) => {
+            const a = (i / 16) * Math.PI * 2;
+            return <line key={`t2-${i}`} x1={200 + Math.cos(a) * 60} y1={200 + Math.sin(a) * 60} x2={200 + Math.cos(a) * 90} y2={200 + Math.sin(a) * 90} stroke={strokeDim} strokeWidth="0.3" />;
+          })}
+        </g>
+        </motion.g>
+
+        {/* Layer 2: medium parallax — primary orthographic views */}
+        <motion.g style={{ x: midX, y: midY }}>
         {/* === ORTHOGRAPHIC VIEW 1: Top-left — Front view of a shaft/housing === */}
         <g>
           {/* Outer rectangle */}
@@ -69,24 +163,6 @@ export function DrawingBackground() {
           <rect x="180" y="500" width="120" height="80" fill="var(--dp-bg, #1a1f35)" stroke={stroke} strokeWidth="0.6" />
         </g>
 
-        {/* === VIEW 3: Large assembly outline — mid page === */}
-        <g>
-          {/* Rectangular housing */}
-          <rect x="800" y="200" width="500" height="300" fill="none" stroke={strokeDim} strokeWidth="0.6" />
-          <rect x="830" y="230" width="440" height="240" fill="none" stroke={strokeDim} strokeWidth="0.3" />
-          {/* Bolt holes */}
-          {[850, 950, 1050, 1150, 1250].map((x) => (
-            <g key={`bolt-${x}`}>
-              <circle cx={x} cy={220} r="6" fill="none" stroke={strokeDim} strokeWidth="0.5" />
-              <line x1={x} y1="212" x2={x} y2="228" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={centerDash} />
-              <line x1={x - 8} y1="220" x2={x + 8} y2="220" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={centerDash} />
-            </g>
-          ))}
-          {/* Internal features — hidden lines */}
-          <rect x="900" y="280" width="300" height="160" fill="none" stroke={strokeDim} strokeWidth="0.4" strokeDasharray={dash} />
-          <circle cx="1050" cy="360" r="60" fill="none" stroke={strokeDim} strokeWidth="0.4" strokeDasharray={dash} />
-        </g>
-
         {/* === VIEW 4: Gear profile — lower left === */}
         <g>
           <circle cx="300" cy="900" r="120" fill="none" stroke={stroke} strokeWidth="0.8" />
@@ -104,25 +180,6 @@ export function DrawingBackground() {
           {/* Center lines */}
           <line x1="140" y1="900" x2="460" y2="900" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={centerDash} />
           <line x1="300" y1="740" x2="300" y2="1060" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={centerDash} />
-        </g>
-
-        {/* === VIEW 5: Auxiliary view — angled projection === */}
-        <g transform="rotate(-30, 1400, 800)">
-          <rect x="1300" y="700" width="200" height="120" fill="none" stroke={strokeDim} strokeWidth="0.5" />
-          <line x1="1350" y1="700" x2="1350" y2="820" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={dash} />
-          <line x1="1450" y1="700" x2="1450" y2="820" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={dash} />
-        </g>
-
-        {/* === VIEW 6: Lower housing — spread across mid-page === */}
-        <g>
-          <rect x="600" y="1200" width="600" height="200" fill="none" stroke={strokeDim} strokeWidth="0.5" />
-          <rect x="650" y="1230" width="500" height="140" fill="none" stroke={strokeDim} strokeWidth="0.3" />
-          {/* Holes */}
-          {[700, 800, 900, 1000, 1100].map((x) => (
-            <circle key={`hole2-${x}`} cx={x} cy="1300" r="8" fill="none" stroke={strokeDim} strokeWidth="0.4" />
-          ))}
-          {/* Section line */}
-          <line x1="580" y1="1300" x2="1220" y2="1300" stroke={strokeDim} strokeWidth="0.4" strokeDasharray={centerDash} />
         </g>
 
         {/* === VIEW 7: Detail cross section — lower right === */}
@@ -143,6 +200,10 @@ export function DrawingBackground() {
           ))}
         </g>
 
+        </motion.g>
+
+        {/* Layer 3: fast parallax — dimension annotations and labels */}
+        <motion.g style={{ x: fgX, y: fgY }}>
         {/* === Scattered dimension lines and annotations === */}
         {/* Horizontal dimension */}
         <g>
@@ -160,46 +221,7 @@ export function DrawingBackground() {
           <text x="475" y="545" fill={strokeDim} fontSize="8" fontFamily="monospace">4.250</text>
         </g>
 
-        {/* === Repeat some views further down for scrolling depth === */}
-        <g transform="translate(200, 1800)">
-          <rect x="80" y="120" width="400" height="250" fill="none" stroke={strokeDim} strokeWidth="0.5" />
-          <circle cx="280" cy="245" r="70" fill="none" stroke={strokeDim} strokeWidth="0.4" />
-          <circle cx="280" cy="245" r="40" fill="none" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={dash} />
-          <line x1="140" y1="245" x2="420" y2="245" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={centerDash} />
-          <line x1="280" y1="140" x2="280" y2="350" stroke={strokeDim} strokeWidth="0.3" strokeDasharray={centerDash} />
-        </g>
-
-        <g transform="translate(800, 2200)">
-          <rect x="100" y="100" width="500" height="180" fill="none" stroke={strokeDim} strokeWidth="0.4" />
-          {Array.from({ length: 6 }).map((_, i) => (
-            <circle key={`h3-${i}`} cx={160 + i * 80} cy="190" r="10" fill="none" stroke={strokeDim} strokeWidth="0.3" />
-          ))}
-        </g>
-
-        <g transform="translate(100, 3000)">
-          <rect x="200" y="100" width="350" height="200" fill="none" stroke={strokeDim} strokeWidth="0.5" />
-          {Array.from({ length: 18 }).map((_, i) => (
-            <line
-              key={`hatch3-${i}`}
-              x1={200 + i * 20}
-              y1="100"
-              x2={200 + i * 20 + 50}
-              y2="300"
-              stroke={strokeDim}
-              strokeWidth="0.2"
-            />
-          ))}
-        </g>
-
-        <g transform="translate(900, 3400)">
-          <circle cx="200" cy="200" r="90" fill="none" stroke={strokeDim} strokeWidth="0.4" />
-          <circle cx="200" cy="200" r="60" fill="none" stroke={strokeDim} strokeWidth="0.3" />
-          <circle cx="200" cy="200" r="25" fill="none" stroke={strokeDim} strokeWidth="0.4" />
-          {Array.from({ length: 16 }).map((_, i) => {
-            const a = (i / 16) * Math.PI * 2;
-            return <line key={`t2-${i}`} x1={200 + Math.cos(a) * 60} y1={200 + Math.sin(a) * 60} x2={200 + Math.cos(a) * 90} y2={200 + Math.sin(a) * 90} stroke={strokeDim} strokeWidth="0.3" />;
-          })}
-        </g>
+        </motion.g>
 
         {/* Border frame */}
         <rect x="20" y="20" width="1880" height="4760" fill="none" stroke={strokeDim} strokeWidth="1" />

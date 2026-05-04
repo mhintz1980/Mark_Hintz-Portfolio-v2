@@ -1,4 +1,6 @@
 import '../../styles/drawing-package.css';
+import { useScroll } from 'framer-motion';
+import { useRef } from 'react';
 import { DrawingBackground } from './DrawingBackground';
 import { DrawingSheetBorder } from './DrawingSheetBorder';
 import { TitleBlockHeader } from './TitleBlockHeader';
@@ -14,9 +16,12 @@ import { projectDetails } from '../../data/drawingPackageData';
  * Structured as a continuous engineering drawing sheet with SVG linework background.
  */
 export function DrawingPackagePage() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: containerRef });
+
   return (
-    <div className="drawing-package min-h-screen">
-      <DrawingBackground />
+    <div ref={containerRef} className="drawing-package relative min-h-screen">
+      <DrawingBackground scrollYProgress={scrollYProgress} />
       <DrawingSheetBorder />
       <TitleBlockHeader />
 
