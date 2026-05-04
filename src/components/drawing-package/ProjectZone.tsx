@@ -26,10 +26,6 @@ export function ProjectZone({
     offset: ['start end', 'end start'],
   });
 
-  // Detail view entrance: scale up from small
-  const scale = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.15, 1, 1, 0.6]);
-  const detailOpacity = useTransform(scrollYProgress, [0, 0.2, 0.75, 1], [0, 1, 1, 0]);
-
   // Alternate layout: even projects on left, odd on right
   const isLeft = index % 2 === 0;
 
@@ -43,7 +39,6 @@ export function ProjectZone({
 
         {/* Detail view circle with image */}
         <motion.div
-          style={shouldReduceMotion ? {} : { scale, opacity: detailOpacity }}
           className="relative flex-shrink-0"
         >
           {/* Detail view label above circle */}
@@ -62,13 +57,24 @@ export function ProjectZone({
             type="button"
             onClick={onClick}
             className="relative w-[280px] h-[280px] md:w-[360px] md:h-[360px] cursor-pointer rounded-full overflow-hidden border-2 bg-transparent p-0 transition-transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent"
-            style={{ borderColor: 'var(--dp-accent)' }}
+            style={{
+              borderColor: 'var(--dp-accent)',
+              boxShadow: '0 0 0 1px color-mix(in oklch, var(--dp-text) 26%, transparent), 0 0 40px color-mix(in oklch, var(--dp-accent) 18%, transparent)',
+            }}
             aria-label={`Inspect ${project.title}`}
           >
+            <span
+              className="absolute inset-0 z-10 rounded-full"
+              style={{
+                background:
+                  'radial-gradient(circle at 45% 35%, transparent 0 46%, rgba(20, 120, 255, 0.16) 72%, rgba(20, 120, 255, 0.24) 100%)',
+                mixBlendMode: 'screen',
+              }}
+            />
             <img
               src={`${import.meta.env.BASE_URL}${project.image.replace(/^\//, '')}`}
               alt={project.title}
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover opacity-90 saturate-[0.72] contrast-125"
               loading="lazy"
             />
           </button>

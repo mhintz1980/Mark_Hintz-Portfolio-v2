@@ -40,49 +40,43 @@ export function DrawingHero() {
         A — A
       </div>
 
-      {/* Super header */}
       <motion.div
         initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="text-[11px] uppercase tracking-[0.2em] mb-8"
+        className="text-[11px] uppercase tracking-[0.22em] mb-6"
         style={{ color: 'var(--dp-accent)' }}
       >
         {portfolioData.personal.superHeader}
       </motion.div>
 
-      {/* Title */}
       <motion.div
         initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="mb-8"
+        className="mb-5"
       >
         <h1
-          className="text-5xl sm:text-7xl md:text-8xl font-bold leading-[0.95] tracking-tight"
-          style={{ color: 'var(--dp-text)', fontFamily: "'Archivo', system-ui, sans-serif" }}
+          className="text-4xl sm:text-5xl md:text-6xl font-medium leading-none uppercase tracking-[0.03em]"
+          style={{ color: 'var(--dp-text)', fontFamily: "'Michroma', 'Archivo', system-ui, sans-serif" }}
         >
-          {portfolioData.personal.title.line1}
-          <br />
-          {portfolioData.personal.title.line2}
+          {portfolioData.personal.name}
         </h1>
       </motion.div>
 
-      {/* Word cycle statement */}
       <motion.div
         initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.4 }}
-        className="border p-5 mb-10 max-w-3xl"
+        className="mb-8 max-w-xl"
         style={{
-          borderColor: 'var(--dp-border)',
-          background: 'var(--dp-surface)',
+          color: 'var(--dp-text)',
         }}
       >
-        <div className="text-base md:text-lg leading-relaxed" style={{ color: 'var(--dp-text)' }}>
-          I design mechanical systems and build software and AI tools that make{' '}
+        <div className="text-sm md:text-base uppercase leading-relaxed tracking-[0.02em]">
+          Mechanical designer specializing in bridging design and manufacturing. Built for{' '}
           <span
-            className="font-bold relative inline-flex overflow-hidden h-[1.3em] align-baseline items-baseline ml-1 translate-y-[0.55em]"
+            className="font-bold relative inline-flex h-[1.35em] min-w-[22ch] overflow-hidden align-baseline"
             style={{ color: 'var(--dp-accent)' }}
           >
             <span className="invisible whitespace-nowrap pointer-events-none">
@@ -95,7 +89,7 @@ export function DrawingHero() {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -24, opacity: 0 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute whitespace-nowrap bottom-0 left-0"
+                className="absolute bottom-0 left-0 whitespace-nowrap"
               >
                 {wordCycleData[currentWord]}
               </motion.span>
@@ -136,7 +130,7 @@ export function DrawingHero() {
         className="text-xs leading-relaxed p-5 max-w-[500px] border"
         style={{
           borderColor: 'var(--dp-border)',
-          background: 'var(--dp-surface)',
+          background: 'color-mix(in oklch, var(--dp-surface) 72%, transparent)',
         }}
       >
         {[

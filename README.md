@@ -22,7 +22,9 @@ The main portfolio site uses React and Vite with Tailwind CSS v4.
    npm run dev
    ```
 4. **Open in browser:**
-   [http://localhost:5173/Mark_Hintz-Portfolio-v2/](http://localhost:5173/Mark_Hintz-Portfolio-v2/)
+   [http://localhost:5174/Mark_Hintz-Portfolio-v2/drawing-package](http://localhost:5174/Mark_Hintz-Portfolio-v2/drawing-package)
+
+   This worktree uses port `5174` and opens the `/drawing-package` route so it can run beside the main branch without the browser reusing the main branch's `5173` server.
 
 ---
 
@@ -53,4 +55,3 @@ The programmable video showreel is located in the `remotion` subdirectory.
 - **Styling**: Tailwind CSS v4, Framer Motion
 - **Video**: Remotion
 - **3D**: React Three Fiber, Three.js
-

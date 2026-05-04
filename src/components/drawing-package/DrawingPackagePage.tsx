@@ -21,7 +21,7 @@ export function DrawingPackagePage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [inspectedProject, setInspectedProject] = useState<ProjectDetail | null>(null);
   const shouldReduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: containerRef });
+  const { scrollYProgress } = useScroll();
 
   return (
     <div ref={containerRef} className="drawing-package relative min-h-screen">
