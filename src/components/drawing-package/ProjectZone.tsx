@@ -10,7 +10,15 @@ import type { ProjectDetail, CalloutNote } from '../../data/drawingPackageData';
  * - Scroll-driven entrance animation (scales from small to final)
  * - 4 callout notes with leader lines and horizontal text shelves
  */
-export function ProjectZone({ project, index }: { project: ProjectDetail; index: number }) {
+export function ProjectZone({
+  project,
+  index,
+  onClick,
+}: {
+  project: ProjectDetail;
+  index: number;
+  onClick?: () => void;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -50,9 +58,12 @@ export function ProjectZone({ project, index }: { project: ProjectDetail; index:
           </div>
 
           {/* Circular frame */}
-          <div
-            className="relative w-[280px] h-[280px] md:w-[360px] md:h-[360px] rounded-full overflow-hidden border-2"
+          <button
+            type="button"
+            onClick={onClick}
+            className="relative w-[280px] h-[280px] md:w-[360px] md:h-[360px] cursor-pointer rounded-full overflow-hidden border-2 bg-transparent p-0 transition-transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent"
             style={{ borderColor: 'var(--dp-accent)' }}
+            aria-label={`Inspect ${project.title}`}
           >
             <img
               src={`${import.meta.env.BASE_URL}${project.image.replace(/^\//, '')}`}
@@ -60,7 +71,7 @@ export function ProjectZone({ project, index }: { project: ProjectDetail; index:
               className="w-full h-full object-cover"
               loading="lazy"
             />
-          </div>
+          </button>
 
           {/* Leader line extending from circle to background */}
           <svg

@@ -1,15 +1,16 @@
 import '../../styles/drawing-package.css';
-import { useScroll } from 'framer-motion';
-import { useRef } from 'react';
+import { AnimatePresence, useScroll } from 'framer-motion';
+import { useRef, useState } from 'react';
 import { DrawingBackground } from './DrawingBackground';
 import { DrawingSheetBorder } from './DrawingSheetBorder';
 import { TitleBlockHeader } from './TitleBlockHeader';
 import { DrawingHero } from './DrawingHero';
 import { ProjectZone } from './ProjectZone';
+import { ProjectInspectionModal } from './ProjectInspectionModal';
 import { SpecTable } from './SpecTable';
 import { GeneralNotes } from './GeneralNotes';
 import { TitleBlockFooter } from './TitleBlockFooter';
-import { projectDetails } from '../../data/drawingPackageData';
+import { projectDetails, type ProjectDetail } from '../../data/drawingPackageData';
 
 /**
  * DrawingPackagePage — the full "Drawing Package" portfolio variation.
@@ -17,6 +18,7 @@ import { projectDetails } from '../../data/drawingPackageData';
  */
 export function DrawingPackagePage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [inspectedProject, setInspectedProject] = useState<ProjectDetail | null>(null);
   const { scrollYProgress } = useScroll({ target: containerRef });
 
   return (
@@ -36,7 +38,7 @@ export function DrawingPackagePage() {
         {/* Projects — detail views */}
         {projectDetails.map((project, i) => (
           <section key={project.id} id={`scene-p${i + 1}`} className="drawing-scene">
-            <ProjectZone project={project} index={i} />
+            <ProjectZone project={project} index={i} onClick={() => setInspectedProject(project)} />
           </section>
         ))}
 
@@ -54,6 +56,15 @@ export function DrawingPackagePage() {
       <section id="scene-titleblock" className="drawing-scene relative z-10">
         <TitleBlockFooter />
       </section>
+
+      <AnimatePresence>
+        {inspectedProject && (
+          <ProjectInspectionModal
+            project={inspectedProject}
+            onClose={() => setInspectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
