@@ -1,4 +1,4 @@
-# 3D Perspective Floor Plane Implementation Plan
+~# 3D Perspective Floor Plane Implementation Plan
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
@@ -383,12 +383,14 @@ git commit -m "fix: recalibrate camera coordinates after perspective tilt"
 ### Active Stations & Camera Stops
 
 **Station A** [`id="A"`, TRIGGER GUARD RADIUS]
+
 - Component Position: `left: 1450px, top: 3200px`
-- Camera Stop: `x: -1400, y: -3730, scale: 1.2, rotateX: 0` *(flat start — triggers DOF blur via `onLift`)*
+- Camera Stop: `x: -1400, y: -3730, scale: 1.2, rotateX: 0` _(flat start — triggers DOF blur via `onLift`)_
 
 **Station B** [`id="B"`, BUFFER TUBE SOCKET]
+
 - Component Position: `left: 5567px, top: 833px`
-- Camera Stop: `x: -6320 + 0.495*(vw - 975), y: -740 + 0.47*(vh - 550), scale: 1.2, rotateX: 35` *(35-degree tilted stop — no `onLift`, DOF already active)*
+- Camera Stop: `x: -6320 + 0.495*(vw - 975), y: -740 + 0.47*(vh - 550), scale: 1.2, rotateX: 35` _(35-degree tilted stop — no `onLift`, DOF already active)_
 
 **[Hero / Title Block]** — Pending placement.
 
