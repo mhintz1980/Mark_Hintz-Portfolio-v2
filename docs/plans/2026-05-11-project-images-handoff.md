@@ -1,5 +1,7 @@
 # Session Handoff: Project Images in Detail Circles
 
+> **Superseded note (2026-05-14):** This handoff is historical. It correctly captures the image-content push, but its `ScrollTrigger`/`+=7000` timeline framing and "build passes" claim are stale for the current worktree. Use `docs/plans/2026-05-14-drawing-package-doc-catch-up.md` plus `.continue-here.md` for current truth.
+
 **Date:** 2026-05-11
 **Worktree:** `scroll-driven-engineering-drawing`
 **Branch:** `scroll-driven-engineering-drawing`

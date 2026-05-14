@@ -1,5 +1,7 @@
 # Session Handoff: Spatial Rig Audit Fixes
 
+> **Superseded note (2026-05-14):** This handoff is historical. The current source no longer matches its `ScrollTrigger`/A-B-only route description. Use `docs/plans/2026-05-14-drawing-package-doc-catch-up.md` plus `.continue-here.md` for current truth.
+
 **Date:** 2026-05-09
 **Worktree:** `scroll-driven-engineering-drawing`
 **Branch:** `scroll-driven-engineering-drawing`

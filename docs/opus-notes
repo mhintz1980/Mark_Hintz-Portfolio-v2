@@ -1,0 +1,147 @@
+Verify each finding against current code. Fix only still-valid issues, skip the
+rest with a brief reason, keep changes minimal, and validate.
+
+In `@src/components/drawing-package/ProjectZone.tsx` around lines 192 - 199, The
+effect that fires the intro should skip running when calibration mode is active:
+update the useEffect condition (the block using useEffect, active,
+hasTriggered.current and playIntroRef.current) to include a guard that
+calibration is off (e.g., !isCalibrating or !calibrateMode) so the intro is not
+triggered while calibrating; add the appropriate prop/state name for your
+calibrate flag and ensure the dependency array includes it if needed.
+
+Verify each finding against current code. Fix only still-valid issues, skip the
+rest with a brief reason, keep changes minimal, and validate.
+
+In `@src/components/drawing-package/DrawingPackagePage.tsx` around lines 268 -
+310, The bug is that an old camera/tween timeline can continue running across a
+resize and yank the scene; fix by ensuring any live camera timeline/tweens are
+killed before applying the resize snap: in the advance flow where you
+create/assign tl (the gsap.core.Timeline returned by flyToHero /
+exitHeroAndFlyTo / flyToRollercoaster / flyToReverse), ensure you call
+gsap.killTweensOf on the camera targets (and/or call tl.kill() if tl exists) —
+e.g., killTweensOf([substrateRef.current, bgLayerRef.current,
+heroTextRef.current, cameraTargetRef.current]) or tl.kill() right before the
+resize-snap path so stale timelines cannot run after a viewport change.
+
+Verify each finding against current code. Fix only still-valid issues, skip the
+rest with a brief reason, keep changes minimal, and validate.
+
+In `@src/components/drawing-package/ProjectZone.tsx` around lines 192 - 199, The
+effect that fires the intro should skip running when calibration mode is active:
+update the useEffect condition (the block using useEffect, active,
+hasTriggered.current and playIntroRef.current) to include a guard that
+calibration is off (e.g., !isCalibrating or !calibrateMode) so the intro is not
+triggered while calibrating; add the appropriate prop/state name for your
+calibrate flag and ensure the dependency array includes it if needed.
+
+Verify each finding against current code. Fix only still-valid issues, skip the
+rest with a brief reason, keep changes minimal, and validate.
+
+In `@src/components/drawing-package/DrawingPackagePage.tsx` around lines 160 -
+265, The animations (introTl, flyToRollercoaster, flyToHero, and
+exitHeroAndFlyTo) ignore the user's prefers-reduced-motion setting; detect
+prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+and branch: if true, build simplified timelines that avoid blurFilter, big
+rotateX/tilt changes, overshoot (use overshootScale = 0 and overshootPx = 0),
+and reduce/skip nonessential opacity/translate easings (shorter durations or
+direct set/linear). Modify flyToRollercoaster to use the reduced-motion defaults
+when prefersReduced, guard creation/plays of introTl and flyToHero to use
+simpler set-to-target animations instead of the whip/blur sequences, and ensure
+exitHeroAndFlyTo calls the reduced-motion variant so all navigation paths
+respect the preference.
+
+Verify each finding against current code. Fix only still-valid issues, skip the
+rest with a brief reason, keep changes minimal, and validate.
+
+In @.gitignore around lines 27 - 98, The .gitignore contains repeated credential
+blocks and stray literal "-e" entries; remove all duplicate blocks and any
+standalone "-e" lines and leave a single canonical credential block containing
+entries like .env, .env._, _.env, credentials.json, _.pem, _.key, .credentials
+so the file is clean and not spammed (locate the repeated blocks containing
+".env" and "credentials.json" and the stray "-e" lines to delete).
+
+Verify each finding against current code. Fix only still-valid issues, skip the
+rest with a brief reason, keep changes minimal, and validate.
+
+Inline comments:
+In @.continue-here.md:
+
+- Around line 25-32: The milestone list currently contains six entries and
+  duplicate numbering ("5." repeated) violating the "max 5 entries" rule; trim the
+  list down to the most recent five entries, remove the duplicate numeric label,
+  and renumber the remaining entries sequentially 1–5 with consistent formatting
+  (e.g., keep the newest five: the Cinematic Phase-Trigger Scroll, ProjectZone
+  active-prop trigger fix, Station progress indicator, Station T calibrated +
+  responsive scaling, and GSAP Camera Engine entries), ensuring there is only one
+  "5." and the final list reflects correct order and numbering.
+
+In @.emergent/emergent.yml:
+
+- Line 3: The created_at timestamp value contains both a timezone offset and a
+  'Z' ("2026-05-14T06:17:38.877185+00:00Z"), which is invalid for strict parsers;
+  update the "created_at" value to a single valid RFC3339 format by removing
+  either the "+00:00" or the trailing "Z" (e.g., "2026-05-14T06:17:38.877185Z" or
+  "2026-05-14T06:17:38.877185+00:00") so the timestamp parses correctly.
+
+In @.gitignore:
+
+- Around line 27-98: The .gitignore contains repeated credential blocks and
+  stray literal "-e" entries; remove all duplicate blocks and any standalone "-e"
+  lines and leave a single canonical credential block containing entries like
+  .env, .env._, _.env, credentials.json, _.pem, _.key, .credentials so the file is
+  clean and not spammed (locate the repeated blocks containing ".env" and
+  "credentials.json" and the stray "-e" lines to delete).
+
+In `@src/components/drawing-package/DrawingPackagePage.tsx`:
+
+- Around line 160-265: The animations (introTl, flyToRollercoaster, flyToHero,
+  and exitHeroAndFlyTo) ignore the user's prefers-reduced-motion setting; detect
+  prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  and branch: if true, build simplified timelines that avoid blurFilter, big
+  rotateX/tilt changes, overshoot (use overshootScale = 0 and overshootPx = 0),
+  and reduce/skip nonessential opacity/translate easings (shorter durations or
+  direct set/linear). Modify flyToRollercoaster to use the reduced-motion defaults
+  when prefersReduced, guard creation/plays of introTl and flyToHero to use
+  simpler set-to-target animations instead of the whip/blur sequences, and ensure
+  exitHeroAndFlyTo calls the reduced-motion variant so all navigation paths
+  respect the preference.
+- Around line 268-310: The bug is that an old camera/tween timeline can continue
+  running across a resize and yank the scene; fix by ensuring any live camera
+  timeline/tweens are killed before applying the resize snap: in the advance flow
+  where you create/assign tl (the gsap.core.Timeline returned by flyToHero /
+  exitHeroAndFlyTo / flyToRollercoaster / flyToReverse), ensure you call
+  gsap.killTweensOf on the camera targets (and/or call tl.kill() if tl exists) —
+  e.g., killTweensOf([substrateRef.current, bgLayerRef.current,
+  heroTextRef.current, cameraTargetRef.current]) or tl.kill() right before the
+  resize-snap path so stale timelines cannot run after a viewport change.
+
+In `@src/components/drawing-package/ProjectZone.tsx`:
+
+- Around line 192-199: The effect that fires the intro should skip running when
+  calibration mode is active: update the useEffect condition (the block using
+  useEffect, active, hasTriggered.current and playIntroRef.current) to include a
+  guard that calibration is off (e.g., !isCalibrating or !calibrateMode) so the
+  intro is not triggered while calibrating; add the appropriate prop/state name
+  for your calibrate flag and ensure the dependency array includes it if needed.
+
+In `@test_reports/iteration_1.json`:
+
+- Line 33: The thresholds in the "context_for_next_testing_agent" JSON value
+  (scroll stations A/B/C/D/T) are out of sync with the current operational map in
+  .continue-here.md; update the numbers in the "context_for_next_testing_agent"
+  string to match the canonical values (A=600, B=1800, C=3200, D=4600, T=6200) so
+  the next tester uses the correct thresholds and avoids chasing stale values.
+
+---
+
+Outside diff comments:
+In @.continue-here.md:
+
+- Around line 138-142: Update the calibration notes that still reference the old
+  4000px scroll distance: replace "end: '+=4000'" with "end: '+=7000'" and update
+  the following lines to show the new total scrollable distance and station stops
+  (as percentages and pixel offsets) — e.g., "Pin spacer height = viewport height
+
+* 7000 (the end: '+=7000' value). Total scrollable distance = 7000px. Station
+  stops at roughly: A=0% (0px), B=~31% (~2170px), C=~63% (~4410px), D=~95%
+  (~6650px)."
