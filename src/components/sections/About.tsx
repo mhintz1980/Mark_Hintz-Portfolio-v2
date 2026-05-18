@@ -30,13 +30,13 @@ export const About = () => {
           viewport={{ once: true, margin: '-50px' }}
           className="lg:col-span-7 space-y-8"
         >
-          <motion.p variants={itemVariants} className="text-xl leading-relaxed text-secondary">
+          <motion.p variants={itemVariants} className="text-xl leading-relaxed text-muted-foreground">
             {portfolioData.personal.about}
           </motion.p>
           
           <motion.blockquote
             variants={itemVariants}
-            className="mt-8 p-6 bg-accent-primary/5 border-l-[3px] border-accent-primary rounded-r-md italic text-[15px] leading-relaxed text-secondary"
+            className="mt-8 p-6 bg-accent-primary/5 border-l-[3px] border-accent-primary rounded-r-md italic text-[15px] leading-relaxed text-muted-foreground"
           >
             <p className="mb-3">
               "{portfolioData.testimonials[2].text.split(". ")[0]}. {portfolioData.testimonials[2].text.split(". ")[1]}."
@@ -67,27 +67,27 @@ export const About = () => {
 
             <div className="space-y-4">
               <div className="flex justify-between items-baseline border-b border-cad-line-primary/30 pb-2">
-                <span className="text-secondary tracking-widest uppercase">Experience</span>
+                <span className="text-muted-foreground tracking-widest uppercase">Experience</span>
                 <span className="text-primary font-medium">15+ Years</span>
               </div>
               <div className="flex justify-between items-baseline border-b border-cad-line-primary/30 pb-2">
-                <span className="text-secondary tracking-widest uppercase">Machines</span>
+                <span className="text-muted-foreground tracking-widest uppercase">Machines</span>
                 <span className="text-primary font-medium text-right">7-Axis Mill-Turn / CMM</span>
               </div>
               <div className="flex justify-between items-baseline border-b border-cad-line-primary/30 pb-2">
-                <span className="text-secondary tracking-widest uppercase">CAD</span>
+                <span className="text-muted-foreground tracking-widest uppercase">CAD</span>
                 <span className="text-primary font-medium">SolidWorks / Vault / DFM</span>
               </div>
               <div className="flex justify-between items-baseline border-b border-cad-line-primary/30 pb-2">
-                <span className="text-secondary tracking-widest uppercase">Automation</span>
+                <span className="text-muted-foreground tracking-widest uppercase">Automation</span>
                 <span className="text-primary font-medium">Python / APIs / AI Tooling</span>
               </div>
               <div className="flex justify-between items-baseline border-b border-cad-line-primary/30 pb-2">
-                <span className="text-secondary tracking-widest uppercase">Location</span>
+                <span className="text-muted-foreground tracking-widest uppercase">Location</span>
                 <span className="text-primary font-medium">Jacksonville, FL</span>
               </div>
               <div className="flex justify-between items-baseline pt-1">
-                <span className="text-secondary tracking-widest uppercase">Status</span>
+                <span className="text-muted-foreground tracking-widest uppercase">Status</span>
                 <span className="text-emerald-500 font-medium animate-pulse">AVAILABLE</span>
               </div>
             </div>

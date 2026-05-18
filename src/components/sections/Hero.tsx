@@ -36,7 +36,7 @@ export const Hero = () => {
         initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-        className="text-[14px] font-normal uppercase tracking-normal text-secondary mb-8"
+        className="text-[14px] font-normal uppercase tracking-normal text-primary mb-8 dark:text-slate-300"
       >
         {portfolioData.personal.superHeader}
       </motion.div>
@@ -59,24 +59,19 @@ export const Hero = () => {
         className="bg-accent-primary/5 border border-accent-primary/10 rounded-sm p-6 mb-12 max-w-3xl"
       >
         <div className="text-lg md:text-xl font-normal leading-relaxed text-primary">
-          I design mechanical systems and build software and AI tools that make work{' '}
-          <span className="text-accent-primary font-bold relative inline-flex overflow-hidden h-[1.25em] align-baseline items-baseline ml-1 translate-y-[0.5em]">
-            <span className="invisible whitespace-nowrap pointer-events-none">
-              {wordCycleData.reduce((a, b) => (a.length > b.length ? a : b), '')}
-            </span>
-            <AnimatePresence mode="popLayout">
-              <motion.span
-                key={wordCycleData[currentWord]}
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -30, opacity: 0 }}
-                transition={{ duration: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-                className="absolute whitespace-nowrap bottom-0 left-0"
-              >
-                {wordCycleData[currentWord]}
-              </motion.span>
-            </AnimatePresence>
-          </span>
+          I engineer high-integrity systems and automated workflows that{' '}
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={wordCycleData[currentWord]}
+              initial={{ y: 12, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -12, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+              className="text-accent-primary font-bold inline"
+            >
+              {wordCycleData[currentWord]}
+            </motion.span>
+          </AnimatePresence>
         </div>
       </motion.div>
 

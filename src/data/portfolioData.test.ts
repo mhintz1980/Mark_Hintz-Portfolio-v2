@@ -19,7 +19,7 @@ describe("portfolioData projects", () => {
     );
 
     expect(armamentProject).toBeDefined();
-    expect(armamentProject?.image).toBe("assets/images/AR-15 Lower Reciever-Forged.JPG");
+    expect(armamentProject?.image).toBe("assets/images/AR-15 Lower Reciever-Forged.jpg");
     expect(armamentProject?.gallery).toEqual([
       "assets/images/709870988691 - BARREL NUT.webp",
       "assets/images/308 KB.webp",

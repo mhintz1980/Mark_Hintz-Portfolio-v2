@@ -4,17 +4,17 @@ export const portfolioData = {
     superHeader: "// DESIGN + MANUFACTURING BRIDGE",
     title: {
       line1: "Built from the",
-      line2: "shop floor up."
+      line2: "shop floor up.",
     },
-    bio: "I build internal tools that kill the manual grunt work so the shop can actually focus on the parts.",
+    bio: "I design mechanical systems and build software and AI tools that make work faster, clearer, and more capable.",
     about:
-      "I've spent 15 years where design meets fabrication reality — planetary gearboxes built to sub-thou tolerances and tested by hand, pump packages that had to survive welding, assembly, and field use, and firearms components toleranced for function, not just geometry. I apply GD&T with the inspection bench and tool life in mind—using material conditions to maximize tolerance windows that allow more tool wear between tool changes and wear offsets - or using a sin block, Micro Height and plug gages to check complex geometry at off-angles quickly without needing a CMM for every part. I create drawings with both design intent and quality control in mind. When the manufacturing side is solid, the software layer gets sharper too — I build AI tools and internal systems that make engineering decisions faster and more visible across the operation.",
+      "I've spent 15 years where design meets manufacturing and fabrication reality — planetary gearboxes with built to ±0.0005\" and tested by hand, diesel driven pump packages that had to survive welding, assembly, and field use while operating fully enclosed in the Florida heat, and firearms components toleranced for function, not just geometry. I've operated and supported 7-axis mill-turn centers, inspected with height gages and sin blocks where most shops would call for a CMM, and quoted jobs from single parts to 100-piece assemblies. When the manufacturing side is solid, the software layer gets sharper too — I build AI tools and internal systems that make engineering decisions faster and more visible across the operation.",
     location: "Jacksonville, FL",
-    email: "markworks.dev@gmail.com",
+    email: "markworks.dev@gmail.com ",
     phone: "(904) 862-1945",
     linkedin: "https://linkedin.com/in/mark-hintz-builds",
-    footerCTA: "Need a design that holds sub-thou tolerances and doesn't get laughed off the shop floor?",
-    copyright: `© ${new Date().getFullYear()} Mark Hintz. All rights reserved.`
+    footerCTA: "Ready to build something that actually holds tolerance?",
+    copyright: `© ${new Date().getFullYear()} Mark Hintz. All rights reserved.`,
   },
 
   navigation: [
@@ -23,18 +23,23 @@ export const portfolioData = {
     { label: "Services", href: "/#services" },
     { label: "Case Studies", href: "/#case-studies" },
     { label: "Drawing", href: "/drawing-package" },
-    { label: "Contact", href: "/#contact" }
+    { label: "Contact", href: "/#contact" },
   ],
 
   heroActions: [
     { label: "Let's Talk Work", href: "/#contact", primary: true },
-    { label: "LinkedIn", href: "https://linkedin.com/in/mark-hintz-builds", target: "_blank" }
+    {
+      label: "LinkedIn",
+      href: "https://linkedin.com/in/mark-hintz-builds",
+      target: "_blank",
+    },
   ],
 
   projects: [
     {
       title: "Industrial Torque Wrench",
-      category: "Mechanical design • Planetary gearboxes • Precision assemblies",
+      category:
+        "Mechanical design • Planetary gearboxes • Precision assemblies",
       image: "assets/images/torque-wrench-hero.webp",
       outcome: "DFM review cut manufacturing cost by 22%",
       tags: ["SolidWorks", "Planetary Gearboxes", "Precision Machining", "DFM"],
@@ -44,21 +49,28 @@ export const portfolioData = {
         "assets/images/torque-wrench-03.webp",
         "assets/images/torque-wrench-04.webp",
         "assets/images/torque-wrench-05.webp",
-        "assets/images/torque-wrench-06.webp"
-      ]
+        "assets/images/torque-wrench-06.webp",
+      ],
     },
     {
       title: "Armament Components & Receiver Systems",
       category: "Mechanical design • Receivers • Weapon-system components",
       image: "assets/images/AR-15 Lower Reciever-Forged.jpg",
-      outcome: "Receiver and component geometry resolved for fit, function, and manufacturability",
-      tags: ["SolidWorks", "Receiver Design", "Fit & Function", "Manufacturing Drawings"],
+      outcome:
+        "Receiver and component geometry resolved for fit, function, and manufacturability",
+      tags: [
+        "SolidWorks",
+        "Receiver Design",
+        "Fit & Function",
+        "Manufacturing Drawings",
+      ],
       gallery: [
+        "assets/images/709870988691 - BARREL NUT.webp",
         "assets/images/308 KB.webp",
         "assets/images/3D View-3.webp",
         "assets/images/Rendering of Upper and Lower Receiver Assembly for an AR15 That I designed for a Leader in the weapons Industry.jpg",
-        "assets/images/TAURUS-8.875-1P-3K-Rev1-3 view.webp"
-      ]
+        "assets/images/TAURUS-8.875-1P-3K-Rev1-3 view.webp",
+      ],
     },
     {
       title: "Renderings & Visualizations",
@@ -77,21 +89,21 @@ export const portfolioData = {
         "assets/images/rendering-08.webp",
         "assets/images/rendering-09.webp",
         "assets/images/rendering-10.webp",
-        "assets/images/HYDRAULIC-TORQUE-MXT03-ASSY.jpg"
-      ]
+        "assets/images/HYDRAULIC-TORQUE-MXT03-ASSY.jpg",
+      ],
     },
     {
       title: "Pump Package Design System (Skids, Enclosures, Mounts, Lifting)",
       category: "Mechanical design • SolidWorks • DFM/DFA",
       image: "assets/images/pump-package-hero.webp",
-      outcome: "Mitigated vibration and structure-borne noise while trapping and killing engine roars via a staggered baffle layout and tortuous path.",
+      outcome: "Zero tolerance failures across 47-component assembly",
       tags: ["SolidWorks", "DFM/DFA", "GD&T", "Sheet Metal", "Weldments"],
       gallery: [
         "assets/images/pump-package-01.webp",
         "assets/images/pump-package-02.webp",
         "assets/images/pump-package-03.webp",
-        "assets/images/pump-package-04.webp"
-      ]
+        "assets/images/pump-package-04.webp",
+      ],
     },
     {
       title: "PumpTracker (Production Scheduling + Capacity Planning)",
@@ -103,111 +115,113 @@ export const portfolioData = {
         "assets/images/pumptracker-01.webp",
         "assets/images/pumptracker-02.webp",
         "assets/images/pumptracker-03.webp",
-        "assets/images/pumptracker-04.webp"
-      ]
-    }
+        "assets/images/pumptracker-04.webp",
+      ],
+    },
   ],
 
   services: [
     {
       title: "CAD Automation",
       subtitle: "SolidWorks · PDM · Design Tables",
-      description: "If your engineers are dragging drawing trees by hand, your tools aren't working hard enough. I build macros, API hooks, and design table systems that cut repetitive CAD work down to seconds and enforce standards without chasing people.",
+      description:
+        "If your engineers are dragging drawing trees by hand, your tools aren't working hard enough. I build macros, API hooks, and design table systems that cut repetitive CAD work down to seconds and enforce standards without chasing people.",
       deliverables: [
         "SolidWorks macros & API automation",
         "PDM Vault workflow optimization",
         "Design Table systems & configurators",
-        "Drawing package automation"
+        "Drawing package automation",
       ],
       rate: "Starting at $85/hr · Fixed-price projects available",
-      cta: { label: "Get a quote →", href: "/#contact" }
+      cta: { label: "Get a quote →", href: "/#contact" },
     },
     {
       title: "AI Integration",
       subtitle: "Python · Claude SDK · Custom Tooling",
-      description: "Most AI tools are built by people who have never held a drawing package. I understand the mechanical context first, then build the tool around it — custom agents, intelligent documentation systems, and workflow automation that fits how engineering shops actually run.",
+      description:
+        "Most AI tools are built by people who have never held a drawing package. I understand the mechanical context first, then build the tool around it — custom agents, intelligent documentation systems, and workflow automation that fits how engineering shops actually run.",
       deliverables: [
         "Custom AI agents for engineering workflows",
         "Natural language interfaces for CAD/PDM systems",
         "Automated reporting & documentation",
-        "Intelligent design review tooling"
+        "Intelligent design review tooling",
       ],
       rate: "Starting at $100/hr · Premium niche",
-      cta: { label: "Discuss your project →", href: "/#contact" }
+      cta: { label: "Discuss your project →", href: "/#contact" },
     },
     {
       title: "Design Review & DFM",
       subtitle: "SolidWorks · GD&T · Manufacturing Feedback",
-      description: "I've assembled the gearboxes, run the parts through inspection, and quoted the job. That background changes the DFM conversation — I'm not guessing what the shop will hate, I've been the one dealing with it.",
+      description:
+        "I've assembled the gearboxes, run the parts through inspection, and quoted the job. That background changes the DFM conversation — I'm not guessing what the shop will hate, I've been the one dealing with it. Delivered as actionable redlines, not a lecture.",
       deliverables: [
         "DFM/DFA analysis & redlines",
         "GD&T review & correction",
         "Tolerance stack-up analysis",
-        "Drawing package audit"
+        "Drawing package audit",
       ],
       rate: "Starting at $75/hr · Per-drawing packages available",
-      cta: { label: "Request a review →", href: "/#contact" }
-    }
+      cta: { label: "Request a review →", href: "/#contact" },
+    },
   ],
 
   caseStudies: [
     {
-      title: "Reliability Engineering: Extending Asset Lifecycle from 3 to 5 Years",
-      summary: { 
-        problem: "Grinding paste failure mode", 
-        solution: "Tribopolymer + IoT monitoring", 
-        result: "+2 years asset life" 
+      title:
+        "Reliability Engineering: Extending Asset Lifecycle from 3 to 5 Years",
+      summary: {
+        problem: "Grinding paste failure mode",
+        solution: "Tribopolymer + IoT monitoring",
+        result: "+2 years asset life",
       },
-      image: "assets/images/case-study-asset-lifecycle.webp"
+      image: "assets/images/case-study-asset-lifecycle.webp",
     },
     {
       title: "Designing the Future of Practice: A Capabilities Deck",
-      summary: { 
-        problem: "Generic design perception", 
-        solution: "Custom engineering-first framework", 
-        result: "3 new high-value leads" 
+      summary: {
+        problem: "Generic design perception",
+        solution: "Custom engineering-first framework",
+        result: "3 new high-value leads",
       },
-      image: "assets/images/case-study-capabilities-deck.webp"
+      image: "assets/images/case-study-capabilities-deck.webp",
     },
     {
-      title: "Strategic Engineering Hire for Power Tee's Jacksonville Expansion",
-      summary: { 
-        problem: "Lack of technical automation", 
-        solution: "AI-driven production stack", 
-        result: "Immediate operational scale" 
+      title:
+        "Strategic Engineering Hire for Power Tee's Jacksonville Expansion",
+      summary: {
+        problem: "Lack of technical automation",
+        solution: "AI-driven production stack",
+        result: "Immediate operational scale",
       },
-      image: "assets/images/case-study-power-tee.webp"
-    }
+      image: "assets/images/case-study-power-tee.webp",
+    },
   ],
 
   testimonials: [
     {
-      text:
-        "Mark is the only designer I know who models a gearbox, then actually builds it and tests it on the torque guns himself. And while he doesn't program the twin turret mill-turn centers, he designs parts that account for the toolpaths and setups we need. He understands the machining strategy before he even draws the first line.",
+      text: "Mark is the only designer I know who models a gearbox, then actually builds it and tests it on the torque guns himself. And while he doesn't program the twin turret mill-turn centers, he designs parts that account for the toolpaths and setups we need. He understands the machining strategy before he even draws the first line.",
       author: "Kevin B.",
       role: "Head CNC Programmer, STS",
-      score: "98/100"
+      score: "98/100",
     },
     {
-      text:
-        "Mark understands that a tight tolerance on a print costs money. Because he's inspected these parts himself, he applies GD&T that strictly controls the critical geometry but leaves the rest open for speed. He balances precision with production.",
+      text: "Mark understands that a tight tolerance on a print costs money. Because he's inspected these parts himself, he applies GD&T that strictly controls the critical geometry but leaves the rest open for speed. He balances precision with production.",
       author: "Lisa Fullem",
       role: "Quality Assurance Lead, STS",
-      score: "100/100"
+      score: "100/100",
     },
     {
-      text:
-        "It's rare to find a designer who understands the constraints of a 5-axis mill and the realities of the assembly line. Mark designs parts that are easy to machine and foolproof to assemble. He's run the machines, built the gearboxes, and tested the product. That experience is visible in every drawing he releases.",
+      text: "It's rare to find a designer who understands the constraints of a 5-axis mill and the realities of the assembly line. Mark designs parts that are easy to machine and foolproof to assemble. He's run the machines, built the gearboxes, and tested the product. That experience is visible in every drawing he releases.",
       author: "Darrin Phipps",
       role: "President, Black Creek Precision",
-      score: "100/100"
-    }
+      score: "100/100",
+    },
   ],
 
   footerCredits: [
     "Designed + built by Mark Hintz",
-    "±0.0005\" on the floor. TypeScript in the chair."
-  ]
+    '±0.0005" on the floor. TypeScript in the chair.',
+  ],
 };
 
 export const skillsTickerData = [
@@ -222,7 +236,7 @@ export const skillsTickerData = [
   "Production Scheduling",
   "CNC Programming Support",
   "ASME Prints",
-  "Planetary Gearboxes"
+  "Planetary Gearboxes",
 ];
 
 export const coreServices = [
@@ -247,7 +261,8 @@ export const coreServices = [
 ];
 
 export const wordCycleData = [
-  "manufacturing reality built in",
-  "floor-ready documentation",
-  "software as operational proof"
+  "convert complex CAD into shop-floor reality",
+  "eliminate friction between design and fabrication",
+  'bring ±0.0005" precision to full-stack development',
+  "hard-code manufacturability into every assembly",
 ];

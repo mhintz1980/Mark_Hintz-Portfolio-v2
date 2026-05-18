@@ -31,7 +31,7 @@ export const EngineeringReel = () => {
         {/* Section header */}
         <motion.div variants={itemVariants} className="mb-10 flex items-end justify-between gap-8 flex-wrap">
           <div>
-            <div className="font-mono text-xs uppercase tracking-[0.15em] text-secondary mb-3">
+            <div className="font-mono text-xs uppercase tracking-[0.15em] text-secondary mb-3 text-slate-50 font-thin opacity-60">
               // ENGINEERING REVIEW REEL
             </div>
             <h2 className="font-heading text-4xl md:text-5xl font-extrabold tracking-[-0.03em] text-primary">
