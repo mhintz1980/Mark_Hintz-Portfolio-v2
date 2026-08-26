@@ -97,3 +97,11 @@ credentials.json
 *.pem
 *.key
 .credentials
+
+# Versioned project agent skills (shared source plus requested agent targets)
+!/.agents/skills/
+!/.agents/skills/**
+!/.claude/skills/
+!/.claude/skills/**
+!/.zcode/skills/
+!/.zcode/skills/**
